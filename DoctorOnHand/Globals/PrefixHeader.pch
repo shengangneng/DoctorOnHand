@@ -18,7 +18,6 @@
 #import <MJRefresh.h>
 #import <AFNetworking.h>
 #import <MJExtension.h>
-#import "CMPMNetworkManager.h"
 #import "AppDelegate.h"
 
 #endif /* PrefixHeader_pch */
