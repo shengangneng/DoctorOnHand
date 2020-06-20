@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "WFLoginViewController.h"
+#import "WFHomeViewController.h"
+#import "CMPMBaseNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -19,8 +20,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
-    WFLoginViewController *login = [[WFLoginViewController alloc] init];
-    self.window.rootViewController = login;
+    WFHomeViewController *home = [[WFHomeViewController alloc] init];
+    CMPMBaseNavigationController *nav = [[CMPMBaseNavigationController alloc] initWithRootViewController:home];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -45,6 +47,18 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setupBackMaskView {
+    if (!self.maskBackView) {
+        self.maskBackView = [[CMPMMaskBackView alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
+        [self.maskBackView addObserver];
+        [self.window insertSubview:self.maskBackView atIndex:0];
+    } else {
+        [self.maskBackView addObserver];
+        [self.window sendSubviewToBack:self.maskBackView];
+    }
+    self.maskBackView.hidden = YES;
 }
 
 @end

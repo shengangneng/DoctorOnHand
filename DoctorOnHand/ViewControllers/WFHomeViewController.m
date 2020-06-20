@@ -7,6 +7,8 @@
 //
 
 #import "WFHomeViewController.h"
+#import "WFLoginViewController.h"
+#import "CMPMSignatureViewController.h"
 
 @interface WFHomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -61,17 +63,43 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    static NSString *identifer = @"CELL";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifer];
+    }
+    cell.textLabel.text = self.dataArray[indexPath.row];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
-        case 1:
-        {
-            
+        case 0: {
+            // 登录
+            WFLoginViewController *login = [[WFLoginViewController alloc] init];
+            [self.navigationController pushViewController:login animated:YES];
         }break;
-            
+        case 1: {
+            // 手写板
+            CMPMSignatureViewController *sign = [[CMPMSignatureViewController alloc] init];
+            [self.navigationController pushViewController:sign animated:YES];
+        }break;
+        case 2: {
+            // 录音
+        }break;
+        case 3: {
+            // 拍照
+        }break;
+        case 4: {
+            // 摄像
+        }break;
+        case 5: {
+            // 文件上传
+        }break;
+        case 6: {
+            // 文件缓存查看
+        }break;
         default:
             break;
     }

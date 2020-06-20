@@ -169,6 +169,11 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
 #pragma mark - Target Action
 - (void)sureImage:(UIButton *)sender {
     // 生成截屏
