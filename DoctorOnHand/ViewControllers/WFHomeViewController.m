@@ -9,6 +9,7 @@
 #import "WFHomeViewController.h"
 #import "WFLoginViewController.h"
 #import "CMPMSignatureViewController.h"
+#import "WFHomeVideoViewController.h"
 
 @interface WFHomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -86,7 +87,9 @@
             [self.navigationController pushViewController:sign animated:YES];
         }break;
         case 2: {
-            // 录音
+            // 音视频
+            WFHomeVideoViewController *video = [[WFHomeVideoViewController alloc] init];
+            [self.navigationController pushViewController:video animated:YES];
         }break;
         case 3: {
             // 拍照

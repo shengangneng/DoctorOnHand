@@ -34,6 +34,11 @@
 		DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DBF249FA19E001C9344 /* WFFileReaderManager.m */; };
 		DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DC2249FA912001C9344 /* WFFileReaderTableView.m */; };
 		DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DC5249FAA25001C9344 /* WFFileReader.m */; };
+		DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DCC24A0F3D7001C9344 /* WFAVPlayerControlView.m */; };
+		DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */; };
+		DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */; };
+		DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */; };
+		DD6C4DD924A0F6AA001C9344 /* movie.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DD6C4DD824A0F6AA001C9344 /* movie.mp4 */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +102,15 @@
 		DD6C4DC2249FA912001C9344 /* WFFileReaderTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFFileReaderTableView.m; sourceTree = "<group>"; };
 		DD6C4DC4249FAA25001C9344 /* WFFileReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFFileReader.h; sourceTree = "<group>"; };
 		DD6C4DC5249FAA25001C9344 /* WFFileReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFFileReader.m; sourceTree = "<group>"; };
+		DD6C4DCC24A0F3D7001C9344 /* WFAVPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAVPlayerControlView.m; sourceTree = "<group>"; };
+		DD6C4DCD24A0F3D7001C9344 /* WFAVPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAVPlayerControlView.h; sourceTree = "<group>"; };
+		DD6C4DCE24A0F3D7001C9344 /* WFAVPlayerSilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAVPlayerSilder.h; sourceTree = "<group>"; };
+		DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAVPlayerSilder.m; sourceTree = "<group>"; };
+		DD6C4DD024A0F3D7001C9344 /* WFAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAVPlayerView.h; sourceTree = "<group>"; };
+		DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAVPlayerView.m; sourceTree = "<group>"; };
+		DD6C4DD524A0F5F9001C9344 /* WFHomeVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFHomeVideoViewController.h; sourceTree = "<group>"; };
+		DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFHomeVideoViewController.m; sourceTree = "<group>"; };
+		DD6C4DD824A0F6AA001C9344 /* movie.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = movie.mp4; sourceTree = "<group>"; };
 		FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginViewController.h; sourceTree = "<group>"; };
 		FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginViewController.m; sourceTree = "<group>"; };
 		FEA4AEF7249B4B7B006B9ABE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -261,6 +275,7 @@
 		DD6C4D87249BADA6001C9344 /* 音视频 */ = {
 			isa = PBXGroup;
 			children = (
+				DD6C4DC824A0EE45001C9344 /* 视频播放 */,
 			);
 			path = "音视频";
 			sourceTree = "<group>";
@@ -279,6 +294,7 @@
 		DD6C4D89249BADC9001C9344 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				DD6C4DD824A0F6AA001C9344 /* movie.mp4 */,
 				CD795AA71D18DDDF000B7619 /* Assets.xcassets */,
 				CD795AAC1D18DDDF000B7619 /* Info.plist */,
 				CD795A9C1D18DDDF000B7619 /* main.m */,
@@ -316,6 +332,21 @@
 				FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */,
 			);
 			path = "登录";
+			sourceTree = "<group>";
+		};
+		DD6C4DC824A0EE45001C9344 /* 视频播放 */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DD524A0F5F9001C9344 /* WFHomeVideoViewController.h */,
+				DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */,
+				DD6C4DD024A0F3D7001C9344 /* WFAVPlayerView.h */,
+				DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */,
+				DD6C4DCD24A0F3D7001C9344 /* WFAVPlayerControlView.h */,
+				DD6C4DCC24A0F3D7001C9344 /* WFAVPlayerControlView.m */,
+				DD6C4DCE24A0F3D7001C9344 /* WFAVPlayerSilder.h */,
+				DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */,
+			);
+			path = "视频播放";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +410,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD6C4DD924A0F6AA001C9344 /* movie.mp4 in Resources */,
 				CD795AA81D18DDDF000B7619 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,8 +468,10 @@
 				DD6C4D9F249BB400001C9344 /* NSCharacterSet+CMPMExtension.m in Sources */,
 				DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */,
 				FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */,
+				DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */,
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
 				DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */,
+				DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */,
 				DD6C4DA2249BB400001C9344 /* UIImage+CMPMExtension.m in Sources */,
 				DD6C4DA1249BB400001C9344 /* CATransition+CMPMExtension.m in Sources */,
 				CD795AA01D18DDDF000B7619 /* AppDelegate.m in Sources */,
@@ -448,6 +482,7 @@
 				DD6C4DAE249E4C3C001C9344 /* CMPMBaseNavigationBar.m in Sources */,
 				DD6C4DB0249E4C3C001C9344 /* CMPMMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
+				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,
 				DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */,
 				DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */,
 				DD6C4D9D249BB400001C9344 /* NSDateFormatter+CMPMExtension.m in Sources */,
@@ -457,6 +492,7 @@
 				DD6C4DAF249E4C3C001C9344 /* CMPMBaseNavigationController.m in Sources */,
 				DD6C4DAD249E4C3C001C9344 /* CMPMCustomNavigationBar.m in Sources */,
 				DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */,
+				DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */,
 				DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */,
 				DD6C4D9C249BB400001C9344 /* UIButton+CMPMExtension.m in Sources */,
 			);
