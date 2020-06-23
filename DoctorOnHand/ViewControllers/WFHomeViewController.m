@@ -10,6 +10,7 @@
 #import "WFLoginViewController.h"
 #import "CMPMSignatureViewController.h"
 #import "WFHomeVideoViewController.h"
+#import "WFRecordAudioViewController.h"
 
 @interface WFHomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -37,6 +38,7 @@
     self.dataArray = @[
         @"登录",
         @"手写板",
+        @"视频播放",
         @"录音",
         @"拍照",
         @"摄像",
@@ -87,20 +89,25 @@
             [self.navigationController pushViewController:sign animated:YES];
         }break;
         case 2: {
-            // 音视频
+            // 视频播放
             WFHomeVideoViewController *video = [[WFHomeVideoViewController alloc] init];
             [self.navigationController pushViewController:video animated:YES];
         }break;
         case 3: {
-            // 拍照
+            // 录音
+            WFRecordAudioViewController *recordAudio = [[WFRecordAudioViewController alloc] init];
+            [self.navigationController pushViewController:recordAudio animated:YES];
         }break;
         case 4: {
-            // 摄像
+            // 拍照
         }break;
         case 5: {
-            // 文件上传
+            // 摄像
         }break;
         case 6: {
+            // 文件上传
+        }break;
+        case 7: {
             // 文件缓存查看
         }break;
         default:

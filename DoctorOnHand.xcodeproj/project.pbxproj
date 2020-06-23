@@ -39,6 +39,16 @@
 		DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */; };
 		DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */; };
 		DD6C4DD924A0F6AA001C9344 /* movie.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DD6C4DD824A0F6AA001C9344 /* movie.mp4 */; };
+		DD6C4DDF24A24170001C9344 /* WFRecordVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DDC24A24170001C9344 /* WFRecordVoiceHUD.m */; };
+		DD6C4DE024A24170001C9344 /* WFRecordVoiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DDE24A24170001C9344 /* WFRecordVoiceButton.m */; };
+		DD6C4DE324A2421C001C9344 /* WFRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DE224A2421C001C9344 /* WFRecordTool.m */; };
+		DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DE524A2460F001C9344 /* UIView+Extention.m */; };
+		DD6C4DE924A24675001C9344 /* WFFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DE824A24675001C9344 /* WFFileManager.m */; };
+		DD6C4DED24A246AD001C9344 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DEC24A246AD001C9344 /* amrFileCodec.m */; };
+		DD6C4DF224A246C0001C9344 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF024A246C0001C9344 /* libopencore-amrwb.a */; };
+		DD6C4DF324A246C0001C9344 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF124A246C0001C9344 /* libopencore-amrnb.a */; };
+		DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */; };
+		DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +121,28 @@
 		DD6C4DD524A0F5F9001C9344 /* WFHomeVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFHomeVideoViewController.h; sourceTree = "<group>"; };
 		DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFHomeVideoViewController.m; sourceTree = "<group>"; };
 		DD6C4DD824A0F6AA001C9344 /* movie.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = movie.mp4; sourceTree = "<group>"; };
+		DD6C4DDB24A24170001C9344 /* WFRecordVoiceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRecordVoiceButton.h; sourceTree = "<group>"; };
+		DD6C4DDC24A24170001C9344 /* WFRecordVoiceHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRecordVoiceHUD.m; sourceTree = "<group>"; };
+		DD6C4DDD24A24170001C9344 /* WFRecordVoiceHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRecordVoiceHUD.h; sourceTree = "<group>"; };
+		DD6C4DDE24A24170001C9344 /* WFRecordVoiceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRecordVoiceButton.m; sourceTree = "<group>"; };
+		DD6C4DE124A2421C001C9344 /* WFRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRecordTool.h; sourceTree = "<group>"; };
+		DD6C4DE224A2421C001C9344 /* WFRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRecordTool.m; sourceTree = "<group>"; };
+		DD6C4DE424A2460F001C9344 /* UIView+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extention.h"; sourceTree = "<group>"; };
+		DD6C4DE524A2460F001C9344 /* UIView+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extention.m"; sourceTree = "<group>"; };
+		DD6C4DE724A24675001C9344 /* WFFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFFileManager.h; sourceTree = "<group>"; };
+		DD6C4DE824A24675001C9344 /* WFFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFFileManager.m; sourceTree = "<group>"; };
+		DD6C4DEB24A246A8001C9344 /* amrFileCodec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		DD6C4DEC24A246AD001C9344 /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
+		DD6C4DF024A246C0001C9344 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		DD6C4DF124A246C0001C9344 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		DD6C4DF524A246D5001C9344 /* if_rom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		DD6C4DF624A246D5001C9344 /* dec_if.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		DD6C4DF824A246E7001C9344 /* interf_enc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		DD6C4DF924A246E7001C9344 /* interf_dec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		DD6C4DFA24A25009001C9344 /* WFRecordAudioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFRecordAudioViewController.h; sourceTree = "<group>"; };
+		DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordAudioViewController.m; sourceTree = "<group>"; };
+		DD6C4DFD24A2514F001C9344 /* WFAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAudioPlayer.h; sourceTree = "<group>"; };
+		DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAudioPlayer.m; sourceTree = "<group>"; };
 		FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginViewController.h; sourceTree = "<group>"; };
 		FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginViewController.m; sourceTree = "<group>"; };
 		FEA4AEF7249B4B7B006B9ABE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -121,6 +153,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD6C4DF224A246C0001C9344 /* libopencore-amrwb.a in Frameworks */,
+				DD6C4DF324A246C0001C9344 /* libopencore-amrnb.a in Frameworks */,
 				3D48545AA8D00A3CC1AC7BBC /* libPods-DoctorOnHand.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +309,7 @@
 		DD6C4D87249BADA6001C9344 /* 音视频 */ = {
 			isa = PBXGroup;
 			children = (
+				DD6C4DDA24A2415E001C9344 /* 录音 */,
 				DD6C4DC824A0EE45001C9344 /* 视频播放 */,
 			);
 			path = "音视频";
@@ -305,6 +340,8 @@
 		DD6C4D8A249BB3E8001C9344 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				DD6C4DE424A2460F001C9344 /* UIView+Extention.h */,
+				DD6C4DE524A2460F001C9344 /* UIView+Extention.m */,
 				DD6C4D97249BB3FF001C9344 /* CATransition+CMPMExtension.h */,
 				DD6C4D96249BB3FF001C9344 /* CATransition+CMPMExtension.m */,
 				DD6C4D8F249BB3FF001C9344 /* NSCharacterSet+CMPMExtension.h */,
@@ -347,6 +384,73 @@
 				DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */,
 			);
 			path = "视频播放";
+			sourceTree = "<group>";
+		};
+		DD6C4DDA24A2415E001C9344 /* 录音 */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DFA24A25009001C9344 /* WFRecordAudioViewController.h */,
+				DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */,
+				DD6C4DDB24A24170001C9344 /* WFRecordVoiceButton.h */,
+				DD6C4DDE24A24170001C9344 /* WFRecordVoiceButton.m */,
+				DD6C4DDD24A24170001C9344 /* WFRecordVoiceHUD.h */,
+				DD6C4DDC24A24170001C9344 /* WFRecordVoiceHUD.m */,
+				DD6C4DE124A2421C001C9344 /* WFRecordTool.h */,
+				DD6C4DE224A2421C001C9344 /* WFRecordTool.m */,
+				DD6C4DFD24A2514F001C9344 /* WFAudioPlayer.h */,
+				DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */,
+				DD6C4DE724A24675001C9344 /* WFFileManager.h */,
+				DD6C4DE824A24675001C9344 /* WFFileManager.m */,
+				DD6C4DEA24A2468F001C9344 /* AMR */,
+			);
+			path = "录音";
+			sourceTree = "<group>";
+		};
+		DD6C4DEA24A2468F001C9344 /* AMR */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DEF24A246B7001C9344 /* lib */,
+				DD6C4DEE24A246B0001C9344 /* include */,
+				DD6C4DEB24A246A8001C9344 /* amrFileCodec.h */,
+				DD6C4DEC24A246AD001C9344 /* amrFileCodec.m */,
+			);
+			path = AMR;
+			sourceTree = "<group>";
+		};
+		DD6C4DEE24A246B0001C9344 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DF724A246DE001C9344 /* opencore-amrnb */,
+				DD6C4DF424A246CA001C9344 /* opencore-amrwb */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		DD6C4DEF24A246B7001C9344 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DF024A246C0001C9344 /* libopencore-amrwb.a */,
+				DD6C4DF124A246C0001C9344 /* libopencore-amrnb.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		DD6C4DF424A246CA001C9344 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DF524A246D5001C9344 /* if_rom.h */,
+				DD6C4DF624A246D5001C9344 /* dec_if.h */,
+			);
+			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		DD6C4DF724A246DE001C9344 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C4DF924A246E7001C9344 /* interf_dec.h */,
+				DD6C4DF824A246E7001C9344 /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,12 +570,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD6C4D9F249BB400001C9344 /* NSCharacterSet+CMPMExtension.m in Sources */,
+				DD6C4DDF24A24170001C9344 /* WFRecordVoiceHUD.m in Sources */,
 				DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */,
 				FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */,
 				DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */,
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
 				DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */,
+				DD6C4DE324A2421C001C9344 /* WFRecordTool.m in Sources */,
+				DD6C4DE924A24675001C9344 /* WFFileManager.m in Sources */,
+				DD6C4DE024A24170001C9344 /* WFRecordVoiceButton.m in Sources */,
 				DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */,
+				DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */,
+				DD6C4DED24A246AD001C9344 /* amrFileCodec.m in Sources */,
 				DD6C4DA2249BB400001C9344 /* UIImage+CMPMExtension.m in Sources */,
 				DD6C4DA1249BB400001C9344 /* CATransition+CMPMExtension.m in Sources */,
 				CD795AA01D18DDDF000B7619 /* AppDelegate.m in Sources */,
@@ -480,6 +590,7 @@
 				DD6C4D9B249BB400001C9344 /* UIViewController+CMPMExtention.m in Sources */,
 				DD6C4DB6249FA008001C9344 /* WFFileReaderViewController.m in Sources */,
 				DD6C4DAE249E4C3C001C9344 /* CMPMBaseNavigationBar.m in Sources */,
+				DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */,
 				DD6C4DB0249E4C3C001C9344 /* CMPMMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
 				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,
@@ -491,6 +602,7 @@
 				DD6C4DA0249BB400001C9344 /* UIColor+CMPMExtension.m in Sources */,
 				DD6C4DAF249E4C3C001C9344 /* CMPMBaseNavigationController.m in Sources */,
 				DD6C4DAD249E4C3C001C9344 /* CMPMCustomNavigationBar.m in Sources */,
+				DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */,
 				DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */,
 				DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */,
 				DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */,
@@ -590,6 +702,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -606,6 +722,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
 				PRODUCT_NAME = "$(TARGET_NAME)";
