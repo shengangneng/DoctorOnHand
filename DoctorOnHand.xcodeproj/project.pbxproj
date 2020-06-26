@@ -11,6 +11,12 @@
 		CD795A9D1D18DDDF000B7619 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD795A9C1D18DDDF000B7619 /* main.m */; };
 		CD795AA01D18DDDF000B7619 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD795A9F1D18DDDF000B7619 /* AppDelegate.m */; };
 		CD795AA81D18DDDF000B7619 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD795AA71D18DDDF000B7619 /* Assets.xcassets */; };
+		DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7BFC24A444AD004F7CEF /* WFRecordVideoViewController.m */; };
+		DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */; };
+		DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */; };
+		DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */; };
+		DD1C7C0924A5FDC3004F7CEF /* WFBerzierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0824A5FDC3004F7CEF /* WFBerzierPath.m */; };
+		DD1C7C0B24A619F8004F7CEF /* AFBrushBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0A24A619F8004F7CEF /* AFBrushBoard.swift */; };
 		DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */; };
@@ -62,6 +68,17 @@
 		CD795A9F1D18DDDF000B7619 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CD795AA71D18DDDF000B7619 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD795AAC1D18DDDF000B7619 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD1C7BFB24A444AD004F7CEF /* WFRecordVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFRecordVideoViewController.h; sourceTree = "<group>"; };
+		DD1C7BFC24A444AD004F7CEF /* WFRecordVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordVideoViewController.m; sourceTree = "<group>"; };
+		DD1C7BFE24A444F4004F7CEF /* WFVideoProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFVideoProgress.h; sourceTree = "<group>"; };
+		DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFVideoProgress.m; sourceTree = "<group>"; };
+		DD1C7C0124A4D716004F7CEF /* WFTakePhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFTakePhotoViewController.h; sourceTree = "<group>"; };
+		DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFTakePhotoViewController.m; sourceTree = "<group>"; };
+		DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFBrushBoardView.h; sourceTree = "<group>"; };
+		DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFBrushBoardView.m; sourceTree = "<group>"; };
+		DD1C7C0724A5FDC3004F7CEF /* WFBerzierPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFBerzierPath.h; sourceTree = "<group>"; };
+		DD1C7C0824A5FDC3004F7CEF /* WFBerzierPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFBerzierPath.m; sourceTree = "<group>"; };
+		DD1C7C0A24A619F8004F7CEF /* AFBrushBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFBrushBoard.swift; sourceTree = "<group>"; };
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
@@ -212,6 +229,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DD1C7BF924A44479004F7CEF /* 拍照 */ = {
+			isa = PBXGroup;
+			children = (
+				DD1C7C0124A4D716004F7CEF /* WFTakePhotoViewController.h */,
+				DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */,
+			);
+			path = "拍照";
+			sourceTree = "<group>";
+		};
+		DD1C7BFA24A44480004F7CEF /* 录像 */ = {
+			isa = PBXGroup;
+			children = (
+				DD1C7BFB24A444AD004F7CEF /* WFRecordVideoViewController.h */,
+				DD1C7BFC24A444AD004F7CEF /* WFRecordVideoViewController.m */,
+				DD1C7BFE24A444F4004F7CEF /* WFVideoProgress.h */,
+				DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */,
+			);
+			path = "录像";
+			sourceTree = "<group>";
+		};
 		DD6C4D7B249BACF5001C9344 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +298,11 @@
 				DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */,
 				DD6C4D73249BACB2001C9344 /* CMPMSignatureView.h */,
 				DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */,
+				DD1C7C0A24A619F8004F7CEF /* AFBrushBoard.swift */,
+				DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */,
+				DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */,
+				DD1C7C0724A5FDC3004F7CEF /* WFBerzierPath.h */,
+				DD1C7C0824A5FDC3004F7CEF /* WFBerzierPath.m */,
 			);
 			path = "手写板";
 			sourceTree = "<group>";
@@ -275,6 +317,8 @@
 		DD6C4D84249BAD91001C9344 /* 拍照录像 */ = {
 			isa = PBXGroup;
 			children = (
+				DD1C7BFA24A44480004F7CEF /* 录像 */,
+				DD1C7BF924A44479004F7CEF /* 拍照 */,
 			);
 			path = "拍照录像";
 			sourceTree = "<group>";
@@ -487,6 +531,7 @@
 				TargetAttributes = {
 					CD795A971D18DDDF000B7619 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ST6DF8EBB7;
 					};
 				};
 			};
@@ -574,6 +619,7 @@
 				DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */,
 				FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */,
 				DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */,
+				DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */,
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
 				DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */,
 				DD6C4DE324A2421C001C9344 /* WFRecordTool.m in Sources */,
@@ -587,14 +633,18 @@
 				CD795AA01D18DDDF000B7619 /* AppDelegate.m in Sources */,
 				DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */,
 				DD6C4DA4249BB4F1001C9344 /* XPRootNavigationController.m in Sources */,
+				DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */,
 				DD6C4D9B249BB400001C9344 /* UIViewController+CMPMExtention.m in Sources */,
 				DD6C4DB6249FA008001C9344 /* WFFileReaderViewController.m in Sources */,
+				DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */,
 				DD6C4DAE249E4C3C001C9344 /* CMPMBaseNavigationBar.m in Sources */,
 				DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */,
 				DD6C4DB0249E4C3C001C9344 /* CMPMMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
 				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,
+				DD1C7C0B24A619F8004F7CEF /* AFBrushBoard.swift in Sources */,
 				DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */,
+				DD1C7C0924A5FDC3004F7CEF /* WFBerzierPath.m in Sources */,
 				DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */,
 				DD6C4D9D249BB400001C9344 /* NSDateFormatter+CMPMExtension.m in Sources */,
 				DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */,
@@ -604,6 +654,7 @@
 				DD6C4DAD249E4C3C001C9344 /* CMPMCustomNavigationBar.m in Sources */,
 				DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */,
 				DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */,
+				DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */,
 				DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */,
 				DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */,
 				DD6C4D9C249BB400001C9344 /* UIButton+CMPMExtension.m in Sources */,
@@ -698,6 +749,8 @@
 			baseConfigurationReference = C2646091207787AD70D64DC7 /* Pods-DoctorOnHand.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ST6DF8EBB7;
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DoctorOnHand/Globals/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -707,7 +760,7 @@
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-shen";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -718,6 +771,8 @@
 			baseConfigurationReference = 653F83E6ACB345449029A4B2 /* Pods-DoctorOnHand.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ST6DF8EBB7;
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DoctorOnHand/Globals/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -727,7 +782,7 @@
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-shen";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

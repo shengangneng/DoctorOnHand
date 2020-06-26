@@ -7,6 +7,7 @@
 //
 
 #import "WFLoginViewController.h"
+#import "WFBrushBoardView.h"
 
 @interface WFLoginViewController ()
 
@@ -16,11 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addSubview:[[WFBrushBoardView alloc] initWithFrame:self.view.frame]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
+    
 }
 
 - (void)setupAttributes {
@@ -33,6 +36,10 @@
 
 - (void)setupConstraints {
     
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

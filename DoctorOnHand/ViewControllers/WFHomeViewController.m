@@ -11,6 +11,8 @@
 #import "CMPMSignatureViewController.h"
 #import "WFHomeVideoViewController.h"
 #import "WFRecordAudioViewController.h"
+#import "WFRecordVideoViewController.h"
+#import "WFTakePhotoViewController.h"
 
 @interface WFHomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -100,9 +102,13 @@
         }break;
         case 4: {
             // 拍照
+            WFTakePhotoViewController *takePhoto = [[WFTakePhotoViewController alloc] init];
+            [self.navigationController pushViewController:takePhoto animated:YES];
         }break;
         case 5: {
             // 摄像
+            WFRecordVideoViewController *recordVideo = [[WFRecordVideoViewController alloc] init];
+            [self.navigationController pushViewController:recordVideo animated:YES];
         }break;
         case 6: {
             // 文件上传
