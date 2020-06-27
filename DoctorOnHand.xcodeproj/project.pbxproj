@@ -15,8 +15,6 @@
 		DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */; };
 		DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */; };
 		DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */; };
-		DD1C7C0924A5FDC3004F7CEF /* WFBerzierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0824A5FDC3004F7CEF /* WFBerzierPath.m */; };
-		DD1C7C0B24A619F8004F7CEF /* AFBrushBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0A24A619F8004F7CEF /* AFBrushBoard.swift */; };
 		DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */; };
@@ -76,9 +74,6 @@
 		DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFTakePhotoViewController.m; sourceTree = "<group>"; };
 		DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFBrushBoardView.h; sourceTree = "<group>"; };
 		DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFBrushBoardView.m; sourceTree = "<group>"; };
-		DD1C7C0724A5FDC3004F7CEF /* WFBerzierPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFBerzierPath.h; sourceTree = "<group>"; };
-		DD1C7C0824A5FDC3004F7CEF /* WFBerzierPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFBerzierPath.m; sourceTree = "<group>"; };
-		DD1C7C0A24A619F8004F7CEF /* AFBrushBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFBrushBoard.swift; sourceTree = "<group>"; };
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
@@ -298,11 +293,8 @@
 				DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */,
 				DD6C4D73249BACB2001C9344 /* CMPMSignatureView.h */,
 				DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */,
-				DD1C7C0A24A619F8004F7CEF /* AFBrushBoard.swift */,
 				DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */,
 				DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */,
-				DD1C7C0724A5FDC3004F7CEF /* WFBerzierPath.h */,
-				DD1C7C0824A5FDC3004F7CEF /* WFBerzierPath.m */,
 			);
 			path = "手写板";
 			sourceTree = "<group>";
@@ -642,9 +634,7 @@
 				DD6C4DB0249E4C3C001C9344 /* CMPMMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
 				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,
-				DD1C7C0B24A619F8004F7CEF /* AFBrushBoard.swift in Sources */,
 				DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */,
-				DD1C7C0924A5FDC3004F7CEF /* WFBerzierPath.m in Sources */,
 				DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */,
 				DD6C4D9D249BB400001C9344 /* NSDateFormatter+CMPMExtension.m in Sources */,
 				DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */,

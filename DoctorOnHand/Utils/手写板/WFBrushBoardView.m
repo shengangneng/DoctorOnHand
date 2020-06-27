@@ -7,184 +7,299 @@
 //
 
 #import "WFBrushBoardView.h"
-#import "WFBerzierPath.h"
 
-#define MIN_WIDTH   5.0
-#define MAX_WIDTH   13.0
+// 最小/大宽度
+#define kWIDTH_MIN 5
+#define kWIDTH_MAX 13
 
 @interface WFBrushBoardView ()
 
-@property (nonatomic, copy) NSArray<NSValue *> *points; /// 存放点集合数组
-@property (nonatomic, assign) CGFloat currentWidth;     /// 当前半径
-@property (nonatomic, strong) UIImage *defaultImage;    /// 初始图片
-@property (nonatomic, strong) UIImage *lastImage;       /// 上一张图片
+// 点集合
+@property (nonatomic, copy) NSArray *points;
+// 当前宽度
+@property (nonatomic, assign) CGFloat currentWidth;
+// 初始图片
+@property (nonatomic, strong) UIImage *defaultImage;
+// 上一次图片
+@property (nonatomic, strong) UIImage *lastImage;
+
 
 @end
 
 @implementation WFBrushBoardView
 
+/**
+ *  重写初始化方法
+ */
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = kClearColor;
+        self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = YES;
-        self.currentWidth = 10;
-        self.lastImage = self.image;
     }
     return self;
 }
 
-#pragma 触摸事件
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = touches.anyObject;
-    CGPoint point = [touch locationInView:self];
-    self.points = @[[NSValue valueWithCGPoint:point],[NSValue valueWithCGPoint:point],[NSValue valueWithCGPoint:point]];
-    self.currentWidth = 13.0;
-    [self changeImage];
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = touches.anyObject;
-    CGPoint point = [touch locationInView:self];
-    self.points = @[self.points[1],self.points[2],[NSValue valueWithCGPoint:point]];
-    [self changeImage];
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.lastImage = self.image;
-}
-
-
+/**
+ *  画图
+ */
 - (void)changeImage {
-    UIGraphicsBeginImageContext(self.frame.size);
+    
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0);
+    
     [self.lastImage drawInRect:self.bounds];
     
-    // 贝塞尔曲线的起始点和末尾点
-    CGPoint tempPoint1 = CGPointMake((self.points[0].CGPointValue.x + self.points[1].CGPointValue.x)/2, (self.points[0].CGPointValue.y + self.points[1].CGPointValue.y)/2);
-    CGPoint tempPoint2 = CGPointMake((self.points[1].CGPointValue.x + self.points[2].CGPointValue.x)/2, (self.points[1].CGPointValue.y + self.points[2].CGPointValue.y)/2);
+    // 设置贝塞尔曲线的起始点和末尾点
+    CGPoint p0 = [self.points[0] CGPointValue];
+    CGPoint p1 = [self.points[1] CGPointValue];
+    CGPoint p2 = [self.points[2] CGPointValue];
     
-    int x1 = (int)fabs(tempPoint1.x - tempPoint2.x);
-    int x2 = (int)fabs(tempPoint1.y - tempPoint2.y);
-    int len = (int)(sqrt(pow(x1, 2) + pow(x2, 2)) * 10);
+    CGPoint tempPoint1 = CGPointMake((p0.x + p1.x) * 0.5, (p0.y + p1.y) * 0.5);
+    CGPoint tempPoint2 = CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
     
-    // 如果仅仅只是点击一下
+    // 估算贝塞尔曲线长度
+    int x1 = fabs(tempPoint1.x - tempPoint2.x);
+    int x2 = fabs(tempPoint1.y - tempPoint2.y);
+    int len = (int)(sqrt(pow(x1, 2) + pow(x2, 2))*10);
+    
+    
+    // 如果只点了一下
     if (len == 0) {
-        UIBezierPath *zeroPath = [UIBezierPath bezierPathWithArcCenter:self.points[1].CGPointValue radius:MAX_WIDTH/2-2 startAngle:0 endAngle:M_PI_2 clockwise:YES];
-        [kBlackColor setFill];
+        
+        UIBezierPath *zeroPath = [UIBezierPath bezierPathWithArcCenter:p1 radius:kWIDTH_MAX * 0.5 - 2 startAngle:0 endAngle:M_PI *2.0 clockwise:YES];
+        [[UIColor blackColor] setFill];
         [zeroPath fill];
         
         // 绘图
-        self.image = UIGraphicsGetImageFromCurrentImageContext();
-        self.lastImage = self.image;
+        UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        self.image = tempImage;
+        self.lastImage = tempImage;
         UIGraphicsEndImageContext();
+        
         return;
+        
     }
     
-    // 如果距离过短，直接画线
+    // 如果距离过短，直接画直线
     if (len < 1) {
         UIBezierPath *zeroPath = [UIBezierPath bezierPath];
         [zeroPath moveToPoint:tempPoint1];
         [zeroPath addLineToPoint:tempPoint2];
         
         self.currentWidth += 0.05;
-        if (self.currentWidth > MAX_WIDTH) {
-            self.currentWidth = MAX_WIDTH;
-        }
-        if (self.currentWidth < MIN_WIDTH) {
-            self.currentWidth = MIN_WIDTH;
-        }
+        
+        if (self.currentWidth > kWIDTH_MAX) { self.currentWidth = kWIDTH_MAX;}
+        if (self.currentWidth < kWIDTH_MIN) { self.currentWidth = kWIDTH_MIN;}
         
         // 画线
         zeroPath.lineWidth = self.currentWidth;
         zeroPath.lineCapStyle = kCGLineCapRound;
         zeroPath.lineJoinStyle = kCGLineJoinRound;
-        kRGBA(0, 0, 0, (self.currentWidth - MIN_WIDTH) / MAX_WIDTH * 0.6 + 0.2).setStroke;
-        self.image = UIGraphicsGetImageFromCurrentImageContext();
+        [[UIColor colorWithWhite:0 alpha:(self.currentWidth - kWIDTH_MIN)/ kWIDTH_MAX * 0.6 + 0.2] setStroke];
+        [zeroPath stroke];
+        
+        // 画图
+        UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        self.image = tempImage;
         UIGraphicsEndImageContext();
         return;
     }
     
-    // 目标直径
-    CGFloat aimWidth = 300.0 / (CGFloat)(len * (MAX_WIDTH - MIN_WIDTH));
-    // 获取贝塞尔点集合
-    NSArray<NSValue *> *curvePoints = [WFBerzierPath curveFactorizationFromPoint:tempPoint1 toPoint:tempPoint2 controlPoint:@[self.points[1]] count:len];
+    // 目标半径
+    CGFloat aimWidth = 300.0/(CGFloat)len * (kWIDTH_MAX - kWIDTH_MIN);
+    // 获取贝塞尔点集
+    
+    NSArray * curvePoints = [self curveFactorizationWithFromPoint:tempPoint1 toPoint:tempPoint2 controlPoints:[NSArray arrayWithObject: self.points[1]] count:len];
+    
+    // 画每条线段
     CGPoint lastPoint = tempPoint1;
-    int i = 0;
-    while (i < len + 1) {
+    
+    for (int i = 0; i< len ; i++) {
+        
         UIBezierPath *bPath = [UIBezierPath bezierPath];
         [bPath moveToPoint:lastPoint];
         
-        // 省略多余的点
-        CGFloat delta = sqrt(pow(curvePoints[i].CGPointValue.x-lastPoint.x,2) + pow(curvePoints[i].CGPointValue.y - lastPoint.y, 2));
-        if (delta < 1) {
-            i += 1;
+        // 省略多余点
+        CGFloat delta = sqrt(pow([curvePoints[i] CGPointValue].x - lastPoint.x, 2)+ pow([curvePoints[i] CGPointValue].y - lastPoint.y, 2));
+        
+        if (delta <1) {
             continue;
         }
         
-        lastPoint = CGPointMake(curvePoints[i].CGPointValue.x, curvePoints[i].CGPointValue.y);
-        [bPath addLineToPoint:CGPointMake(curvePoints[i].CGPointValue.x, curvePoints[i].CGPointValue.y)];
+        lastPoint = CGPointMake([curvePoints[i] CGPointValue].x, [curvePoints[i]CGPointValue].y);
+        [bPath addLineToPoint:lastPoint];
         
         // 计算当前点
         if (self.currentWidth > aimWidth) {
             self.currentWidth -= 0.05;
-        } else {
+        }else {
             self.currentWidth += 0.05;
         }
         
-        if (self.currentWidth > MAX_WIDTH) {
-            self.currentWidth = MAX_WIDTH;
+        if (self.currentWidth > kWIDTH_MAX) {
+            self.currentWidth = kWIDTH_MAX;
         }
-        if (self.currentWidth < MIN_WIDTH) {
-            self.currentWidth = MIN_WIDTH;
+        
+        if (self.currentWidth < kWIDTH_MIN) {
+            self.currentWidth = kWIDTH_MIN;
         }
         
         // 画线
         bPath.lineWidth = self.currentWidth;
         bPath.lineCapStyle = kCGLineCapRound;
         bPath.lineJoinStyle = kCGLineJoinRound;
-        kRGBA(0, 0, 0, (self.currentWidth - MIN_WIDTH) / MAX_WIDTH * 0.3 + 0.1).setStroke;
+        [[UIColor colorWithWhite:0 alpha:(self.currentWidth - kWIDTH_MIN)/kWIDTH_MAX *0.3 +0.1] setStroke];
         [bPath stroke];
-        i += 1;
     }
-    // 保存图片
-    self.lastImage = UIGraphicsGetImageFromCurrentImageContext();
-    int pointCount = ((int)sqrt(pow(tempPoint2.x - self.points[2].CGPointValue.x, 2) + pow(tempPoint2.y - self.points[2].CGPointValue.y, 2))) * 2;
-    NSLog(@"%ld",pointCount);
-    CGFloat delX = (tempPoint2.x - self.points[2].CGPointValue.x) / (CGFloat)pointCount;
-    CGFloat delY = (tempPoint2.y - self.points[2].CGPointValue.y) / (CGFloat)pointCount;
-    
-    CGFloat addRadius = self.currentWidth;
-    int j = 0;
-    
-    while (j < pointCount) {
-        UIBezierPath *bPath = [UIBezierPath bezierPath];
-        [bPath moveToPoint:lastPoint];
-        CGPoint newPoint = CGPointMake(lastPoint.x - delX, lastPoint.y - delY);
-        lastPoint = newPoint;
-        [bPath addLineToPoint:newPoint];
+        // 保存图片
+        self.lastImage = UIGraphicsGetImageFromCurrentImageContext();
         
-        if (addRadius > aimWidth) {
-            addRadius -= 0.02;
-        } else {
-            addRadius += 0.02;
+        int pointCount = (int)sqrt(pow(tempPoint2.x - [self.points[2] CGPointValue].x, 2) + pow(tempPoint2.y - [self.points[2] CGPointValue].y, 2)) *2;
+        
+        CGFloat delX = (tempPoint2.x - [self.points[2] CGPointValue].x) /(CGFloat)pointCount;
+        CGFloat delY = (tempPoint2.y - [self.points[2] CGPointValue].y) /(CGFloat)pointCount;
+        
+        CGFloat addRadius = self.currentWidth;
+        
+        // 尾部线段
+        for (int i = 0; i < pointCount; i++) {
+            UIBezierPath *bPath = [UIBezierPath bezierPath];
+            [bPath moveToPoint:lastPoint];
+            
+            CGPoint newPoint = CGPointMake(lastPoint.x - delX, lastPoint.y - delY);
+            lastPoint = newPoint;
+            
+            [bPath addLineToPoint:newPoint];
+            
+            if (addRadius > aimWidth) {
+                addRadius -= 0.02;
+            }else {
+                addRadius += 0.02;
+            }
+            
+            if (addRadius > kWIDTH_MAX) {
+                addRadius = kWIDTH_MAX;
+            }
+            if (addRadius < 0) {
+                addRadius = 0;
+            }
+            
+            // 画线
+            bPath.lineWidth = addRadius;
+            bPath.lineJoinStyle = kCGLineJoinRound;
+            bPath.lineCapStyle = kCGLineCapRound;
+            
+            [[UIColor colorWithWhite:0 alpha:(self.currentWidth - kWIDTH_MIN)/ kWIDTH_MAX * 0.5 + 0.05] setStroke];
+            [bPath stroke];
         }
         
-        if (addRadius > MAX_WIDTH) {
-            addRadius = MAX_WIDTH;
-        }
-        if (addRadius < 0) {
-            addRadius = 0;
-        }
-        bPath.lineWidth = addRadius;
-        bPath.lineCapStyle = kCGLineCapRound;
-        bPath.lineJoinStyle = kCGLineJoinRound;
-        kRGBA(0, 0, 0, (self.currentWidth - MIN_WIDTH) / MAX_WIDTH * 0.05 + 0.05).setStroke;
-        [bPath stroke];
-        j += 1;
+        UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        self.image = tempImage;
+        UIGraphicsEndImageContext();
+    
+}
+
+/**
+ *  分解贝塞尔曲线
+ */
+- (NSArray *)curveFactorizationWithFromPoint:(CGPoint) fPoint toPoint:(CGPoint) tPoint controlPoints:(NSArray *)points count:(int) count {
+    
+    // 如果分解数量为0，生成默认分解数量
+    if (count == 0) {
+        int x1 = fabs(fPoint.x - tPoint.x);
+        int x2 = fabs(fPoint.y - tPoint.y);
+        count = (int)sqrt(pow(x1, 2) + pow(x2, 2));
     }
-    self.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    
+    // 计算贝塞尔曲线
+    CGFloat s = 0.0;
+    NSMutableArray *t = [NSMutableArray array];
+    CGFloat pc = 1/(CGFloat)count;
+    
+    int power = (int)(points.count + 1);
+    
+    
+    for (int i =0; i<= count + 1; i++) {
+        
+        [t addObject:[NSNumber numberWithFloat:s]];
+        s = s + pc;
+        
+    }
+    
+    NSMutableArray *newPoints = [NSMutableArray array];
+    
+    for (int i = 0; i <= count + 1; i++) {
+        CGFloat resultX = fPoint.x * [self bezMakerWithN:power K:0 T:[t[i] floatValue]] + tPoint.x * [self bezMakerWithN:power K:power T:[t[i] floatValue]];
+        
+        for (int j = 1; j <= power -1; j++) {
+            resultX += [points[j-1] CGPointValue].x * [self bezMakerWithN:power K:j T:[t[i] floatValue]];
+        }
+        
+        CGFloat resultY = fPoint.y * [self bezMakerWithN:power K:0 T:[t[i] floatValue]] + tPoint.y * [self bezMakerWithN:power K:power T:[t[i] floatValue]];
+        
+        for (int j = 1; j <= power -1; j++) {
+            
+            resultY += [points[j-1] CGPointValue].y * [self bezMakerWithN:power K:j T:[t[i] floatValue]];
+            
+        }
+        
+        [newPoints addObject:[NSValue valueWithCGPoint:CGPointMake(resultX, resultY)]];
+    }
+    return newPoints;
+    
+}
+
+- (CGFloat)compWithN:(int)n andK:(int)k {
+    int s1 = 1;
+    int s2 = 1;
+    
+    if (k == 0) {
+        return 1.0;
+    }
+    
+    for (int i = n; i >= n-k+1; i--) {
+        s1 = s1*i;
+    }
+    for (int i = k; i >= 2; i--) {
+        s2 = s2 *i;
+    }
+    
+    CGFloat res = (CGFloat)s1/s2;
+    return  res;
+}
+
+- (CGFloat)realPowWithN:(CGFloat)n K:(int)k {
+    if (k == 0) {
+        return 1.0;
+    }
+    return pow(n, (CGFloat)k);
+}
+
+- (CGFloat)bezMakerWithN:(int)n K:(int)k T:(CGFloat)t {
+    return [self compWithN:n andK:k] * [self realPowWithN:1-t K:n-k] * [self realPowWithN:t K:k];
+}
+
+#pragma mark - /*** 触摸事件 ***/
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = touches.anyObject;
+    CGPoint p = [touch locationInView:self];
+    NSValue *vp = [NSValue valueWithCGPoint:p];
+    self.points = @[vp,vp,vp];
+    self.currentWidth = 13;
+    [self changeImage];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = touches.anyObject;
+    CGPoint p = [touch locationInView:self];
+    NSValue *vp = [NSValue valueWithCGPoint:p];
+    self.points = @[self.points[1],self.points[2],vp];
+    [self changeImage];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.lastImage =  self.image;
 }
 
 @end
