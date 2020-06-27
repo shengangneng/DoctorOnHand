@@ -15,6 +15,7 @@
 		DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */; };
 		DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */; };
 		DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */; };
+		DD1C7C0E24A78FB6004F7CEF /* WFSignatureLine.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */; };
 		DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */; };
@@ -74,6 +75,8 @@
 		DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFTakePhotoViewController.m; sourceTree = "<group>"; };
 		DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFBrushBoardView.h; sourceTree = "<group>"; };
 		DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFBrushBoardView.m; sourceTree = "<group>"; };
+		DD1C7C0C24A78FB6004F7CEF /* WFSignatureLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSignatureLine.h; sourceTree = "<group>"; };
+		DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSignatureLine.m; sourceTree = "<group>"; };
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
@@ -295,6 +298,8 @@
 				DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */,
 				DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */,
 				DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */,
+				DD1C7C0C24A78FB6004F7CEF /* WFSignatureLine.h */,
+				DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */,
 			);
 			path = "手写板";
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 				DD6C4D9F249BB400001C9344 /* NSCharacterSet+CMPMExtension.m in Sources */,
 				DD6C4DDF24A24170001C9344 /* WFRecordVoiceHUD.m in Sources */,
 				DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */,
+				DD1C7C0E24A78FB6004F7CEF /* WFSignatureLine.m in Sources */,
 				FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */,
 				DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */,
 				DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */,

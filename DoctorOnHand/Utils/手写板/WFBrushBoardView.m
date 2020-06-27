@@ -20,19 +20,90 @@
 @property (nonatomic, copy) NSArray *points;
 // 当前宽度
 @property (nonatomic, assign) CGFloat currentWidth;
-// 初始图片
-@property (nonatomic, strong) UIImage *defaultImage;
 // 上一次图片
 @property (nonatomic, strong) UIImage *lastImage;
+
+@property (nonatomic, strong) WFSignatureLine *tempSign;                           /** 用来记录一个线条 */
+@property (nonatomic, strong) NSMutableArray<WFSignatureLine *> *lineArray;        /** 记录写下的线条 */
+@property (nonatomic, strong) NSMutableArray<WFSignatureLine *> *cancelLineArray;  /** 记录取消的线条，为了可以点击下一步 */
 
 
 @end
 
 @implementation WFBrushBoardView
 
-/**
- *  重写初始化方法
- */
+#pragma mark - Public Method
+- (BOOL)canLastStep {
+    if (self.cancelLineArray.count > 0) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+- (BOOL)canNextStep {
+    if (self.lineArray.count > 0) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)lastStep {
+    if (self.canLastStep) {
+        WFSignatureLine *line = self.lineArray.lastObject;
+        [self.lineArray removeLastObject];
+        [self.cancelLineArray addObject:line];
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)nextStep {
+    if (self.canNextStep) {
+        WFSignatureLine *line = self.cancelLineArray.lastObject;
+        [self.lineArray addObject:line];
+        [self.cancelLineArray removeLastObject];
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)clearScreen {
+    [self.lineArray removeAllObjects];
+    [self.cancelLineArray removeAllObjects];
+    [self setNeedsDisplay];
+}
+
+#pragma mark - System Method
+
+- (void)drawRect:(CGRect)rect {
+    
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0);
+    [self.lastImage drawInRect:self.bounds];
+    
+    for (int i = 0; i < self.lineArray.count; i++) {
+        WFSignatureLine *roop = self.lineArray[i];
+        if (LineTypeNomal == roop.lineType) {
+            UIBezierPath *path = roop.path;
+            path.lineWidth = roop.lineWidth;
+            [roop.lineColor set];
+            [path stroke];
+        } else if (LineTypeSteelPen == roop.lineType) {
+            for (int j = 0; j < roop.linesArray.count; j++) {
+                WFSignatureLine *sub = roop.linesArray[j];
+                UIBezierPath *path = sub.path;
+                path.lineWidth = sub.lineWidth;
+                path.lineCapStyle = kCGLineCapRound;
+                path.lineJoinStyle = kCGLineJoinRound;
+                [sub.lineColor setStroke];
+                [path stroke];
+            }
+        }
+    }
+    self.lastImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
+    self.image = tempImage;
+    UIGraphicsEndImageContext();
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -42,14 +113,48 @@
     return self;
 }
 
-/**
- *  画图
- */
+#pragma mark - 触摸事件
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = touches.anyObject;
+    CGPoint p = [touch locationInView:self];
+    if (LineTypeNomal == self.lineType) {
+        self.tempSign = [[WFSignatureLine alloc] init];
+        self.tempSign.path = [UIBezierPath bezierPath];
+        self.tempSign.lineWidth = self.lineWidth;
+        self.tempSign.lineColor = self.lineColor;
+        [self.tempSign.path moveToPoint:p];
+        [self.lineArray addObject:self.tempSign];
+        // 每次绘画了新的线条，就移除下一步的所有数据
+        [self.cancelLineArray removeAllObjects];
+    } else if (LineTypeSteelPen == self.lineType) {
+        NSValue *vp = [NSValue valueWithCGPoint:p];
+        self.points = @[vp,vp,vp];
+        self.currentWidth = kWIDTH_MIN;
+        [self changeImage];
+    }
+    [self setNeedsDisplay];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = touches.anyObject;
+    CGPoint p = [touch locationInView:self];
+    if (LineTypeNomal == self.lineType) {
+        [self.tempSign.path addLineToPoint:p];
+    } else if (LineTypeSteelPen == self.lineType) {
+        NSValue *vp = [NSValue valueWithCGPoint:p];
+        self.points = @[self.points[1],self.points[2],vp];
+        [self changeImage];
+    }
+    [self setNeedsDisplay];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.lastImage =  self.image;
+}
+
+/// 画图
 - (void)changeImage {
-    
-    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0);
-    
-    [self.lastImage drawInRect:self.bounds];
     
     // 设置贝塞尔曲线的起始点和末尾点
     CGPoint p0 = [self.points[0] CGPointValue];
@@ -73,6 +178,7 @@
     // 画每条线段
     CGPoint lastPoint = tempPoint1;
     
+    NSMutableArray<WFSignatureLine *> *tempLinesArray = [NSMutableArray arrayWithCapacity:len];
     for (int i = 0; i< len ; i++) {
         
         UIBezierPath *bPath = [UIBezierPath bezierPath];
@@ -104,18 +210,20 @@
         }
         
         // 画线
-        bPath.lineWidth = self.currentWidth;
-        bPath.lineCapStyle = kCGLineCapRound;
-        bPath.lineJoinStyle = kCGLineJoinRound;
-        [[UIColor colorWithWhite:0 alpha:(self.currentWidth - kWIDTH_MIN)/kWIDTH_MAX *0.3 +0.2] setStroke];
-        [bPath stroke];
+        WFSignatureLine *line = [[WFSignatureLine alloc] init];
+        line.lineColor = [self.lineColor colorWithAlphaComponent:(self.currentWidth - kWIDTH_MIN)/kWIDTH_MAX *0.3 +0.2];
+        line.lineWidth = self.currentWidth;
+        
+        [tempLinesArray addObject:line];
     }
+    WFSignatureLine *root = [[WFSignatureLine alloc] init];
+    root.lineType = LineTypeSteelPen;
+    root.linesArray = tempLinesArray.copy;
     // 保存图片
-    self.lastImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
-    self.image = tempImage;
-    UIGraphicsEndImageContext();
+//    self.lastImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
+//    self.image = tempImage;
+//    UIGraphicsEndImageContext();
     
 }
 
@@ -199,27 +307,20 @@
     return [self compWithN:n andK:k] * [self realPowWithN:1-t K:n-k] * [self realPowWithN:t K:k];
 }
 
-#pragma mark - /*** 触摸事件 ***/
+#pragma mark - Lazy Init
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = touches.anyObject;
-    CGPoint p = [touch locationInView:self];
-    NSValue *vp = [NSValue valueWithCGPoint:p];
-    self.points = @[vp,vp,vp];
-    self.currentWidth = kWIDTH_MIN;
-    [self changeImage];
+- (NSMutableArray<WFSignatureLine *> *)lineArray {
+    if (!_lineArray) {
+        _lineArray = [NSMutableArray array];
+    }
+    return _lineArray;
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = touches.anyObject;
-    CGPoint p = [touch locationInView:self];
-    NSValue *vp = [NSValue valueWithCGPoint:p];
-    self.points = @[self.points[1],self.points[2],vp];
-    [self changeImage];
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.lastImage =  self.image;
+- (NSMutableArray<WFSignatureLine *> *)cancelLineArray {
+    if (!_cancelLineArray) {
+        _cancelLineArray = [NSMutableArray array];
+    }
+    return _cancelLineArray;
 }
 
 @end

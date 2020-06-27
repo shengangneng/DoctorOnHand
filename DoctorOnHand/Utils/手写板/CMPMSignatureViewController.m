@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UIButton *nextStepButton;     /** 下一步 */
 @property (nonatomic, strong) UIButton *eraserButton;       /** 橡皮擦 */
 @property (nonatomic, strong) UIButton *clearButton;        /** 清空所有数据 */
+@property (nonatomic, strong) UIButton *nomalPen;           /// 普通笔
+@property (nonatomic, strong) UIButton *steelPen;           /// 钢笔
 
 @property (nonatomic, strong) UIImageView *imageView;       /** 截屏展示图 */
 @property (nonatomic, strong) UIButton *saveToAlbum;        /** 保存到相册 */
@@ -256,6 +258,7 @@
 - (CMPMSignatureView *)signatureView {
     if (!_signatureView) {
         _signatureView = [[CMPMSignatureView alloc] init];
+        _signatureView.lineType = LineTypeSteelPen;
         _signatureView.backgroundColor = kWhiteColor;
     }
     return _signatureView;
