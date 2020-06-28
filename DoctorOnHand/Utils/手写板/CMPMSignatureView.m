@@ -216,11 +216,6 @@
     root.lineType = LineTypeSteelPen;
     root.linesArray = tempLinesArray.copy;
     [self.lineArray addObject:root];
-    // 保存图片
-//    self.lastImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
-//    self.image = tempImage;
-//    UIGraphicsEndImageContext();
     
 }
 
