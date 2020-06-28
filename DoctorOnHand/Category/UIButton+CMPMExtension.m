@@ -55,7 +55,7 @@
     return btn;
 }
 
-/** 图片按钮 */
+/** 背景图片按钮 */
 + (UIButton *)imageButtonWithImage:(UIImage *)image hImage:(UIImage *)hImage {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectZero];
@@ -64,6 +64,20 @@
     }
     if (hImage) {
         [btn setBackgroundImage:hImage forState:UIControlStateHighlighted];
+    }
+    return btn;
+}
+
+/** 图片按钮 */
++ (UIButton *)buttonWithNomalHignImage:(UIImage *)nimage selectImage:(UIImage *)sImage {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectZero];
+    if (nimage) {
+        [btn setImage:nimage forState:UIControlStateNormal];
+        [btn setImage:nimage forState:UIControlStateHighlighted];
+    }
+    if (sImage) {
+        [btn setImage:sImage forState:UIControlStateSelected];
     }
     return btn;
 }

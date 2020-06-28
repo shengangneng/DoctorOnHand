@@ -21,8 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** 文字 + 背景色按钮 */
 + (UIButton *)titleButtonWithTitle:(NSString *)title nTitleColor:(UIColor *)nColor hTitleColor:(UIColor *)hColor bgColor:(UIColor *)bgColor;
 
-/** 图片按钮 */
+/** 背景图片按钮 */
 + (UIButton *)imageButtonWithImage:(UIImage *)image hImage:(UIImage *)hImage;
+
+/** 图片按钮 */
++ (UIButton *)buttonWithNomalHignImage:(UIImage *)nimage selectImage:(UIImage *)sImage;
 
 /** 文字在左 + 图片在右 */
 + (UIButton *)rightImageButtonWithTitle:(NSString *)title nTitleColor:(UIColor *)nColor hTitleColor:(UIColor *)hColor nImage:(UIImage *)nImage hImage:(UIImage *)hImage titleEdgeInset:(UIEdgeInsets)tInset imageEdgeInset:(UIEdgeInsets)imInset ;
