@@ -14,6 +14,8 @@
 #define kITEM_W     32
 #define kITEM_W2    24
 #define kMARGIN     20
+#define kNOR_PEN_TAG    666
+#define kSTE_PEN_TAG    777
 
 @interface CMPMSignatureViewController ()
 
@@ -45,7 +47,7 @@
     [self.colorButton2 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
     [self.colorButton3 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
     [self.colorButton4 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.backBt addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [self.saveToAlbumBt addTarget:self action:@selector(saveImage:) forControlEvents:UIControlEventTouchUpInside];
     [self.colorBarBt addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
     [self.nomalPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,6 +60,7 @@
     
     self.view.backgroundColor = kCommomBackgroundColor;
     [self.view addSubview:self.signatureView];
+    [self.view addSubview:self.backBt];
     [self.view addSubview:self.saveToAlbumBt];
     [self.view addSubview:self.colorBarBt];
     [self.view addSubview:self.steelPenBt];
@@ -76,6 +79,10 @@
         make.width.height.equalTo(@32);
         make.trailing.equalTo(self.view.mas_trailing).offset(-kMARGIN);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kMARGIN);
+    }];
+    [self.backBt mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight + 10);
     }];
     [self.signatureView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -121,6 +128,10 @@
 }
 
 #pragma mark - Target Action
+- (void)back:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)saveImage:(UIButton *)sender {
     // 生成截屏
     UIGraphicsBeginImageContextWithOptions(self.signatureView.frame.size, NO, 0.0);
@@ -145,7 +156,11 @@
 }
 
 - (void)changePen:(UIButton *)sender {
-    
+    if (sender.tag == kNOR_PEN_TAG) {
+        self.signatureView.lineType = LineTypeNomal;
+    } else if (sender.tag == kSTE_PEN_TAG) {
+        self.signatureView.lineType = LineTypeSteelPen;
+    }
 }
 
 - (void)lastStep:(UIButton *)sender {
@@ -156,11 +171,12 @@
     [self.signatureView nextStep];
 }
 
+/// 橡皮擦
 - (void)eraser:(UIButton *)sender {
-    self.signatureView.lineWidth = 20;
-    self.signatureView.lineColor = kWhiteColor;
+    self.signatureView.lineType = LineTypeEraser;
 }
 
+/// 清屏
 - (void)clear:(UIButton *)sender {
     [self.signatureView clearScreen];
 }
@@ -185,7 +201,8 @@
 }
 - (UIButton *)backBt {
     if (!_backBt) {
-        _backBt = [UIButton titleButtonWithTitle:@"返回" nTitleColor:kRGBA(9, 187, 7, 1) hTitleColor:kRGBA(9, 187, 7, 1) bgColor:kRGBA(0, 0, 0, 0.1)];
+        _backBt = [UIButton titleButtonWithTitle:@"返回" nTitleColor:kRGBA(20, 120, 255, 1) hTitleColor:kRGBA(20, 120, 255, 1) bgColor:kWhiteColor];
+        [_backBt sizeToFit];
     }
     return _backBt;
 }
@@ -200,6 +217,7 @@
 - (UIButton *)steelPenBt {
     if (!_steelPenBt) {
         _steelPenBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_steel_pen") selectImage:ImageName(@"sign_steel_pen")];
+        _steelPenBt.tag = kSTE_PEN_TAG;
         _steelPenBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _steelPenBt.layer.cornerRadius = kITEM_W / 2;
     }
@@ -208,6 +226,7 @@
 - (UIButton *)nomalPenBt {
     if (!_nomalPenBt) {
         _nomalPenBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_nor_pen") selectImage:ImageName(@"sign_nor_pen")];
+        _nomalPenBt.tag = kNOR_PEN_TAG;
         _nomalPenBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _nomalPenBt.layer.cornerRadius = kITEM_W / 2;
     }

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, LineType) {
     LineTypeNomal,      // 普通线条
     LineTypeSteelPen,   // 钢笔
+    LineTypeEraser      // 橡皮擦
 };
 
 @interface WFSignatureLine : NSObject

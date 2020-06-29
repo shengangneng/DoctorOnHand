@@ -41,6 +41,25 @@
     return self;
 }
 
+- (void)setLineType:(LineType)lineType {
+    _lineType = lineType;
+    switch (lineType) {
+        case LineTypeNomal: {
+            self.lineColor = kBlackColor;;
+        }break;
+        case LineTypeSteelPen: {
+            self.lineColor = kBlackColor;
+        }break;
+        case LineTypeEraser: {
+            self.lineWidth = 40;
+            self.lineColor = kWhiteColor;
+        }break;
+            
+        default:
+            break;
+    }
+}
+
 - (BOOL)canNextStep {
     if (self.cancelLineArray.count > 0) {
         return YES;
@@ -64,7 +83,7 @@
     
     for (int i = 0; i < self.lineArray.count; i++) {
         WFSignatureLine *roop = self.lineArray[i];
-        if (LineTypeNomal == roop.lineType) {
+        if (LineTypeNomal == roop.lineType || LineTypeEraser == roop.lineType) {
             UIBezierPath *path = roop.path;
             path.lineWidth = roop.lineWidth;
             [roop.lineColor set];
@@ -86,7 +105,7 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = touches.anyObject;
     CGPoint p = [touch locationInView:self];
-    if (self.lineType == LineTypeNomal) {
+    if (self.lineType == LineTypeNomal || self.lineType == LineTypeEraser) {
         self.tempSign = [[WFSignatureLine alloc] init];
         self.tempSign.path = [UIBezierPath bezierPath];
         self.tempSign.lineWidth = self.lineWidth;
@@ -107,7 +126,7 @@
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = touches.anyObject;
     CGPoint p = [touch locationInView:self];
-    if (self.lineType == LineTypeNomal) {
+    if (self.lineType == LineTypeNomal || self.lineType == LineTypeEraser) {
         [self.tempSign.path addLineToPoint:p];
     } else if (self.lineType == LineTypeSteelPen) {
         NSValue *vp = [NSValue valueWithCGPoint:p];
