@@ -19,16 +19,18 @@
 
 @property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
 @property (nonatomic, strong) CMPMSignatureView *signatureView; /// 手写板
+
 @property (nonatomic, strong) UIButton *colorButton1;       /** 红 */
 @property (nonatomic, strong) UIButton *colorButton2;       /** 黄 */
 @property (nonatomic, strong) UIButton *colorButton3;       /** 蓝 */
 @property (nonatomic, strong) UIButton *colorButton4;       /** 黑 */
-@property (nonatomic, strong) UIButton *clearButton;        /** 清空所有数据 */
 
+@property (nonatomic, strong) UIButton *backBt;             /// 返回
 @property (nonatomic, strong) UIButton *colorBarBt;         /// 调色盘
 @property (nonatomic, strong) UIButton *nomalPenBt;         /// 普通笔
 @property (nonatomic, strong) UIButton *steelPenBt;         /// 钢笔
 @property (nonatomic, strong) UIButton *eraserBt;           /// 橡皮擦
+@property (nonatomic, strong) UIButton *clearAllBt;         /// 清空
 @property (nonatomic, strong) UIButton *lastStepBt;         /// 上一步
 @property (nonatomic, strong) UIButton *nextStepBt;         /// 下一步
 
@@ -45,10 +47,14 @@
     [self.colorButton4 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.saveToAlbumBt addTarget:self action:@selector(saveImage:) forControlEvents:UIControlEventTouchUpInside];
+    [self.colorBarBt addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
+    [self.nomalPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
+    [self.steelPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
+    [self.eraserBt addTarget:self action:@selector(eraser:) forControlEvents:UIControlEventTouchUpInside];
+    [self.clearAllBt addTarget:self action:@selector(clear:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.lastStepBt addTarget:self action:@selector(lastStep:) forControlEvents:UIControlEventTouchUpInside];
     [self.nextStepBt addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
-    [self.eraserBt addTarget:self action:@selector(eraser:) forControlEvents:UIControlEventTouchUpInside];
-    [self.clearButton addTarget:self action:@selector(clear:) forControlEvents:UIControlEventTouchUpInside];
     
     self.view.backgroundColor = kCommomBackgroundColor;
     [self.view addSubview:self.signatureView];
@@ -57,6 +63,7 @@
     [self.view addSubview:self.steelPenBt];
     [self.view addSubview:self.nomalPenBt];
     [self.view addSubview:self.eraserBt];
+    [self.view addSubview:self.clearAllBt];
     [self.view addSubview:self.lastStepBt];
     [self.view addSubview:self.nextStepBt];
     
@@ -64,7 +71,6 @@
     [self.view addSubview:self.colorButton2];
     [self.view addSubview:self.colorButton3];
     [self.view addSubview:self.colorButton4];
-    [self.view addSubview:self.clearButton];
     
     [self.saveToAlbumBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@32);
@@ -95,11 +101,16 @@
         make.width.height.equalTo(@(kITEM_W));
         make.top.equalTo(self.nomalPenBt.mas_bottom).offset(kMARGIN);
     }];
+    [self.clearAllBt mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.width.height.equalTo(@(kITEM_W));
+        make.top.equalTo(self.eraserBt.mas_bottom).offset(kMARGIN);
+    }];
     
     [self.lastStepBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading).offset(28);
         make.width.height.equalTo(@(kITEM_W2));
-        make.top.equalTo(self.eraserBt.mas_bottom).offset(30);
+        make.top.equalTo(self.clearAllBt.mas_bottom).offset(30);
     }];
     [self.nextStepBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading).offset(28);
@@ -107,58 +118,6 @@
         make.top.equalTo(self.lastStepBt.mas_bottom).offset(kMARGIN);
     }];
     
-    
-//    [self.clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.eraserBt.mas_trailing).offset(borderW);
-//        make.width.height.equalTo(@(kITEM_W));
-//        make.bottom.equalTo(self.view.mas_bottom).offset(-kBottomHeight-10);
-//    }];
-//
-//    [self.colorButton1 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.view.mas_leading).offset(borderW);
-//        make.width.equalTo(@(itemW));
-//        make.height.equalTo(@(kITEM_W));
-//        make.bottom.equalTo(self.lastStepBt.mas_top).offset(-10);
-//    }];
-//    [self.colorButton2 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.colorButton1.mas_trailing).offset(borderW);
-//        make.width.equalTo(@(itemW));
-//        make.height.equalTo(@(kITEM_W));
-//        make.bottom.equalTo(self.lastStepBt.mas_top).offset(-10);
-//    }];
-//    [self.colorButton3 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.colorButton2.mas_trailing).offset(borderW);
-//        make.width.equalTo(@(itemW));
-//        make.height.equalTo(@(kITEM_W));
-//        make.bottom.equalTo(self.lastStepBt.mas_top).offset(-10);
-//    }];
-//    [self.colorButton4 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.colorButton3.mas_trailing).offset(borderW);
-//        make.width.equalTo(@(itemW));
-//        make.height.equalTo(@(kITEM_W));
-//        make.bottom.equalTo(self.lastStepBt.mas_top).offset(-10);
-//    }];
-//
-//    [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.height.equalTo(@35);
-//        make.trailing.equalTo(self.lineWidthSlider.mas_leading);
-//        make.centerY.equalTo(self.lineWidthSlider.mas_centerY);
-//    }];
-//    [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.height.equalTo(@35);
-//        make.leading.equalTo(self.lineWidthSlider.mas_trailing);
-//        make.centerY.equalTo(self.lineWidthSlider.mas_centerY);
-//    }];
-//    [self.lineWidthSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.view.mas_leading).offset(45);
-//        make.trailing.equalTo(self.view.mas_trailing).offset(-45);
-//        make.bottom.equalTo(self.colorButton1.mas_top).offset(-10);
-//        make.height.equalTo(@35);
-//    }];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 #pragma mark - Target Action
@@ -183,6 +142,10 @@
 
 - (void)changeColor:(UIButton *)sender {
     self.signatureView.lineColor = sender.backgroundColor;
+}
+
+- (void)changePen:(UIButton *)sender {
+    
 }
 
 - (void)lastStep:(UIButton *)sender {
@@ -220,6 +183,12 @@
     }
     return _signatureView;
 }
+- (UIButton *)backBt {
+    if (!_backBt) {
+        _backBt = [UIButton titleButtonWithTitle:@"返回" nTitleColor:kRGBA(9, 187, 7, 1) hTitleColor:kRGBA(9, 187, 7, 1) bgColor:kRGBA(0, 0, 0, 0.1)];
+    }
+    return _backBt;
+}
 - (UIButton *)colorBarBt {
     if (!_colorBarBt) {
         _colorBarBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_color_bar") selectImage:ImageName(@"sign_color_bar")];
@@ -251,6 +220,14 @@
         _eraserBt.layer.cornerRadius = kITEM_W / 2;
     }
     return _eraserBt;
+}
+- (UIButton *)clearAllBt {
+    if (!_clearAllBt) {
+        _clearAllBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_clear_all") selectImage:ImageName(@"sign_clear_all")];
+        _clearAllBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
+        _clearAllBt.layer.cornerRadius = kITEM_W / 2;
+    }
+    return _clearAllBt;
 }
 - (UIButton *)lastStepBt {
     if (!_lastStepBt) {
@@ -296,12 +273,6 @@
         _colorButton4.backgroundColor = kBlackColor;
     }
     return _colorButton4;
-}
-- (UIButton *)clearButton {
-    if (!_clearButton) {
-        _clearButton = [UIButton titleButtonWithTitle:@"清屏" nTitleColor:kRedColor hTitleColor:kRedColor bgColor:kCommomBackgroundColor];
-    }
-    return _clearButton;
 }
 
 @end
