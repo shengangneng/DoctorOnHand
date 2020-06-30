@@ -39,7 +39,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 }
 
 - (void)setupAttributes {
@@ -161,6 +160,7 @@
 }
 
 #pragma mark - Lazy Init
+
 - (UIImageView *)bgImageView {
     if (!_bgImageView) {
         _bgImageView = [[UIImageView alloc] initWithImage:ImageName(@"login_bg")];
@@ -168,7 +168,6 @@
     }
     return _bgImageView;
 }
-
 - (UIView *)contentView {
     if (!_contentView) {
         _contentView = [[UIView alloc] init];
@@ -181,14 +180,12 @@
     }
     return _contentView;
 }
-
 - (UIImageView *)insetView {
     if (!_insetView) {
         _insetView = [[UIImageView alloc] initWithImage:ImageName(@"login_inset")];
     }
     return _insetView;
 }
-
 - (UIImageView *)logoView {
     if (!_logoView) {
         _logoView = [[UIImageView alloc] initWithImage:ImageName(@"login_logo")];
@@ -201,7 +198,6 @@
     }
     return _logoNameView;
 }
-
 - (UILabel *)brifeLabel {
     if (!_brifeLabel) {
         _brifeLabel = [[UILabel alloc] init];
