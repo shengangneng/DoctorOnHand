@@ -9,14 +9,20 @@
 #import "WFRecordAudioViewController.h"
 #import "WFRecordVoiceButton.h"
 #import "WFAudioPlayer.h"
+#import "WFRecordVoiceHUD.h"
+#import "WFFileManager.h"
+#import "WFRecordTool.h"
 
-@interface WFRecordAudioViewController () <WFRecordVoiceButtonDelegate>
-
+@interface WFRecordAudioViewController ()
+// Views
 @property (nonatomic, strong) UIView *recordView;
 @property (nonatomic, strong) UIButton *recordBt;
 @property (nonatomic, strong) UIButton *deleteBt;
 @property (nonatomic, strong) UIButton *saveBt;
 @property (nonatomic, strong) UIButton *cancelBt;
+@property (nonatomic, strong) UILabel *recordMessageLb;
+// Datas
+@property (nonatomic, copy) NSString *audioLocalPath;
 
 @end
 
@@ -27,18 +33,14 @@
     [self setupAttributes];
     [self setupSubViews];
     [self setupConstraints];
-    WFRecordVoiceButton *recordButton = [[WFRecordVoiceButton alloc] init];
-    recordButton.frame = CGRectMake(16, kScreenHeight - 300, kScreenWidth - 32, 50);
-    recordButton.delegate = self;
-    [self.view addSubview:recordButton];
 }
 
 - (void)setupAttributes {
     self.view.backgroundColor = kMainLightGrayColor;
     [self.deleteBt addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
-    [self.deleteBt addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
-    [self.deleteBt addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-
+    [self.saveBt addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
+    [self.cancelBt addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+    [self.recordBt addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
 }
 
 - (void)setupSubViews {
@@ -47,6 +49,7 @@
     [self.recordView addSubview:self.deleteBt];
     [self.recordView addSubview:self.saveBt];
     [self.recordView addSubview:self.cancelBt];
+    [self.recordView addSubview:self.recordMessageLb];
 }
 
 - (void)setupConstraints {
@@ -76,6 +79,10 @@
         make.top.equalTo(self.recordView.mas_top).offset(4);
         make.trailing.equalTo(self.recordView.mas_trailing).offset(-4);
     }];
+    [self.recordMessageLb mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.recordView.mas_bottom).offset(-38);
+        make.centerX.equalTo(self.recordView.mas_centerX);
+    }];
 }
 
 #pragma mark - Target Action
@@ -91,37 +98,107 @@
     
 }
 
+#pragma mark - 长按录制音频
+- (void)longPress:(UILongPressGestureRecognizer *)gr {
+    
+#warning---如果按钮是放在类似微信键盘上，这里的view使用button的superview self.superview
+    CGPoint point = [gr locationInView:self.recordBt];
+    [WFRecordVoiceHUD shareInstance].longTimeHandler = ^{//超过最长时间还在长按，主动让手势不可用
+        gr.enabled = NO;
+    };
+    
+    if (gr.state == UIGestureRecognizerStateBegan) {//长按开始
+        DLog(@"---开始录音");
+        NSString *audioLocalPath = [WFFileManager filePath];
+        self.audioLocalPath = audioLocalPath;
+        
+        /// 开始录音
+        [[WFRecordTool shareRecordTool] beginRecordWithRecordPath:audioLocalPath];
+        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord];
+        
+    } else if (gr.state == UIGestureRecognizerStateChanged) {//长按改变位置
+        
+        #warning---如果按钮是放在类似微信键盘上，这里的view使用button的superview的height self.superview.height
+        if (point.y < 0 || point.y > self.recordBt.mj_h) {//超出范围提示松开手指取消发送
+            DLog(@"---松开取消");
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeReleaseToCancle];
+            
+        } else {//在范围内，提示上滑取消发送
+            DLog(@"---松开结束");
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeRecording];
+        }
+        
+    } else if (gr.state == UIGestureRecognizerStateEnded) {//松开手指
+        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeEndRecord];
+        [self cancelOrEndRecordWithPoint:point];
+        
+    } else if (gr.state == UIGestureRecognizerStateCancelled) {//手势不可用走
+        [self cancelOrEndRecordWithPoint:point];
+        gr.enabled = YES;
+        
+    } else if (gr.state == UIGestureRecognizerStateFailed) {
+        DLog(@"UIGestureRecognizerStateFailed---");
+    } else if (gr.state == UIGestureRecognizerStatePossible) {
+        DLog(@"UIGestureRecognizerStatePossible---");
+    }
+    
+}
+
+- (void)cancelOrEndRecordWithPoint:(CGPoint)point {
+    
+    [[WFRecordTool shareRecordTool] endRecord]; // 结束录音
+   
+#warning---如果按钮是放在类似微信键盘上，这里的view使用button的superview的height self.superview.height
+    if (point.y < 0 || point.y > self.recordBt.mj_h) {//超出范围不发送
+        
+        [[WFRecordTool shareRecordTool] deleteRecord];
+        
+        
+    } else { // 在范围内，直接发送
+        
+        /// 把wav转成amr，减小文件大小
+        self.audioLocalPath = [WFFileManager convertWavtoAMRWithVoiceFilePath:self.audioLocalPath];
+
+        // 删除wav文件
+        [WFFileManager removeFile:self.audioLocalPath];
+         if (self.audioLocalPath.length > 0) {
+//            self.playButton.hidden = NO;
+//            self.deleteButton.hidden = NO;
+        }
+    }
+}
+
+
 #pragma 录制按钮代理
-- (void)continueRecordingWithButton:(WFRecordVoiceButton *)button {
-    
-    DLog(@"持续录制");
-}
-
-- (void)didBeginRecordWithButton:(WFRecordVoiceButton *)button {
-    DLog(@"开始录制");
-    /// 开始录制停止播放
-    [[WFAudioPlayer shareAudioPlayer] stopCurrentAudio];
-}
-
-- (void)didCancelRecordWithButton:(WFRecordVoiceButton *)button {
-    DLog(@"取消录制");
-}
-
-- (void)didFinishedRecordWithButton:(WFRecordVoiceButton *)button audioLocalPath:(NSString *)audioLocalPath {
-    DLog(@"结束录制返回路径=%@", audioLocalPath);
-    
-    //转换成amr的路径，文件大小大概只有原来的1/10，所以上传到服务器比较快，播放的时候记得转换成wav的
-//    if (audioLocalPath.length > 0) {
-//        self.audioLocalPath = audioLocalPath;
+//- (void)continueRecordingWithButton:(WFRecordVoiceButton *)button {
+//    DLog(@"持续录制");
+//}
 //
-//        self.playButton.hidden = NO;
-//        self.deleteButton.hidden = NO;
-//    }
-}
-
-- (void)willCancelRecordWithButton:(WFRecordVoiceButton *)button {
-    DLog(@"将要取消录制");
-}
+//- (void)didBeginRecordWithButton:(WFRecordVoiceButton *)button {
+//    DLog(@"开始录制");
+//    /// 开始录制停止播放
+//    [[WFAudioPlayer shareAudioPlayer] stopCurrentAudio];
+//}
+//
+//- (void)didCancelRecordWithButton:(WFRecordVoiceButton *)button {
+//    DLog(@"取消录制");
+//}
+//
+//- (void)didFinishedRecordWithButton:(WFRecordVoiceButton *)button audioLocalPath:(NSString *)audioLocalPath {
+//    DLog(@"结束录制返回路径=%@", audioLocalPath);
+//
+//    //转换成amr的路径，文件大小大概只有原来的1/10，所以上传到服务器比较快，播放的时候记得转换成wav的
+////    if (audioLocalPath.length > 0) {
+////        self.audioLocalPath = audioLocalPath;
+////
+////        self.playButton.hidden = NO;
+////        self.deleteButton.hidden = NO;
+////    }
+//}
+//
+//- (void)willCancelRecordWithButton:(WFRecordVoiceButton *)button {
+//    DLog(@"将要取消录制");
+//}
 
 #pragma mark - Lazy Init
 - (UIView *)recordView {
@@ -177,6 +254,17 @@
         [_cancelBt setImage:ImageName(@"record_cancel") forState:UIControlStateSelected];
     }
     return _cancelBt;
+}
+- (UILabel *)recordMessageLb {
+    if (!_recordMessageLb) {
+        _recordMessageLb = [[UILabel alloc] init];
+        [_recordMessageLb sizeToFit];
+        _recordMessageLb.font = SystemFont(14);
+        _recordMessageLb.text = @"长按开始录音";
+        _recordMessageLb.textAlignment = NSTextAlignmentCenter;
+        _recordMessageLb.textColor = kRGBA(102, 102, 102, 1);
+    }
+    return _recordMessageLb;
 }
 
 @end

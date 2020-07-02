@@ -24,25 +24,25 @@ static NSInteger const maxRecordTime = 60;
 @property (nonatomic, strong) CADisplayLink *levelTimer;     // 振幅计时器
 @property (nonatomic, strong) NSMutableArray *currentLevels; // 当前振幅数组
 @property (nonatomic, strong) NSMutableArray *allLevels;     // 所有收集到的振幅,预先保存，用于播放
-//录制计时器
+/// 录制计时器
 @property (nonatomic, strong) NSTimer *recordTimer;
-///录制时间
+/// 录制时间
 @property (nonatomic, assign) NSInteger recordTime;
 ///
 @property (nonatomic, weak) UIView *containView;
-///居中的图片
+/// 居中的图片
 @property (nonatomic, weak) UIImageView *centerImageView;
-///描述
+/// 描述
 @property (nonatomic, weak) UILabel *describeLabel;
-///倒计时
+/// 倒计时
 @property (nonatomic, weak) UILabel *countDownLabel;
-///类型
+/// 类型
 @property (nonatomic, assign) WFRecordVoiceHUDType type;
-//时间
+/// 时间
 @property (nonatomic, assign) CGFloat durationTime;
-///计时器
+/// 计时器
 @property (nonatomic, strong) dispatch_source_t timer;
-///渐变图层
+/// 渐变图层
 @property (nonatomic, weak) CAGradientLayer *gradientLayer;
 
 @end
@@ -139,7 +139,7 @@ static WFRecordVoiceHUD *_hud = nil;
     self.containView = containView;
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.colors = @[(__bridge id)kRGBColorHEX(0xFE9494).CGColor, (__bridge id)kRGBColorHEX(0xE95A5A).CGColor];
+    gradientLayer.colors = @[(__bridge id)kRedColor.CGColor, (__bridge id)kGreenColor.CGColor];
     gradientLayer.startPoint = CGPointMake(0, 0);
     gradientLayer.endPoint = CGPointMake(0, 1.0);
     gradientLayer.frame = _hud.containView.bounds;
@@ -164,7 +164,7 @@ static WFRecordVoiceHUD *_hud = nil;
     timeL.text = @"0:00";
     timeL.textAlignment = NSTextAlignmentCenter;
     timeL.font = SystemFont(13);
-    timeL.textColor = kRGBColorHEX(0xFFFFFF);
+    timeL.textColor = kRGBA(51, 51, 51, 1);
     [levelContentView addSubview:timeL];
     _timeLabel = timeL;
     
@@ -175,7 +175,7 @@ static WFRecordVoiceHUD *_hud = nil;
     _replicatorL = repL;
     
     CAShapeLayer *layer = [CAShapeLayer layer];
-    layer.strokeColor = kRGBColorHEX(0xffffff).CGColor;
+    layer.strokeColor = kBlackColor.CGColor;
     layer.lineWidth = levelWidth;
     [repL addSublayer:layer];
     _levelLayer = layer;

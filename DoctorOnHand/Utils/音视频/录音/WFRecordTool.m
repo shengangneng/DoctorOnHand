@@ -64,7 +64,6 @@ static WFRecordTool *instance;
     NSLog(@"------%@",recordPath);
     _isRecording = YES;
     _recordPath = recordPath;
-    //    NSLog(@"创建中...");
     if (self.delegate && [self.delegate respondsToSelector:@selector(prepareToRecording)]) {
         [self.delegate prepareToRecording];
     }
@@ -75,7 +74,6 @@ static WFRecordTool *instance;
         }
         return;
     };
-    //    NSLog(@"创建完成...");
     [self micPhonePermissions:^(BOOL ishave) {
         if (ishave) {
             [self startRecording];
