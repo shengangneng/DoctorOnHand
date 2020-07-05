@@ -67,7 +67,7 @@
         
         ///开始录音
         [[WFRecordTool shareRecordTool] beginRecordWithRecordPath:audioLocalPath];
-        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord];
+        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord inView:self.superview];
         if (self.delegate && [self.delegate respondsToSelector:@selector(didBeginRecordWithButton:)]) {
             [self.delegate didBeginRecordWithButton:self];
         }
@@ -79,7 +79,7 @@
             DLog(@"---松开取消");
             [self setButtonStateWithCancel];
             
-            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeReleaseToCancle];
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeReleaseToCancle inView:self.superview];
             if (self.delegate && [self.delegate respondsToSelector:@selector(willCancelRecordWithButton:)]) {
                 [self.delegate willCancelRecordWithButton:self];
             }
@@ -87,7 +87,7 @@
         } else {//在范围内，提示上滑取消发送
             DLog(@"---松开结束");
             [self setButtonStateWithRecording];
-            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeRecording];
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeRecording inView:self.superview];
             
             if (self.delegate && [self.delegate respondsToSelector:@selector(continueRecordingWithButton:)]) {
                 [self.delegate continueRecordingWithButton:self];
@@ -95,7 +95,7 @@
         }
         
     } else if (gr.state == UIGestureRecognizerStateEnded) {//松开手指
-        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeEndRecord];
+        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeEndRecord inView:self.superview];
         [self cancelOrEndRecordWithPoint:point];
         
     } else if (gr.state == UIGestureRecognizerStateCancelled) {//手势不可用走

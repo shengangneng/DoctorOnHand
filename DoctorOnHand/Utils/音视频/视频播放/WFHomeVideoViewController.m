@@ -9,7 +9,7 @@
 #import "WFHomeVideoViewController.h"
 #import "WFAVPlayerView.h"
 
-@interface WFHomeVideoViewController ()
+@interface WFHomeVideoViewController () <WFAVPlayerViewDelegate>
 
 @property (nonatomic, strong) WFAVPlayerView *playerView;
 
@@ -19,18 +19,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGFloat palyerW = [UIScreen mainScreen].bounds.size.width;
     WFAVPlayerView *playerView = [[WFAVPlayerView alloc] init];
-    playerView.frame = CGRectMake(0, 0, palyerW, palyerW / 7 * 4);
-    
+    playerView.frame = self.view.bounds;
+    playerView.delegate = self;
     [self.view addSubview:playerView];
     NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"mp4"];
     [playerView settingPlayerItemWithUrl:[NSURL fileURLWithPath:moviePath]];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
+#pragma mark - WFAVPlayerViewDelegate
+- (void)playerDidClose:(WFAVPlayerView *)player {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

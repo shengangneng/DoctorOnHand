@@ -70,6 +70,7 @@
     [self.controlView.pauseButton addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
     [self.controlView.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.controlView.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.controlView.closeButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     __weak typeof(self) weakSelf = self;
     self.controlView.playerSilder.tapChangeValue = ^(float value) {
         CMTime duration = weakSelf.playerItem.duration;
@@ -115,12 +116,12 @@
     
     // 监控它的status也可以获得播放状态
     [self.avPlayer.currentItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
-    //监控缓冲加载
+    // 监控缓冲加载
     [self.avPlayer.currentItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
-    //监控播放完成
+    // 监控播放完成
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.avPlayer.currentItem];
     
-    //监控时间进度(根据API提示，如果要监控时间进度，这个对象引用计数器要+1，retain)
+    // 监控时间进度(根据API提示，如果要监控时间进度，这个对象引用计数器要+1，retain)
     __weak typeof(self) weakSelf = self;
     self.timeObserver = [self.avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         // 获取 item 当前播放秒
@@ -135,8 +136,7 @@
         // 播放状态
         AVPlayerItemStatus status = [[change objectForKey:@"new"] integerValue];
         switch (status) {
-            case AVPlayerItemStatusReadyToPlay:
-            {
+            case AVPlayerItemStatusReadyToPlay: {
                 [self play];
             }
                 break;
@@ -173,9 +173,10 @@
     [self pause];
 }
 
+#pragma mark - Target Action
+
 - (void)play {
     [self.avPlayer play];
-    
     self.controlView.playButton.hidden = YES;
     self.controlView.pauseButton.hidden = NO;
 }
@@ -197,6 +198,11 @@
 - (void)updateVideoBufferProgress:(NSTimeInterval)buffer {
     CMTime duration = _playerItem.duration;
     self.controlView.playerSilder.bufferValue = buffer / CMTimeGetSeconds(duration);
+}
+- (void)back:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerDidClose:)]) {
+        [self.delegate playerDidClose:self];
+    }
 }
 
 - (void)setupNotification {
@@ -249,9 +255,8 @@
 }
 
 /**
- *    强制横屏
- *
- *    @param orientation 横屏方向
+ * @brief 强制横屏
+ * @param orientation 横屏方向
  */
 - (void)forceChangeOrientation:(UIInterfaceOrientation)orientation {
     int val = orientation;
@@ -267,7 +272,7 @@
 
 #pragma mark Notification Handler
 /**
- *    屏幕旋转处理
+ * 屏幕旋转处理
  */
 - (void)orientationHandler {
     if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) {
@@ -289,19 +294,18 @@
 }
 
 /**
- *    即将进入后台的处理
+ * 即将进入后台的处理
  */
 - (void)applicationWillEnterForeground {
     [self play];
 }
 
 /**
- *    即将返回前台的处理
+ * 即将返回前台的处理
  */
 - (void)applicationWillResignActive {
     [self pause];
 }
-
 
 - (void)dealloc {
     [self removeObserver];

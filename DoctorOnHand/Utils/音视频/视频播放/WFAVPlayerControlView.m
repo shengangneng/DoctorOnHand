@@ -8,8 +8,8 @@
 
 #import "WFAVPlayerControlView.h"
 
-#define TopMenuH 40
-#define BotMenuH 50
+#define TopMenuH 60
+#define BotMenuH 60
 #define ImageWithName(imgStr)  [UIImage imageNamed:[NSString stringWithFormat:@"%@", imgStr]]
 @interface WFAVPlayerControlView()
 @property (nonatomic, assign) BOOL isAnimate;

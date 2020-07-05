@@ -8,16 +8,32 @@
 
 #import "WFTakePhotoViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "CMPMCommomTool.h"
 
 @interface WFTakePhotoViewController ()
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;         // 负责输入和输出设备之间的数据传递
 @property (nonatomic, strong) AVCaptureDeviceInput *captureDeviceInput; // 负责从AVCaptureDevice获得输入数据
+@property (nonatomic, strong) AVCaptureDevice *captureDevice;           // 摄像头
 @property (nonatomic, strong) AVCaptureStillImageOutput *captureStillImageOutput;   // 照片输出流
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer; // 相机拍摄预览图层
-@property (nonatomic, weak) UIView *containerView;      // 内容视图
-@property (nonatomic, weak) UIImageView *focusCursor;   // 聚焦按钮
-@property (nonatomic, weak) UIImageView *imgView;       // 拍摄照片
+@property (nonatomic, assign) BOOL torchOn;
+@property (nonatomic, assign) BOOL animating;
+// Views
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIButton *headerBackButton;       // 返回按钮
+@property (nonatomic, strong) UIButton *headerReplyButton;      // 重新拍摄
+
+@property (nonatomic, strong) UIView *middleContentView;        // 内容视图
+@property (nonatomic, strong) UIImageView *middleImageView;     // 拍摄照片
+@property (nonatomic, strong) UIImageView *middleFocusCursor;   // 聚焦按钮
+
+@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) UIButton *bottomLightButton;      // 闪光灯
+@property (nonatomic, strong) UIButton *bottomScanButton;       // 拍照按钮
+@property (nonatomic, strong) UIButton *bottomFrontButton;      // 切换前后摄像头
+@property (nonatomic, strong) UIButton *bottomDownButton;       // 下载按钮
+
 
 @end
 
@@ -25,19 +41,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navigationItem.title = @"拍照";
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    // 创建控件
-    [self creatControl];
+    [self setupAttributes];
+    [self setupSubViews];
+    // 初始化信息
+    [self initCamera];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = NO;
-    //初始化信息
-    [self initPhotoInfo];
+- (void)setupAttributes {
+    self.navigationItem.title = @"拍照";
+    self.view.backgroundColor = kWhiteColor;
+    [self.headerBackButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomFrontButton addTarget:self action:@selector(cameraSwitchBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomScanButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerReplyButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomLightButton addTarget:self action:@selector(light:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomDownButton addTarget:self action:@selector(download:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupSubViews {
+    [self.view addSubview:self.headerView];
+    [self.headerView addSubview:self.headerBackButton];
+    [self.headerView addSubview:self.headerReplyButton];
+    
+    [self.view addSubview:self.middleContentView];
+    [self.view addSubview:self.middleImageView];
+    [self.middleContentView addSubview:self.middleFocusCursor];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView addSubview:self.bottomLightButton];
+    [self.bottomView addSubview:self.bottomScanButton];
+    [self.bottomView addSubview:self.bottomFrontButton];
+    [self.bottomView addSubview:self.bottomDownButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -50,68 +84,7 @@
     [self.captureSession stopRunning];
 }
 
-- (void)creatControl {
-    CGFloat btnW = 150.f;
-    CGFloat btnH = 40.f;
-    CGFloat marginY = 20.f;
-    CGFloat w = [UIScreen mainScreen].bounds.size.width;
-    CGFloat h = [UIScreen mainScreen].bounds.size.height;
-
-    // 内容视图
-    CGFloat containerViewH = h - 64 - btnH - marginY * 3;
-    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(10, 64 + marginY, w - 20, containerViewH)];
-    containerView.backgroundColor = [UIColor whiteColor];
-    containerView.layer.borderWidth = 1.f;
-    containerView.layer.borderColor = [[UIColor grayColor] CGColor];
-    [self.view addSubview:containerView];
-    _containerView = containerView;
-    
-    // 摄像头切换按钮
-    CGFloat cameraSwitchBtnW = 50.f;
-    CGFloat cameraSwitchBtnMargin = 10.f;
-    UIButton *cameraSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(containerView.bounds.size.width - cameraSwitchBtnW - cameraSwitchBtnMargin, 64 + marginY + cameraSwitchBtnMargin, cameraSwitchBtnW, cameraSwitchBtnW)];
-    [cameraSwitchBtn setImage:[UIImage imageNamed:@"camera_switch"] forState:UIControlStateNormal];
-    [cameraSwitchBtn addTarget:self action:@selector(cameraSwitchBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cameraSwitchBtn];
-    
-    // 聚焦图片
-    UIImageView *focusCursor = [[UIImageView alloc] initWithFrame:CGRectMake(50, 50, 75, 75)];
-    focusCursor.alpha = 0;
-    focusCursor.image = [UIImage imageNamed:@"camera_focus_red"];
-    [containerView addSubview:focusCursor];
-    _focusCursor = focusCursor;
-    
-    // 拍摄照片容器
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:containerView.frame];
-    imgView.hidden = YES;
-    imgView.layer.borderWidth = 1.f;
-    imgView.layer.borderColor = [[UIColor grayColor] CGColor];
-    imgView.contentMode = UIViewContentModeScaleAspectFill;
-    imgView.clipsToBounds = YES;
-    [self.view addSubview:imgView];
-    _imgView = imgView;
-    
-    // 按钮
-    NSArray *titleArray = @[@"拍摄照片", @"重新拍摄"];
-    CGFloat btnY = CGRectGetMaxY(containerView.frame) + marginY;
-    CGFloat margin = (w - btnW * titleArray.count) / (titleArray.count + 1);
-    for (int i = 0; i < titleArray.count; i++) {
-        CGFloat btnX = margin + (margin + btnW) * i;
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
-        btn.tag = 1000 + i;
-        [btn setTitle:titleArray[i] forState:UIControlStateNormal];
-        btn.backgroundColor = [UIColor orangeColor];
-        btn.layer.cornerRadius = 2.0f;
-        btn.layer.masksToBounds = YES;
-        if (i == 1) {
-            btn.hidden = YES;
-        }
-        [btn addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
-}
-
-- (void)initPhotoInfo {
+- (void)initCamera {
     // 初始化会话
     _captureSession = [[AVCaptureSession alloc] init];
     
@@ -126,6 +99,7 @@
         NSLog(@"取得后置摄像头时出现问题");
         return;
     }
+    self.captureDevice = captureDevice;
     
     NSError *error = nil;
     // 根据输入设备初始化设备输入对象，用于获得输入数据
@@ -138,7 +112,7 @@
     // 初始化设备输出对象，用于获得输出数据
     _captureStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
     NSDictionary *outputSettings = @{AVVideoCodecKey:AVVideoCodecJPEG};
-    //输出设置
+    // 输出设置
     [_captureStillImageOutput setOutputSettings:outputSettings];
     
     // 将设备输入添加到会话中
@@ -158,14 +132,14 @@
     AVCaptureConnection *captureConnection = [self.captureVideoPreviewLayer connection];
     captureConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
     
-    CALayer *layer = _containerView.layer;
+    CALayer *layer = self.middleContentView.layer;
     layer.masksToBounds = YES;
     
     _captureVideoPreviewLayer.frame = layer.bounds;
     // 填充模式
     _captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    //将视频预览层添加到界面中
-    [layer insertSublayer:_captureVideoPreviewLayer below:self.focusCursor.layer];
+    // 将视频预览层添加到界面中
+    [layer insertSublayer:_captureVideoPreviewLayer below:self.middleFocusCursor.layer];
     
     [self addNotificationToCaptureDevice:captureDevice];
     [self addGenstureRecognizer];
@@ -193,8 +167,12 @@
         if (imageDataSampleBuffer) {
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
             UIImage *image = [UIImage imageWithData:imageData];
-            _imgView.image = image;
-            _imgView.hidden = NO;
+            self.middleImageView.image = image;
+            
+            self.middleImageView.hidden =
+            self.bottomDownButton.hidden =
+            self.headerReplyButton.hidden =
+            self.torchOn = NO;
         }
     }];
     
@@ -204,15 +182,14 @@
 
 // 重新拍摄
 - (void)resetPhoto {
-    _imgView.hidden = YES;
-    UIButton *btn = (UIButton *)[self.view viewWithTag:1001];
-    btn.hidden = YES;
+    self.middleImageView.hidden =
+    self.bottomDownButton.hidden =
+    self.headerReplyButton.hidden = YES;
 }
 
 #pragma mark - 通知
 // 给输入设备添加通知
-- (void)addNotificationToCaptureDevice:(AVCaptureDevice *)captureDevice
-{
+- (void)addNotificationToCaptureDevice:(AVCaptureDevice *)captureDevice {
     // 注意添加区域改变捕获通知必须首先设置设备允许捕获
     [self changeDeviceProperty:^(AVCaptureDevice *captureDevice) {
         captureDevice.subjectAreaChangeMonitoringEnabled = YES;
@@ -226,7 +203,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:captureDevice];
 }
 
-//移除所有通知
+// 移除所有通知
 - (void)removeNotification {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -259,8 +236,53 @@
     return nil;
 }
 
+#pragma mark - Target Action
+
+- (void)back:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)light:(UIButton *)sender {
+    self.torchOn = !self.torchOn;
+}
+
+- (void)download:(UIButton *)sender {
+    // 保存到相册
+    UIImageWriteToSavedPhotosAlbum(self.middleImageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+#pragma mark - Save Image
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    NSString *message = error ? @"保存图片失败" : @"保存图片成功";
+    [self resetPhoto];
+    [CMPMCommomTool showTextWithTitle:message inView:self.view animation:YES];
+}
+
+- (void)setTorchOn:(BOOL)torchOn {
+    // 如果是前置摄像头，就直接不起作用
+    AVCaptureDevicePosition position = [[self.captureDeviceInput device] position];
+    if (position == AVCaptureDevicePositionFront) {
+        self.bottomLightButton.selected = _torchOn = NO;
+        return;
+    }
+    _torchOn = torchOn;
+    AVCaptureDevice *device = self.captureDevice;
+    if ([device hasTorch] && [device hasFlash]) {
+        [device lockForConfiguration:nil];
+        if (torchOn) {
+            [device setTorchMode:AVCaptureTorchModeOn];
+        } else {
+            [device setTorchMode:AVCaptureTorchModeOff];
+        }
+        self.bottomLightButton.selected = torchOn;
+        [device unlockForConfiguration];
+    }
+}
+
 #pragma mark 切换前后摄像头
 - (void)cameraSwitchBtnOnClick {
+    self.torchOn = NO;
     AVCaptureDevice *currentDevice = [self.captureDeviceInput device];
     AVCaptureDevicePosition currentPosition = [currentDevice position];
     [self removeNotificationFromCaptureDevice:currentDevice];
@@ -349,11 +371,11 @@
 
 // 添加点按手势，点按时聚焦
 - (void)addGenstureRecognizer {
-    [self.containerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreen:)]];
+    [self.middleContentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreen:)]];
 }
 
 - (void)tapScreen:(UITapGestureRecognizer *)tapGesture {
-    CGPoint point = [tapGesture locationInView:self.containerView];
+    CGPoint point = [tapGesture locationInView:self.middleContentView];
     // 将UI坐标转化为摄像头坐标
     CGPoint cameraPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:point];
     [self setFocusCursorWithPoint:point];
@@ -362,18 +384,149 @@
 
 // 设置聚焦光标位置
 - (void)setFocusCursorWithPoint:(CGPoint)point {
-    self.focusCursor.center = point;
-    self.focusCursor.transform = CGAffineTransformMakeScale(1.5, 1.5);
-    self.focusCursor.alpha = 1.0;
-    [UIView animateWithDuration:1.0 animations:^{
-        self.focusCursor.transform = CGAffineTransformIdentity;
+    if (self.animating) {
+        return;
+    }
+    self.animating = YES;
+    self.middleFocusCursor.center = point;
+    self.middleFocusCursor.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    self.middleFocusCursor.alpha = 1.0;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.middleFocusCursor.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
-        self.focusCursor.alpha = 0;
+        self.middleFocusCursor.alpha = 0;
+        self.animating = NO;
     }];
 }
 
 - (void)dealloc {
     [self removeNotification];
+}
+
+#pragma mark - Lazy Init
+- (UIView *)headerView {
+    if (!_headerView) {
+        _headerView = [[UIView alloc] init];
+        _headerView.frame = CGRectMake(0, 0, kScreenWidth, kTopHeight);
+        _headerView.backgroundColor = kRGBA(69, 74, 73, 1);
+    }
+    return _headerView;
+}
+- (UIButton *)headerBackButton {
+    if (!_headerBackButton) {
+        _headerBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _headerBackButton.frame = CGRectMake(12, kStatusBarHeight+(kTopHeight - kStatusBarHeight - 35)/2, 50, 35);
+        [_headerBackButton setTitle:(@"返回") forState:UIControlStateNormal];
+        [_headerBackButton setTitle:(@"返回") forState:UIControlStateHighlighted];
+        [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateHighlighted];
+        [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateNormal];
+    }
+    return _headerBackButton;
+}
+
+- (UIButton *)headerReplyButton {
+    if (!_headerReplyButton) {
+        _headerReplyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _headerReplyButton.frame = CGRectMake(kScreenWidth - 62, kStatusBarHeight+(kTopHeight - kStatusBarHeight - 35)/2, 50, 35);
+        _headerReplyButton.tag = 1001;
+        _headerReplyButton.hidden = YES;
+        [_headerReplyButton setTitle:(@"重拍") forState:UIControlStateNormal];
+        [_headerReplyButton setTitle:(@"重拍") forState:UIControlStateHighlighted];
+        [_headerReplyButton setTitleColor:kWhiteColor forState:UIControlStateHighlighted];
+        [_headerReplyButton setTitleColor:kWhiteColor forState:UIControlStateNormal];
+    }
+    return _headerReplyButton;
+}
+- (UIView *)middleContentView {
+    if (!_middleContentView) {
+        _middleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, kTopHeight, kScreenWidth, kScreenHeight - kTopHeight - kBottomHeight - 100)];
+        _middleContentView.backgroundColor = kWhiteColor;
+    }
+    return _middleContentView;
+}
+- (UIImageView *)middleFocusCursor {
+    if (!_middleFocusCursor) {
+        _middleFocusCursor = [[UIImageView alloc] initWithFrame:CGRectMake(50, 50, 40, 40)];
+        _middleFocusCursor.alpha = 0;
+        _middleFocusCursor.image = [UIImage imageNamed:@"camera_focus"];
+    }
+    return _middleFocusCursor;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.frame = CGRectMake(0, kScreenHeight - kBottomHeight - 100, kScreenWidth, kBottomHeight + 100);
+        _bottomView.backgroundColor = kRGBA(69, 74, 73, 1);
+    }
+    return _bottomView;
+}
+
+- (UIButton *)bottomLightButton {
+    if (!_bottomLightButton) {
+        _bottomLightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bottomLightButton.frame = CGRectMake(16, 35, 40, 40);
+        [_bottomLightButton setImage:ImageName(@"camera_light_n") forState:UIControlStateNormal];
+        [_bottomLightButton setImage:ImageName(@"camera_light_h") forState:UIControlStateHighlighted];
+        [_bottomLightButton setImage:ImageName(@"camera_light_h") forState:UIControlStateSelected];
+    }
+    return _bottomLightButton;
+}
+
+- (UIButton *)bottomScanButton {
+    if (!_bottomScanButton) {
+        _bottomScanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bottomScanButton.layer.cornerRadius = 33;
+        _bottomScanButton.layer.masksToBounds = YES;
+        _bottomScanButton.layer.borderWidth = 0.5;
+        _bottomScanButton.layer.borderColor = kWhiteColor.CGColor;
+        _bottomScanButton.backgroundColor = kClearColor;
+        _bottomScanButton.frame = CGRectMake(kScreenWidth/2 - 33, 17, 66, 66);
+        _bottomScanButton.tag = 1000;
+        CALayer *smaLayer = [CALayer layer];
+        smaLayer.frame = CGRectMake(6, 6, 54, 54);
+        smaLayer.cornerRadius = 27;
+        smaLayer.backgroundColor = kWhiteColor.CGColor;
+        
+        [_bottomScanButton.layer addSublayer:smaLayer];
+    }
+    return _bottomScanButton;
+}
+
+- (UIButton *)bottomFrontButton {
+    if (!_bottomFrontButton) {
+        _bottomFrontButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bottomFrontButton.frame = CGRectMake(kScreenWidth - 56, 30, 40, 40);
+        [_bottomFrontButton setImage:ImageName(@"front_cammer") forState:UIControlStateNormal];
+        [_bottomFrontButton setImage:ImageName(@"front_cammer") forState:UIControlStateHighlighted];
+    }
+    return _bottomFrontButton;
+}
+
+- (UIImageView *)middleImageView {
+    if (!_middleImageView) {
+        _middleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kTopHeight, kScreenWidth, kScreenHeight - kTopHeight - kBottomHeight - 100)];
+        _middleImageView.layer.borderColor = kWhiteColor.CGColor;
+        _middleImageView.layer.cornerRadius = 1;
+        _middleImageView.layer.masksToBounds = YES;
+        _middleImageView.layer.borderWidth = 1.5;
+        _middleImageView.hidden = YES;
+        _middleImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _middleImageView.clipsToBounds = YES;
+    }
+    return _middleImageView;
+}
+- (UIButton *)bottomDownButton {
+    if (!_bottomDownButton) {
+        _bottomDownButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bottomDownButton.backgroundColor = kWhiteColor;
+        _bottomDownButton.layer.cornerRadius = 33;
+        _bottomDownButton.hidden = YES;
+        _bottomDownButton.frame = CGRectMake(kScreenWidth/2 - 33, 17, 66, 66);
+        [_bottomDownButton setImage:ImageName(@"camera_down") forState:UIControlStateNormal];
+        [_bottomDownButton setImage:ImageName(@"camera_down") forState:UIControlStateHighlighted];
+    }
+    return _bottomDownButton;
 }
 
 @end

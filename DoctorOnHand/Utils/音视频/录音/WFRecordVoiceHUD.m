@@ -30,8 +30,6 @@ static NSInteger const maxRecordTime = 60;
 @property (nonatomic, assign) NSInteger recordTime;
 ///
 @property (nonatomic, weak) UIView *containView;
-/// 居中的图片
-@property (nonatomic, weak) UIImageView *centerImageView;
 /// 描述
 @property (nonatomic, weak) UILabel *describeLabel;
 /// 倒计时
@@ -44,6 +42,8 @@ static NSInteger const maxRecordTime = 60;
 @property (nonatomic, strong) dispatch_source_t timer;
 /// 渐变图层
 @property (nonatomic, weak) CAGradientLayer *gradientLayer;
+
+@property (nonatomic, weak) UIView *superView;
 
 @end
 
@@ -101,15 +101,15 @@ static WFRecordVoiceHUD *_hud = nil;
     self.durationTime = time;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    //创建一个定时器
+    // 创建一个定时器
     self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    //设置开始时间
+    // 设置开始时间
     dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC));
-    //设置时间间隔
+    // 设置时间间隔
     uint64_t interval = (uint64_t)(0.1* NSEC_PER_SEC);
-    //设置定时器
+    // 设置定时器
     dispatch_source_set_timer(self.timer, start, interval, 0.0 * NSEC_PER_SEC);
-    //设置回调
+    // 设置回调
     dispatch_source_set_event_handler(self.timer, ^{
         
         self.durationTime -= 0.1;
@@ -134,7 +134,7 @@ static WFRecordVoiceHUD *_hud = nil;
 
 - (void)setView {
     UIView *containView = [[UIView alloc] init];
-    containView.backgroundColor = kRGBColorHEX(0x7C8B8C);
+    containView.backgroundColor = kWhiteColor;
     [self addSubview:containView];
     self.containView = containView;
     
@@ -168,6 +168,7 @@ static WFRecordVoiceHUD *_hud = nil;
     [levelContentView addSubview:timeL];
     _timeLabel = timeL;
     
+    // 复制图层，将展示的图层旋转180度复制一份。就有了对称的两条振幅
     CAReplicatorLayer *repL = [CAReplicatorLayer layer];
     repL.instanceCount = 2;
     repL.instanceTransform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
@@ -175,16 +176,11 @@ static WFRecordVoiceHUD *_hud = nil;
     _replicatorL = repL;
     
     CAShapeLayer *layer = [CAShapeLayer layer];
-    layer.strokeColor = kBlackColor.CGColor;
+    layer.strokeColor = kRGBA(51, 51, 51, 1).CGColor;
     layer.lineWidth = levelWidth;
     [repL addSublayer:layer];
     _levelLayer = layer;
-    
-    UIImageView *centerImageView = [[UIImageView alloc] init];
-    centerImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [containView addSubview:centerImageView];
-    self.centerImageView = centerImageView;
-    
+        
     UILabel *describeLabel = [[UILabel alloc] init];
     describeLabel.textAlignment = NSTextAlignmentCenter;
     describeLabel.font = SystemFont(12);
@@ -201,7 +197,6 @@ static WFRecordVoiceHUD *_hud = nil;
         _hud.levelContentView.hidden = NO;
         _hud.gradientLayer.hidden = YES;
         _hud.countDownLabel.hidden = YES;
-        _hud.centerImageView.hidden = YES;
         
         [self beginRecord];
         
@@ -211,7 +206,6 @@ static WFRecordVoiceHUD *_hud = nil;
         
         _hud.describeLabel.text = @"松开发送，上滑取消";
         _hud.gradientLayer.hidden = YES;
-        _hud.centerImageView.hidden = YES;
         
         if (maxRecordTime - _hud.recordTime <= 6) {
             _hud.levelContentView.hidden = YES;
@@ -222,29 +216,22 @@ static WFRecordVoiceHUD *_hud = nil;
         }
         
     } else if (type == WFRecordVoiceHUDTypeReleaseToCancle) {//松开取消
-        _hud.centerImageView.hidden = NO;
         _hud.countDownLabel.hidden = YES;
         _hud.levelContentView.hidden = YES;
         _hud.gradientLayer.hidden = NO;
-        _hud.centerImageView.image = [UIImage imageNamed:@"audio_record_cancel"];
         _hud.describeLabel.text = @"松开手指，取消发送";
         
         
     } else if (type == WFRecordVoiceHUDTypeAudioTooShort) {//录制太短了
-        _hud.centerImageView.hidden = NO;
         _hud.countDownLabel.hidden = YES;
         _hud.levelContentView.hidden = YES;
-        _hud.centerImageView.image = [UIImage imageNamed:@"audio_record_warning"];
-        _hud.describeLabel.text = @"说话时间太短";
         [_hud removeHudWithTime:0.5];
         
         _hud.gradientLayer.hidden = YES;
     } else if (type == WFRecordVoiceHUDTypeAudioTooLong) {//录制太长了
-        _hud.centerImageView.hidden = NO;
         _hud.countDownLabel.hidden = YES;
         _hud.levelContentView.hidden = YES;
         _hud.describeLabel.text = @"说话时间太长";
-        _hud.centerImageView.image = [UIImage imageNamed:@"audio_record_warning"];
         
         [self setType:WFRecordVoiceHUDTypeEndRecord];
         
@@ -254,7 +241,6 @@ static WFRecordVoiceHUD *_hud = nil;
         
     } else if (type == WFRecordVoiceHUDTypeEndRecord) {//录制完成
         
-        _hud.centerImageView.hidden = YES;
         if (_hud != nil) {
             [_hud removeHudWithTime:0.2];
         }
@@ -299,6 +285,7 @@ static WFRecordVoiceHUD *_hud = nil;
 
 - (void)startMeterTimer {
     [self stopMeterTimer];
+    // 定时获取分贝大小
     self.levelTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateMeter)];
     
     if (@available(iOS 10.0, *)) {
@@ -323,6 +310,7 @@ static WFRecordVoiceHUD *_hud = nil;
     
 }
 
+// 定时获取分贝大小
 - (void)updateMeter {
     CGFloat level = [[WFRecordTool shareRecordTool] updateLevels];
     NSLog(@"%f",level);
@@ -333,6 +321,7 @@ static WFRecordVoiceHUD *_hud = nil;
     [self updateLevelLayer];
 }
 
+// 重绘bezierPath，重新展示
 - (void)updateLevelLayer {
     self.levelPath = [UIBezierPath bezierPath];
     
@@ -349,11 +338,10 @@ static WFRecordVoiceHUD *_hud = nil;
     self.levelLayer.path = _levelPath.CGPath;
 }
 
-
-- (void)showHUDWithType:(WFRecordVoiceHUDType)type {
+- (void)showHUDWithType:(WFRecordVoiceHUDType)type inView:(UIView *)superView {
     [self shareVoiceHudWithType:type];
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
-    
+    self.superView = superView;
+    [self.superView addSubview:self];
 }
 
 - (void)updateTimeWithRecordTime:(NSInteger)recordTime {
@@ -384,10 +372,10 @@ static WFRecordVoiceHUD *_hud = nil;
     [super layoutSubviews];
     
     CGFloat containViewW = (140);
-    CGFloat containViewH = (140);
-    CGFloat containViewX = (kScreenWidth - containViewW) * 0.5;
-    CGFloat containViewY = (kScreenHeight - containViewH) * 0.5;
-    CGRect containViewF = CGRectMake(containViewX, containViewY, containViewW, containViewH);
+    CGFloat containViewH = (60);
+    CGFloat containViewX = (self.superView.mj_w - containViewW) * 0.5;
+    CGFloat containViewY = (self.superView.mj_h - containViewH) * 0.5;
+    CGRect containViewF = CGRectMake(containViewX, 0, containViewW, containViewH);
     self.containView.frame = containViewF;
     [self.containView cornerAllCornersWithCornerRadius:(5)];
     
@@ -404,15 +392,7 @@ static WFRecordVoiceHUD *_hud = nil;
     
     
     self.levelLayer.frame = CGRectMake(self.timeLabel.mj_x + self.timeLabel.mj_w, 0, self.levelContentView.mj_w / 2.0 - self.timeLabel.mj_w *0.5, self.levelContentView.mj_h);
-    
-    CGFloat centerImageViewY = (32);
-    CGFloat centerImageViewW = (57);
-    CGFloat centerImageViewH = (57);
-    CGFloat centerImageViewX = (self.containView.mj_w - centerImageViewW) * 0.5;
-    CGRect centerImageViewF = CGRectMake(centerImageViewX, centerImageViewY, centerImageViewW, centerImageViewH);
-    self.centerImageView.frame = centerImageViewF;
-    
-    
+        
     CGFloat describeLabelX = 0;
     CGFloat describeLabelY = (119);
     CGFloat describeLabelW = self.containView.mj_w;

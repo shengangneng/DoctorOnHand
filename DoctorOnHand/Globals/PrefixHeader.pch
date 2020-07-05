@@ -19,5 +19,6 @@
 #import <AFNetworking.h>
 #import <MJExtension.h>
 #import "AppDelegate.h"
+#import <MBProgressHUD.h>
 
 #endif /* PrefixHeader_pch */

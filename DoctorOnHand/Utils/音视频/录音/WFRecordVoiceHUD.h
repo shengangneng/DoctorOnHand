@@ -9,17 +9,17 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, WFRecordVoiceHUDType) {
-    ///开始录制
+    /// 开始录制
     WFRecordVoiceHUDTypeBeginRecord,
-    ///正在录制
+    /// 正在录制
     WFRecordVoiceHUDTypeRecording,
-    ///松开取消
+    /// 松开取消
     WFRecordVoiceHUDTypeReleaseToCancle,
-    ///音频太短
+    /// 音频太短
     WFRecordVoiceHUDTypeAudioTooShort,
-    ///音频太长
+    /// 音频太长
     WFRecordVoiceHUDTypeAudioTooLong,
-    ///结束
+    /// 结束
     WFRecordVoiceHUDTypeEndRecord,
 };
 
@@ -27,9 +27,9 @@ typedef NS_ENUM(NSInteger, WFRecordVoiceHUDType) {
 
 
 + (instancetype)shareInstance;
-///刷新视图
-- (void)showHUDWithType:(WFRecordVoiceHUDType)type;
-///时间太长自动发送
+/// 刷新视图
+- (void)showHUDWithType:(WFRecordVoiceHUDType)type inView:(UIView *)superView;
+/// 时间太长自动发送
 @property (nonatomic, copy) void (^longTimeHandler)(void);
 
 @end

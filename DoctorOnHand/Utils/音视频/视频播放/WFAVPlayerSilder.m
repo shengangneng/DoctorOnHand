@@ -59,6 +59,12 @@
 
 - (void)setBufferValue:(float)bufferValue {
     _bufferValue = bufferValue;
+    // TODO：会闪退
+    /* Terminating app due to uncaught exception 'CALayerInvalidGeometry', reason: 'CALayer position contains NaN: [nan 5.5]'
+    *** First throw call stack:
+    (0x1c857eab8 0x1c7783d00 0x1c84842f4 0x1ccb628fc 0x1ccb62848 0x1ccb6220c 0x1f5e3d5e8 0x103022f00 0x102fe8ea8 0x102fe870c 0x1c8fe2284 0x1c8fe46c4 0x1c8fe1b04 0x1ce61c270 0x10331b1fc 0x10331c77c 0x10332a158 0x1c850e734 0x1c85093e4 0x1c8508964 0x1ca749d8c 0x1f59a5758 0x10300cdfc 0x1c7fc4fd8)
+    libc++abi.dylib: terminating with uncaught exception of type NSException
+     */
     self.bufferView.frame = CGRectMake(0, (SlipW - SilderH) / 2, self.frame.size.width * (bufferValue / 1.0), CGRectGetHeight(self.bufferView.frame));
 }
 

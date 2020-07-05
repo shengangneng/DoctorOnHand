@@ -101,7 +101,6 @@
 #pragma mark - 长按录制音频
 - (void)longPress:(UILongPressGestureRecognizer *)gr {
     
-#warning---如果按钮是放在类似微信键盘上，这里的view使用button的superview self.superview
     CGPoint point = [gr locationInView:self.recordBt];
     [WFRecordVoiceHUD shareInstance].longTimeHandler = ^{//超过最长时间还在长按，主动让手势不可用
         gr.enabled = NO;
@@ -114,22 +113,21 @@
         
         /// 开始录音
         [[WFRecordTool shareRecordTool] beginRecordWithRecordPath:audioLocalPath];
-        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord];
+        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord inView:self.recordView];
         
     } else if (gr.state == UIGestureRecognizerStateChanged) {//长按改变位置
         
-        #warning---如果按钮是放在类似微信键盘上，这里的view使用button的superview的height self.superview.height
         if (point.y < 0 || point.y > self.recordBt.mj_h) {//超出范围提示松开手指取消发送
             DLog(@"---松开取消");
-            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeReleaseToCancle];
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeReleaseToCancle inView:self.recordView];
             
         } else {//在范围内，提示上滑取消发送
             DLog(@"---松开结束");
-            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeRecording];
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeRecording inView:self.recordView];
         }
         
     } else if (gr.state == UIGestureRecognizerStateEnded) {//松开手指
-        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeEndRecord];
+        [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeEndRecord inView:self.recordView];
         [self cancelOrEndRecordWithPoint:point];
         
     } else if (gr.state == UIGestureRecognizerStateCancelled) {//手势不可用走
@@ -148,8 +146,7 @@
     
     [[WFRecordTool shareRecordTool] endRecord]; // 结束录音
    
-#warning---如果按钮是放在类似微信键盘上，这里的view使用button的superview的height self.superview.height
-    if (point.y < 0 || point.y > self.recordBt.mj_h) {//超出范围不发送
+    if (point.y < 0 || point.y > self.recordBt.mj_h) {  // 超出范围不发送
         
         [[WFRecordTool shareRecordTool] deleteRecord];
         

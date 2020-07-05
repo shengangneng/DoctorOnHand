@@ -32,12 +32,18 @@
     [self loadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 - (void)loadView {
     [super loadView];
+    self.navigationItem.title = @"文件查看";
     self.view.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.1];
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -85,9 +91,7 @@
             cacheVC.cacheTitle = title;
             cacheVC.cacheArray = (NSMutableArray *)files;
             [weakSelf.navigationController pushViewController:cacheVC animated:YES];
-        }
-        else
-        {
+        } else {
             [weakSelf.fileReader fileReadWithFilePath:path target:weakSelf];
         }
     };

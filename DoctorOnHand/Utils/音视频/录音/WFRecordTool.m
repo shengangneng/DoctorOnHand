@@ -121,6 +121,7 @@ static WFRecordTool *instance;
     [self.audioRecorder deleteRecording];
 }
 
+// 获取分贝大小（-160dB -- 0dB ，我们把它转换成0 - 1）
 - (float)updateLevels {
     [self.audioRecorder updateMeters];
     
