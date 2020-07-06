@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "sign_next_step.png",
       "scale" : "1x"
     },
     {

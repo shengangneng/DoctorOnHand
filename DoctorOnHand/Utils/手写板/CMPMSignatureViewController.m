@@ -11,9 +11,11 @@
 #import "UIButton+CMPMExtension.h"
 #import "UIViewController+CMPMExtention.h"
 #import "CMPMCommomTool.h"
+#import "WFColorTableViewCell.h"
+#import "WFWidthTableViewCell.h"
 
-#define kITEM_W     32
-#define kITEM_W2    24
+#define kITEM_W     64
+#define kITEM_W2    48
 #define kMARGIN     20
 #define kNOR_PEN_TAG    666
 #define kSTE_PEN_TAG    777
@@ -22,11 +24,6 @@
 
 @property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
 @property (nonatomic, strong) CMPMSignatureView *signatureView; /// 手写板
-
-@property (nonatomic, strong) UIButton *colorButton1;       /** 红 */
-@property (nonatomic, strong) UIButton *colorButton2;       /** 黄 */
-@property (nonatomic, strong) UIButton *colorButton3;       /** 蓝 */
-@property (nonatomic, strong) UIButton *colorButton4;       /** 黑 */
 
 @property (nonatomic, strong) UIButton *backBt;             /// 返回
 @property (nonatomic, strong) UIButton *colorBarBt;         /// 调色盘
@@ -39,6 +36,8 @@
 
 @property (nonatomic, strong) UITableView *colorTableView;  /// 选择颜色值
 @property (nonatomic, strong) UITableView *widthTableView;  /// 选择宽度值
+@property (nonatomic, copy) NSArray *colorsArray;           /// 颜色值数组
+@property (nonatomic, copy) NSArray *widthsArray;           /// 宽度数组
 
 @end
 
@@ -47,10 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.colorButton1 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
-    [self.colorButton2 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
-    [self.colorButton3 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
-    [self.colorButton4 addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
+    self.colorsArray = @[kRGBA(255, 0, 0, 1),kRGBA(22, 120, 255, 1),kRGBA(248, 231, 28, 1),kRGBA(126, 221, 33, 1),kRGBA(0, 0, 0, 1),kRGBA(255, 255, 255, 1)];
+    self.widthsArray = @[@6,@10,@16,@24];
+    
     [self.backBt addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [self.saveToAlbumBt addTarget:self action:@selector(saveImage:) forControlEvents:UIControlEventTouchUpInside];
     [self.colorBarBt addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
@@ -73,14 +71,11 @@
     [self.view addSubview:self.clearAllBt];
     [self.view addSubview:self.lastStepBt];
     [self.view addSubview:self.nextStepBt];
-    
-    [self.view addSubview:self.colorButton1];
-    [self.view addSubview:self.colorButton2];
-    [self.view addSubview:self.colorButton3];
-    [self.view addSubview:self.colorButton4];
+    [self.view addSubview:self.colorTableView];
+    [self.view addSubview:self.widthTableView];
     
     [self.saveToAlbumBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@32);
+        make.width.height.equalTo(@(kITEM_W));
         make.trailing.equalTo(self.view.mas_trailing).offset(-kMARGIN);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kMARGIN);
     }];
@@ -127,6 +122,18 @@
         make.leading.equalTo(self.view.mas_leading).offset(28);
         make.width.height.equalTo(@(kITEM_W2));
         make.top.equalTo(self.lastStepBt.mas_bottom).offset(kMARGIN);
+    }];
+    [self.colorTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@54);
+        make.height.equalTo(@324);
+        make.top.equalTo(self.colorBarBt.mas_top).offset(-15);
+        make.leading.equalTo(self.colorBarBt.mas_trailing).offset(50);
+    }];
+    [self.widthTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@56);
+        make.height.equalTo(@224);
+        make.top.equalTo(self.colorBarBt.mas_top).offset(-25);
+        make.leading.equalTo(self.colorTableView.mas_trailing).offset(20);
     }];
     
 }
@@ -185,14 +192,45 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    if (tableView == self.colorTableView) {
+        return self.colorsArray.count;
+    } else {
+        return self.widthsArray.count;
+    }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.colorTableView) {
+        return 54;
+    } else {
+        return 56;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    if (tableView == self.colorTableView) {
+        static NSString *identifier = @"ColorCell";
+        WFColorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!cell) {
+            cell = [[WFColorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        cell.color = self.colorsArray[indexPath.row];
+        return cell;
+    } else {
+        static NSString *identifier = @"WidthCell";
+        WFWidthTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!cell) {
+            cell = [[WFWidthTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        cell.width = [self.widthsArray[indexPath.row] floatValue];
+        return cell;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self changeColor:nil];
 }
 
 #pragma mark - Lazy Init
@@ -222,7 +260,7 @@
 }
 - (UIButton *)colorBarBt {
     if (!_colorBarBt) {
-        _colorBarBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_color_bar") selectImage:ImageName(@"sign_color_bar")];
+        _colorBarBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_color_bar") selectImage:ImageName(@"sign_color_bar_h")];
         _colorBarBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _colorBarBt.layer.cornerRadius = kITEM_W / 2;
     }
@@ -230,7 +268,7 @@
 }
 - (UIButton *)steelPenBt {
     if (!_steelPenBt) {
-        _steelPenBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_steel_pen") selectImage:ImageName(@"sign_steel_pen")];
+        _steelPenBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_steel_pen") selectImage:ImageName(@"sign_steel_pen_h")];
         _steelPenBt.tag = kSTE_PEN_TAG;
         _steelPenBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _steelPenBt.layer.cornerRadius = kITEM_W / 2;
@@ -239,7 +277,7 @@
 }
 - (UIButton *)nomalPenBt {
     if (!_nomalPenBt) {
-        _nomalPenBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_nor_pen") selectImage:ImageName(@"sign_nor_pen")];
+        _nomalPenBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_nor_pen") selectImage:ImageName(@"sign_nor_pen_h")];
         _nomalPenBt.tag = kNOR_PEN_TAG;
         _nomalPenBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _nomalPenBt.layer.cornerRadius = kITEM_W / 2;
@@ -248,7 +286,7 @@
 }
 - (UIButton *)eraserBt {
     if (!_eraserBt) {
-        _eraserBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_ear") selectImage:ImageName(@"sign_ear")];
+        _eraserBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_ear") selectImage:ImageName(@"sign_ear_h")];
         _eraserBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _eraserBt.layer.cornerRadius = kITEM_W / 2;
     }
@@ -256,7 +294,7 @@
 }
 - (UIButton *)clearAllBt {
     if (!_clearAllBt) {
-        _clearAllBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_clear_all") selectImage:ImageName(@"sign_clear_all")];
+        _clearAllBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_clear_all") selectImage:ImageName(@"sign_clear_all_h")];
         _clearAllBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _clearAllBt.layer.cornerRadius = kITEM_W / 2;
     }
@@ -278,39 +316,12 @@
     }
     return _nextStepBt;
 }
-
-- (UIButton *)colorButton1 {
-    if (!_colorButton1) {
-        _colorButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _colorButton1.backgroundColor = kRedColor;
-    }
-    return _colorButton1;
-}
-- (UIButton *)colorButton2 {
-    if (!_colorButton2) {
-        _colorButton2 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _colorButton2.backgroundColor = kYellowColor;
-    }
-    return _colorButton2;
-}
-- (UIButton *)colorButton3 {
-    if (!_colorButton3) {
-        _colorButton3 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _colorButton3.backgroundColor = kBlueColor;
-    }
-    return _colorButton3;
-}
-- (UIButton *)colorButton4 {
-    if (!_colorButton4) {
-        _colorButton4 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _colorButton4.backgroundColor = kBlackColor;
-    }
-    return _colorButton4;
-}
 - (UITableView *)colorTableView {
     if (!_colorTableView) {
         _colorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _colorTableView.backgroundColor = kWhiteColor;
+        _colorTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _colorTableView.scrollEnabled = NO;
         _colorTableView.delegate = self;
         _colorTableView.dataSource = self;
         _colorTableView.tableFooterView = [[UIView alloc] init];
@@ -321,6 +332,8 @@
     if (!_widthTableView) {
         _widthTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _widthTableView.backgroundColor = kWhiteColor;
+        _widthTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _widthTableView.scrollEnabled = NO;
         _widthTableView.delegate = self;
         _widthTableView.dataSource = self;
         _widthTableView.tableFooterView = [[UIView alloc] init];

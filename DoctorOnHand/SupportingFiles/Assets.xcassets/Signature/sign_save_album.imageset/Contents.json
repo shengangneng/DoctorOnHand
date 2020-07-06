@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "sign_save_album.png",
       "scale" : "1x"
     },
     {

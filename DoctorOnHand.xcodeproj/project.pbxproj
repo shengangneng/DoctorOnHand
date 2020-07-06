@@ -17,6 +17,8 @@
 		DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */; };
 		DD1C7C0E24A78FB6004F7CEF /* WFSignatureLine.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */; };
 		DD1C7C1424B21073004F7CEF /* CMPMCommomTool.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1224B21073004F7CEF /* CMPMCommomTool.m */; };
+		DD1C7C1724B35CD1004F7CEF /* WFColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */; };
+		DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */; };
 		DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */; };
@@ -80,6 +82,10 @@
 		DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSignatureLine.m; sourceTree = "<group>"; };
 		DD1C7C1224B21073004F7CEF /* CMPMCommomTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMCommomTool.m; sourceTree = "<group>"; };
 		DD1C7C1324B21073004F7CEF /* CMPMCommomTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMCommomTool.h; sourceTree = "<group>"; };
+		DD1C7C1524B35CD1004F7CEF /* WFColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFColorTableViewCell.h; sourceTree = "<group>"; };
+		DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFColorTableViewCell.m; sourceTree = "<group>"; };
+		DD1C7C1824B360FB004F7CEF /* WFWidthTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFWidthTableViewCell.h; sourceTree = "<group>"; };
+		DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFWidthTableViewCell.m; sourceTree = "<group>"; };
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
@@ -303,6 +309,10 @@
 				DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */,
 				DD1C7C0C24A78FB6004F7CEF /* WFSignatureLine.h */,
 				DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */,
+				DD1C7C1524B35CD1004F7CEF /* WFColorTableViewCell.h */,
+				DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */,
+				DD1C7C1824B360FB004F7CEF /* WFWidthTableViewCell.h */,
+				DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */,
 			);
 			path = "手写板";
 			sourceTree = "<group>";
@@ -617,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD6C4D9F249BB400001C9344 /* NSCharacterSet+CMPMExtension.m in Sources */,
+				DD1C7C1724B35CD1004F7CEF /* WFColorTableViewCell.m in Sources */,
 				DD6C4DDF24A24170001C9344 /* WFRecordVoiceHUD.m in Sources */,
 				DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */,
 				DD1C7C0E24A78FB6004F7CEF /* WFSignatureLine.m in Sources */,
@@ -626,6 +637,7 @@
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
 				DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */,
 				DD6C4DE324A2421C001C9344 /* WFRecordTool.m in Sources */,
+				DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */,
 				DD6C4DE924A24675001C9344 /* WFFileManager.m in Sources */,
 				DD6C4DE024A24170001C9344 /* WFRecordVoiceButton.m in Sources */,
 				DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */,
