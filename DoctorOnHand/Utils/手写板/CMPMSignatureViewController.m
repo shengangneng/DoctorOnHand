@@ -10,6 +10,7 @@
 #import "CMPMSignatureView.h"
 #import "UIButton+CMPMExtension.h"
 #import "UIViewController+CMPMExtention.h"
+#import "CMPMCommomTool.h"
 
 #define kITEM_W     32
 #define kITEM_W2    24
@@ -17,7 +18,7 @@
 #define kNOR_PEN_TAG    666
 #define kSTE_PEN_TAG    777
 
-@interface CMPMSignatureViewController ()
+@interface CMPMSignatureViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
 @property (nonatomic, strong) CMPMSignatureView *signatureView; /// 手写板
@@ -35,6 +36,9 @@
 @property (nonatomic, strong) UIButton *clearAllBt;         /// 清空
 @property (nonatomic, strong) UIButton *lastStepBt;         /// 上一步
 @property (nonatomic, strong) UIButton *nextStepBt;         /// 下一步
+
+@property (nonatomic, strong) UITableView *colorTableView;  /// 选择颜色值
+@property (nonatomic, strong) UITableView *widthTableView;  /// 选择宽度值
 
 @end
 
@@ -143,12 +147,8 @@
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    NSString *msg = nil ;
-    if (error) {
-        msg = @"保存图片失败";
-    } else {
-        msg = @"保存图片成功";
-    }
+    NSString *message = error ? @"保存图片失败" : @"保存图片成功";
+    [CMPMCommomTool showTextWithTitle:message inView:self.view animation:YES];
 }
 
 - (void)changeColor:(UIButton *)sender {
@@ -179,6 +179,20 @@
 /// 清屏
 - (void)clear:(UIButton *)sender {
     [self.signatureView clearScreen];
+}
+
+#pragma mark - UITableViewDelegate && UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - Lazy Init
@@ -292,6 +306,26 @@
         _colorButton4.backgroundColor = kBlackColor;
     }
     return _colorButton4;
+}
+- (UITableView *)colorTableView {
+    if (!_colorTableView) {
+        _colorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _colorTableView.backgroundColor = kWhiteColor;
+        _colorTableView.delegate = self;
+        _colorTableView.dataSource = self;
+        _colorTableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _colorTableView;
+}
+- (UITableView *)widthTableView {
+    if (!_widthTableView) {
+        _widthTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _widthTableView.backgroundColor = kWhiteColor;
+        _widthTableView.delegate = self;
+        _widthTableView.dataSource = self;
+        _widthTableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _widthTableView;
 }
 
 @end
