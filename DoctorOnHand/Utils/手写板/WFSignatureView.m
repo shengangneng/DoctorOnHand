@@ -1,21 +1,24 @@
 //
-//  CMPMSignatureView.m
-//  CommunityMPM
+//  WFSignatureView.m
+//  DoctorOnHand
 //
-//  Created by shengangneng on 2019/4/23.
-//  Copyright © 2019年 jifenzhi. All rights reserved.
+//  Created by sgn on 2020/6/26.
+//  Copyright © 2020 shengangneng. All rights reserved.
 //
 
-#import "CMPMSignatureView.h"
+#import "WFSignatureView.h"
 #import "WFSignatureLine.h"
 
-// 最小/大宽度
+// 最小、大宽度
 #define kWIDTH_MIN 3
 #define kWIDTH_MAX 6
 
 #define kDelta  0.05
 
-@interface CMPMSignatureView ()
+#define kERASER_WIDTH 40
+#define KERASER_COLOR kWhiteColor
+
+@interface WFSignatureView ()
 
 // 点集合
 @property (nonatomic, copy) NSArray *points;
@@ -28,7 +31,7 @@
 
 @end
 
-@implementation CMPMSignatureView
+@implementation WFSignatureView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -50,11 +53,6 @@
         case LineTypeSteelPen: {
             self.lineColor = kBlackColor;
         }break;
-        case LineTypeEraser: {
-            self.lineWidth = 40;
-            self.lineColor = kWhiteColor;
-        }break;
-            
         default:
             break;
     }
@@ -83,10 +81,15 @@
     
     for (int i = 0; i < self.lineArray.count; i++) {
         WFSignatureLine *roop = self.lineArray[i];
-        if (LineTypeNomal == roop.lineType || LineTypeEraser == roop.lineType) {
+        if (LineTypeNomal == roop.lineType) {
             UIBezierPath *path = roop.path;
             path.lineWidth = roop.lineWidth;
             [roop.lineColor set];
+            [path stroke];
+        } else if (LineTypeEraser == roop.lineType) {
+            UIBezierPath *path = roop.path;
+            path.lineWidth = kERASER_WIDTH;
+            [KERASER_COLOR set];
             [path stroke];
         } else if (LineTypeSteelPen == roop.lineType) {
             for (int j = 0; j < roop.linesArray.count; j++) {
@@ -105,11 +108,18 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = touches.anyObject;
     CGPoint p = [touch locationInView:self];
-    if (self.lineType == LineTypeNomal || self.lineType == LineTypeEraser) {
+    if (self.lineType == LineTypeNomal) {
         self.tempSign = [[WFSignatureLine alloc] init];
         self.tempSign.path = [UIBezierPath bezierPath];
         self.tempSign.lineWidth = self.lineWidth;
         self.tempSign.lineColor = self.lineColor;
+        [self.tempSign.path moveToPoint:p];
+        [self.lineArray addObject:self.tempSign];
+    } else if (self.lineType == LineTypeEraser) {
+        self.tempSign = [[WFSignatureLine alloc] init];
+        self.tempSign.path = [UIBezierPath bezierPath];
+        self.tempSign.lineWidth = kERASER_WIDTH;
+        self.tempSign.lineColor = KERASER_COLOR;
         [self.tempSign.path moveToPoint:p];
         [self.lineArray addObject:self.tempSign];
     } else if (self.lineType == LineTypeSteelPen) {

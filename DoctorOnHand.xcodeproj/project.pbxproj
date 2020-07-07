@@ -20,8 +20,8 @@
 		DD1C7C1724B35CD1004F7CEF /* WFColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */; };
 		DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */; };
 		DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */; };
-		DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */; };
-		DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */; };
+		DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */; };
+		DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* WFSignatureView.m */; };
 		DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D79249BACD0001C9344 /* WFHomeViewController.m */; };
 		DD6C4D9B249BB400001C9344 /* UIViewController+CMPMExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D8D249BB3FF001C9344 /* UIViewController+CMPMExtention.m */; };
 		DD6C4D9C249BB400001C9344 /* UIButton+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D8E249BB3FF001C9344 /* UIButton+CMPMExtension.m */; };
@@ -64,7 +64,7 @@
 		653F83E6ACB345449029A4B2 /* Pods-DoctorOnHand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoctorOnHand.release.xcconfig"; path = "Target Support Files/Pods-DoctorOnHand/Pods-DoctorOnHand.release.xcconfig"; sourceTree = "<group>"; };
 		98F5EBAE62FC8E6C30883826 /* libPods-DoctorOnHand.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DoctorOnHand.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2646091207787AD70D64DC7 /* Pods-DoctorOnHand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoctorOnHand.debug.xcconfig"; path = "Target Support Files/Pods-DoctorOnHand/Pods-DoctorOnHand.debug.xcconfig"; sourceTree = "<group>"; };
-		CD795A981D18DDDF000B7619 /* DoctorOnHand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoctorOnHand.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD795A981D18DDDF000B7619 /* 移动医生.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "移动医生.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD795A9C1D18DDDF000B7619 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CD795A9E1D18DDDF000B7619 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD795A9F1D18DDDF000B7619 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -91,10 +91,10 @@
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
 		DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMBaseViewController.m; sourceTree = "<group>"; };
 		DD5F0468249BAC590043C2AE /* CMPMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMBaseViewController.h; sourceTree = "<group>"; };
-		DD6C4D72249BACB2001C9344 /* CMPMSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMSignatureViewController.h; sourceTree = "<group>"; };
-		DD6C4D73249BACB2001C9344 /* CMPMSignatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMSignatureView.h; sourceTree = "<group>"; };
-		DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMSignatureViewController.m; sourceTree = "<group>"; };
-		DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMSignatureView.m; sourceTree = "<group>"; };
+		DD6C4D72249BACB2001C9344 /* WFSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSignatureViewController.h; sourceTree = "<group>"; };
+		DD6C4D73249BACB2001C9344 /* WFSignatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSignatureView.h; sourceTree = "<group>"; };
+		DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSignatureViewController.m; sourceTree = "<group>"; };
+		DD6C4D75249BACB2001C9344 /* WFSignatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSignatureView.m; sourceTree = "<group>"; };
 		DD6C4D78249BACD0001C9344 /* WFHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFHomeViewController.h; sourceTree = "<group>"; };
 		DD6C4D79249BACD0001C9344 /* WFHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFHomeViewController.m; sourceTree = "<group>"; };
 		DD6C4D8B249BB3FE001C9344 /* UIButton+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CMPMExtension.h"; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		CD795A991D18DDDF000B7619 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CD795A981D18DDDF000B7619 /* DoctorOnHand.app */,
+				CD795A981D18DDDF000B7619 /* 移动医生.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -301,10 +301,10 @@
 		DD6C4D7F249BAD5B001C9344 /* 手写板 */ = {
 			isa = PBXGroup;
 			children = (
-				DD6C4D72249BACB2001C9344 /* CMPMSignatureViewController.h */,
-				DD6C4D74249BACB2001C9344 /* CMPMSignatureViewController.m */,
-				DD6C4D73249BACB2001C9344 /* CMPMSignatureView.h */,
-				DD6C4D75249BACB2001C9344 /* CMPMSignatureView.m */,
+				DD6C4D72249BACB2001C9344 /* WFSignatureViewController.h */,
+				DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */,
+				DD6C4D73249BACB2001C9344 /* WFSignatureView.h */,
+				DD6C4D75249BACB2001C9344 /* WFSignatureView.m */,
 				DD1C7C0424A5EA8E004F7CEF /* WFBrushBoardView.h */,
 				DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */,
 				DD1C7C0C24A78FB6004F7CEF /* WFSignatureLine.h */,
@@ -528,7 +528,7 @@
 			);
 			name = DoctorOnHand;
 			productName = Animation;
-			productReference = CD795A981D18DDDF000B7619 /* DoctorOnHand.app */;
+			productReference = CD795A981D18DDDF000B7619 /* 移动医生.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -539,7 +539,7 @@
 			attributes = {
 				CLASSPREFIX = WF;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = shengangneng;
+				ORGANIZATIONNAME = sgn;
 				TargetAttributes = {
 					CD795A971D18DDDF000B7619 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -661,13 +661,13 @@
 				DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */,
 				DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */,
 				DD6C4D9D249BB400001C9344 /* NSDateFormatter+CMPMExtension.m in Sources */,
-				DD6C4D77249BACB2001C9344 /* CMPMSignatureView.m in Sources */,
+				DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */,
 				DD6C4D9E249BB400001C9344 /* NSString+CMPMExtension.m in Sources */,
 				DD6C4DA0249BB400001C9344 /* UIColor+CMPMExtension.m in Sources */,
 				DD6C4DAF249E4C3C001C9344 /* CMPMBaseNavigationController.m in Sources */,
 				DD6C4DAD249E4C3C001C9344 /* CMPMCustomNavigationBar.m in Sources */,
 				DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */,
-				DD6C4D76249BACB2001C9344 /* CMPMSignatureViewController.m in Sources */,
+				DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */,
 				DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */,
 				DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */,
 				DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */,
@@ -775,7 +775,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-shen";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -797,7 +797,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-shen";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

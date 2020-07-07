@@ -2,7 +2,7 @@
 //  WFVideoProgress.h
 //  DoctorOnHand
 //
-//  Created by 沈港能 on 2020/6/25.
+//  Created by sgn on 2020/6/25.
 //  Copyright © 2020 shengangneng. All rights reserved.
 //
 

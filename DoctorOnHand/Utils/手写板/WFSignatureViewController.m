@@ -1,16 +1,16 @@
 //
-//  CMPMSignatureViewController.m
-//  CommunityMPM
+//  WFSignatureViewController.m
+//  DoctorOnHand
 //
-//  Created by shengangneng on 2019/4/23.
-//  Copyright © 2019年 jifenzhi. All rights reserved.
+//  Created by sgn on 2020/6/26.
+//  Copyright © 2020 shengangneng. All rights reserved.
 //
 
-#import "CMPMSignatureViewController.h"
-#import "CMPMSignatureView.h"
-#import "UIButton+CMPMExtension.h"
-#import "UIViewController+CMPMExtention.h"
-#import "CMPMCommomTool.h"
+#import "WFSignatureViewController.h"
+#import "WFSignatureView.h"
+#import "UIButton+WFExtension.h"
+#import "UIViewController+WFExtention.h"
+#import "WFCommomTool.h"
 #import "WFColorTableViewCell.h"
 #import "WFWidthTableViewCell.h"
 
@@ -19,49 +19,58 @@
 #define kMARGIN     20
 #define kNOR_PEN_TAG    666
 #define kSTE_PEN_TAG    777
+#define kERA_SER_TAG    888
 
-@interface CMPMSignatureViewController () <UITableViewDelegate, UITableViewDataSource>
-
+@interface WFSignatureViewController () <UITableViewDelegate, UITableViewDataSource>
+// Views
+@property (nonatomic, strong) WFSignatureView *signatureView; /// 手写板
+@property (nonatomic, strong) UIButton *backBt;                 /// 返回
+@property (nonatomic, strong) UIButton *colorBarBt;             /// 调色盘
+@property (nonatomic, strong) UIView *colorSubView;             /// 调色盘旁边的小图
+@property (nonatomic, strong) UIButton *nomalPenBt;             /// 普通笔
+@property (nonatomic, strong) UIButton *steelPenBt;             /// 钢笔
+@property (nonatomic, strong) UIButton *eraserBt;               /// 橡皮擦
+@property (nonatomic, strong) UIButton *clearAllBt;             /// 清空
+@property (nonatomic, strong) UIButton *lastStepBt;             /// 上一步
+@property (nonatomic, strong) UIButton *nextStepBt;             /// 下一步
+@property (nonatomic, strong) UITableView *colorTableView;      /// 选择颜色值
+@property (nonatomic, strong) UITableView *widthTableView;      /// 选择宽度值
 @property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
-@property (nonatomic, strong) CMPMSignatureView *signatureView; /// 手写板
-
-@property (nonatomic, strong) UIButton *backBt;             /// 返回
-@property (nonatomic, strong) UIButton *colorBarBt;         /// 调色盘
-@property (nonatomic, strong) UIView *colorSubView;         /// 调色盘旁边的小图
-@property (nonatomic, strong) UIButton *nomalPenBt;         /// 普通笔
-@property (nonatomic, strong) UIButton *steelPenBt;         /// 钢笔
-@property (nonatomic, strong) UIButton *eraserBt;           /// 橡皮擦
-@property (nonatomic, strong) UIButton *clearAllBt;         /// 清空
-@property (nonatomic, strong) UIButton *lastStepBt;         /// 上一步
-@property (nonatomic, strong) UIButton *nextStepBt;         /// 下一步
-
-@property (nonatomic, strong) UITableView *colorTableView;  /// 选择颜色值
-@property (nonatomic, strong) UITableView *widthTableView;  /// 选择宽度值
-@property (nonatomic, copy) NSArray *colorsArray;           /// 颜色值数组
-@property (nonatomic, copy) NSArray *widthsArray;           /// 宽度数组
+// Datas
+@property (nonatomic, copy) NSArray *colorsArray;               /// 颜色值数组
+@property (nonatomic, copy) NSArray *widthsArray;               /// 宽度数组
+@property (nonatomic, weak) UIButton *lastSelectedBt;           /// 记录上次选中的按钮（普通笔、钢笔、橡皮擦）
 
 @end
 
-@implementation CMPMSignatureViewController
+@implementation WFSignatureViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupAttributes];
+    [self setupSubViews];
+    [self setupConstraints];
+}
+
+- (void)setupAttributes {
+    self.view.backgroundColor = kCommomBackgroundColor;
     self.colorsArray = @[kRGBA(255, 0, 0, 1),kRGBA(22, 120, 255, 1),kRGBA(248, 231, 28, 1),kRGBA(126, 221, 33, 1),kRGBA(0, 0, 0, 1),kRGBA(255, 255, 255, 1)];
     self.widthsArray = @[@6,@10,@16,@24];
-    
+    // 设置点击事件
     [self.backBt addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [self.saveToAlbumBt addTarget:self action:@selector(saveImage:) forControlEvents:UIControlEventTouchUpInside];
-    [self.colorBarBt addTarget:self action:@selector(changeColor:) forControlEvents:UIControlEventTouchUpInside];
+    [self.colorBarBt addTarget:self action:@selector(selectColorBar:) forControlEvents:UIControlEventTouchUpInside];
     [self.nomalPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
     [self.steelPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
-    [self.eraserBt addTarget:self action:@selector(eraser:) forControlEvents:UIControlEventTouchUpInside];
+    [self.eraserBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
     [self.clearAllBt addTarget:self action:@selector(clear:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.lastStepBt addTarget:self action:@selector(lastStep:) forControlEvents:UIControlEventTouchUpInside];
     [self.nextStepBt addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.view.backgroundColor = kCommomBackgroundColor;
+    // 选中普通笔
+    [self changePen:self.nomalPenBt];
+}
+
+- (void)setupSubViews {
     [self.view addSubview:self.signatureView];
     [self.view addSubview:self.backBt];
     [self.view addSubview:self.saveToAlbumBt];
@@ -75,7 +84,9 @@
     [self.view addSubview:self.nextStepBt];
     [self.view addSubview:self.colorTableView];
     [self.view addSubview:self.widthTableView];
-    
+}
+
+- (void)setupConstraints {
     [self.saveToAlbumBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@(kITEM_W));
         make.trailing.equalTo(self.view.mas_trailing).offset(-kMARGIN);
@@ -88,7 +99,6 @@
     [self.signatureView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
     [self.nomalPenBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
@@ -118,7 +128,6 @@
         make.width.height.equalTo(@(kITEM_W));
         make.top.equalTo(self.eraserBt.mas_bottom).offset(kMARGIN);
     }];
-    
     [self.lastStepBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading).offset(28);
         make.width.height.equalTo(@(kITEM_W2));
@@ -141,7 +150,6 @@
         make.top.equalTo(self.colorBarBt.mas_top).offset(-25);
         make.leading.equalTo(self.colorTableView.mas_trailing).offset(20);
     }];
-    
 }
 
 #pragma mark - Target Action
@@ -159,51 +167,80 @@
     UIImageWriteToSavedPhotosAlbum(shotImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    NSString *message = error ? @"保存图片失败" : @"保存图片成功";
-    [CMPMCommomTool showTextWithTitle:message inView:self.view animation:YES];
-}
-
 - (void)changeColor:(UIColor *)color width:(CGFloat)width {
     self.signatureView.lineColor = color;
     self.signatureView.lineWidth = width;
-    [UIView animateWithDuration:0.1 animations:^{
-        [self.colorSubView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.height.equalTo(@(width));
-        }];
-        self.colorSubView.backgroundColor = color;
-        self.colorSubView.layer.cornerRadius = width / 2;
-        [self.colorSubView layoutIfNeeded];
+    [self.colorSubView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@(width));
     }];
+    self.colorSubView.backgroundColor = color;
+    self.colorSubView.layer.cornerRadius = width / 2;
+    if ([color isEqual:kRGBA(255, 255, 255, 1)]) {
+        self.colorSubView.layer.borderColor = kRGBA(215, 215, 215, 1).CGColor;
+    } else {
+        self.colorSubView.layer.borderColor = color.CGColor;
+    }
+    [self.colorSubView layoutIfNeeded];
 }
 
+- (void)selectColorBar:(UIButton *)sender {
+    BOOL hidden = self.colorTableView.hidden;
+    self.colorTableView.hidden = self.widthTableView.hidden = !hidden;
+}
+
+/// 钢笔、普通笔、橡皮切换
 - (void)changePen:(UIButton *)sender {
+    if (sender == self.lastSelectedBt) {
+        return;
+    }
+    if (self.lastSelectedBt) {
+        self.lastSelectedBt.selected = NO;
+        self.lastSelectedBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
+        sender.selected = YES;
+        sender.backgroundColor = kRGBA(22, 120, 255, 1);
+        self.lastSelectedBt = sender;
+    } else {
+        self.lastSelectedBt = sender;
+        self.lastSelectedBt.selected = YES;
+        self.lastSelectedBt.backgroundColor = kRGBA(22, 120, 255, 1);
+    }
     if (sender.tag == kNOR_PEN_TAG) {
         self.signatureView.lineType = LineTypeNomal;
     } else if (sender.tag == kSTE_PEN_TAG) {
         self.signatureView.lineType = LineTypeSteelPen;
+    } else if (sender.tag == kERA_SER_TAG) {
+        self.signatureView.lineType = LineTypeEraser;
     }
 }
 
+/// 上一步
 - (void)lastStep:(UIButton *)sender {
     [self.signatureView lastStep];
 }
 
+/// 下一步
 - (void)nextStep:(UIButton *)sender {
     [self.signatureView nextStep];
 }
 
-/// 橡皮擦
-- (void)eraser:(UIButton *)sender {
-    self.signatureView.lineType = LineTypeEraser;
-}
-
 /// 清屏
 - (void)clear:(UIButton *)sender {
-    [self.signatureView clearScreen];
+    __weak typeof(self) weakself = self;
+    [self showAlertControllerWithStyle:UIAlertControllerStyleAlert title:@"确定清空手写板吗？" message:nil sureTitle:@"确定" sureAction:^(UIAlertAction *action) {
+        __strong typeof(weakself) strongself = weakself;
+        [strongself.signatureView clearScreen];
+    } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:nil cancelStyle:UIAlertActionStyleDefault];
+}
+
+#pragma mark - Save Image
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    NSString *message = error ? @"保存图片失败" : @"保存图片成功";
+    [WFCommomTool showTextWithTitle:message inView:self.view animation:YES];
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -264,9 +301,9 @@
     }
     return _saveToAlbumBt;
 }
-- (CMPMSignatureView *)signatureView {
+- (WFSignatureView *)signatureView {
     if (!_signatureView) {
-        _signatureView = [[CMPMSignatureView alloc] init];
+        _signatureView = [[WFSignatureView alloc] init];
         _signatureView.lineType = LineTypeSteelPen;
         _signatureView.backgroundColor = kWhiteColor;
     }
@@ -292,6 +329,7 @@
         _colorSubView = [[UIView alloc] init];
         _colorSubView.backgroundColor = kBlackColor;
         _colorSubView.layer.cornerRadius = self.signatureView.lineWidth / 2;
+        _colorSubView.layer.borderWidth = 1;
     }
     return _colorSubView;
 }
@@ -318,6 +356,7 @@
         _eraserBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_ear") selectImage:ImageName(@"sign_ear_h")];
         _eraserBt.backgroundColor = kRGBA(0, 0, 0, 0.1);
         _eraserBt.layer.cornerRadius = kITEM_W / 2;
+        _eraserBt.tag = kERA_SER_TAG;
     }
     return _eraserBt;
 }
