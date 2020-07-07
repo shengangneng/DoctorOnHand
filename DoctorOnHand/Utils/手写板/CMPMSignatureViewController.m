@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) UIButton *backBt;             /// 返回
 @property (nonatomic, strong) UIButton *colorBarBt;         /// 调色盘
+@property (nonatomic, strong) UIView *colorSubView;         /// 调色盘旁边的小图
 @property (nonatomic, strong) UIButton *nomalPenBt;         /// 普通笔
 @property (nonatomic, strong) UIButton *steelPenBt;         /// 钢笔
 @property (nonatomic, strong) UIButton *eraserBt;           /// 橡皮擦
@@ -65,6 +66,7 @@
     [self.view addSubview:self.backBt];
     [self.view addSubview:self.saveToAlbumBt];
     [self.view addSubview:self.colorBarBt];
+    [self.colorBarBt addSubview:self.colorSubView];
     [self.view addSubview:self.steelPenBt];
     [self.view addSubview:self.nomalPenBt];
     [self.view addSubview:self.eraserBt];
@@ -101,6 +103,10 @@
         make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
         make.bottom.equalTo(self.steelPenBt.mas_top).offset(-kMARGIN);
+    }];
+    [self.colorSubView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@(self.signatureView.lineWidth));
+        make.bottom.trailing.equalTo(self.colorBarBt);
     }];
     [self.eraserBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
@@ -158,8 +164,17 @@
     [CMPMCommomTool showTextWithTitle:message inView:self.view animation:YES];
 }
 
-- (void)changeColor:(UIButton *)sender {
-    self.signatureView.lineColor = sender.backgroundColor;
+- (void)changeColor:(UIColor *)color width:(CGFloat)width {
+    self.signatureView.lineColor = color;
+    self.signatureView.lineWidth = width;
+    [UIView animateWithDuration:0.1 animations:^{
+        [self.colorSubView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.height.equalTo(@(width));
+        }];
+        self.colorSubView.backgroundColor = color;
+        self.colorSubView.layer.cornerRadius = width / 2;
+        [self.colorSubView layoutIfNeeded];
+    }];
 }
 
 - (void)changePen:(UIButton *)sender {
@@ -230,7 +245,13 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self changeColor:nil];
+    if (tableView == self.colorTableView) {
+        UIColor *color = self.colorsArray[indexPath.row];
+        [self changeColor:color width:self.signatureView.lineWidth];
+    } else {
+        NSNumber *width = self.widthsArray[indexPath.row];
+        [self changeColor:self.signatureView.lineColor width:width.floatValue];
+    }
 }
 
 #pragma mark - Lazy Init
@@ -265,6 +286,14 @@
         _colorBarBt.layer.cornerRadius = kITEM_W / 2;
     }
     return _colorBarBt;
+}
+- (UIView *)colorSubView {
+    if (!_colorSubView) {
+        _colorSubView = [[UIView alloc] init];
+        _colorSubView.backgroundColor = kBlackColor;
+        _colorSubView.layer.cornerRadius = self.signatureView.lineWidth / 2;
+    }
+    return _colorSubView;
 }
 - (UIButton *)steelPenBt {
     if (!_steelPenBt) {

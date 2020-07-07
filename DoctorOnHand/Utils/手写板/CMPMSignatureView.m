@@ -35,7 +35,7 @@
     if (self) {
         self.lineArray = [NSMutableArray array];
         self.cancelLineArray = [NSMutableArray array];
-        self.lineWidth = 1;
+        self.lineWidth = 6;
         self.lineColor = kBlackColor;
     }
     return self;
