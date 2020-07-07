@@ -1,15 +1,15 @@
 //
-//  UIViewController+CMPMExtention.m
+//  UIViewController+WFExtention.m
 //  CommunityMPM
 //
 //  Created by sgn on 2020/3/2.
 //  Copyright © 2020 jifenzhi. All rights reserved.
 //
 
-#import "UIViewController+CMPMExtention.h"
+#import "UIViewController+WFExtention.h"
 
 
-@implementation UIViewController (CMPMExtention)
+@implementation UIViewController (WFExtention)
 
 - (void)showAlertControllerWithStyle:(UIAlertControllerStyle)style
                                title:(NSString *)title

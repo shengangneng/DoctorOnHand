@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "WFHomeViewController.h"
-#import "CMPMBaseNavigationController.h"
+#import "WFBaseNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +21,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
     WFHomeViewController *home = [[WFHomeViewController alloc] init];
-    CMPMBaseNavigationController *nav = [[CMPMBaseNavigationController alloc] initWithRootViewController:home];
+    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     return YES;
@@ -51,7 +51,7 @@
 
 - (void)setupBackMaskView {
     if (!self.maskBackView) {
-        self.maskBackView = [[CMPMMaskBackView alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
+        self.maskBackView = [[WFMaskBackView alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
         [self.maskBackView addObserver];
         [self.window insertSubview:self.maskBackView atIndex:0];
     } else {

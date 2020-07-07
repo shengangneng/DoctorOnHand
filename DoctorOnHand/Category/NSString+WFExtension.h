@@ -1,5 +1,5 @@
 //
-//  NSString+CMPMExtension.h
+//  NSString+WFExtension.h
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/16.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (CMPMExtension)
+@interface NSString (WFExtension)
 
 /** 去除字符串两边的空格 */
 - (NSString *)clearSideSpace;

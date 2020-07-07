@@ -1,17 +1,17 @@
 //
-//  CMPMCommomTool.m
+//  WFCommomTool.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/12.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "CMPMCommomTool.h"
+#import "WFCommomTool.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
 
-@implementation CMPMCommomTool
+@implementation WFCommomTool
 
 + (void)showTextWithTitle:(NSString *)title inView:(UIView *)view animation:(BOOL)animation {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:animation];

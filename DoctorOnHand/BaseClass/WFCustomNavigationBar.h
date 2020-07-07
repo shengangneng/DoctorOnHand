@@ -1,5 +1,5 @@
 //
-//  CMPMCustomNavigationBar.h
+//  WFCustomNavigationBar.h
 //  CommunityMPM
 //
 //  Created by gangneng shen on 2019/12/4.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMPMCustomNavigationBar : UINavigationBar
+@interface WFCustomNavigationBar : UINavigationBar
 
 - (void)updateTitleColor:(UIColor *)tColor backgroundColor:(UIColor *)bgColor;
 

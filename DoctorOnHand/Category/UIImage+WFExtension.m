@@ -1,14 +1,14 @@
 //
-//  UIImage+CMPMExtension.m
+//  UIImage+WFExtension.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/8.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "UIImage+CMPMExtension.h"
+#import "UIImage+WFExtension.h"
 
-@implementation UIImage (CMPMExtension)
+@implementation UIImage (WFExtension)
 
 - (UIImage *)createImageWithSize:(CGSize)imageSize gradientColors:(NSArray *)colors percentage:(NSArray *)percents gradientType:(GradientType)gradientType {
     

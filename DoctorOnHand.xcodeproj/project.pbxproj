@@ -16,26 +16,26 @@
 		DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */; };
 		DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */; };
 		DD1C7C0E24A78FB6004F7CEF /* WFSignatureLine.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */; };
-		DD1C7C1424B21073004F7CEF /* CMPMCommomTool.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1224B21073004F7CEF /* CMPMCommomTool.m */; };
+		DD1C7C1424B21073004F7CEF /* WFCommomTool.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1224B21073004F7CEF /* WFCommomTool.m */; };
 		DD1C7C1724B35CD1004F7CEF /* WFColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */; };
 		DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */; };
-		DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */; };
+		DD5F0469249BAC590043C2AE /* WFBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* WFBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* WFSignatureView.m */; };
 		DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D79249BACD0001C9344 /* WFHomeViewController.m */; };
-		DD6C4D9B249BB400001C9344 /* UIViewController+CMPMExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D8D249BB3FF001C9344 /* UIViewController+CMPMExtention.m */; };
-		DD6C4D9C249BB400001C9344 /* UIButton+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D8E249BB3FF001C9344 /* UIButton+CMPMExtension.m */; };
-		DD6C4D9D249BB400001C9344 /* NSDateFormatter+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D90249BB3FF001C9344 /* NSDateFormatter+CMPMExtension.m */; };
-		DD6C4D9E249BB400001C9344 /* NSString+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D91249BB3FF001C9344 /* NSString+CMPMExtension.m */; };
-		DD6C4D9F249BB400001C9344 /* NSCharacterSet+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D93249BB3FF001C9344 /* NSCharacterSet+CMPMExtension.m */; };
-		DD6C4DA0249BB400001C9344 /* UIColor+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D94249BB3FF001C9344 /* UIColor+CMPMExtension.m */; };
-		DD6C4DA1249BB400001C9344 /* CATransition+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D96249BB3FF001C9344 /* CATransition+CMPMExtension.m */; };
-		DD6C4DA2249BB400001C9344 /* UIImage+CMPMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D98249BB400001C9344 /* UIImage+CMPMExtension.m */; };
+		DD6C4D9B249BB400001C9344 /* UIViewController+WFExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D8D249BB3FF001C9344 /* UIViewController+WFExtention.m */; };
+		DD6C4D9C249BB400001C9344 /* UIButton+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D8E249BB3FF001C9344 /* UIButton+WFExtension.m */; };
+		DD6C4D9D249BB400001C9344 /* NSDateFormatter+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D90249BB3FF001C9344 /* NSDateFormatter+WFExtension.m */; };
+		DD6C4D9E249BB400001C9344 /* NSString+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D91249BB3FF001C9344 /* NSString+WFExtension.m */; };
+		DD6C4D9F249BB400001C9344 /* NSCharacterSet+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D93249BB3FF001C9344 /* NSCharacterSet+WFExtension.m */; };
+		DD6C4DA0249BB400001C9344 /* UIColor+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D94249BB3FF001C9344 /* UIColor+WFExtension.m */; };
+		DD6C4DA1249BB400001C9344 /* CATransition+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D96249BB3FF001C9344 /* CATransition+WFExtension.m */; };
+		DD6C4DA2249BB400001C9344 /* UIImage+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D98249BB400001C9344 /* UIImage+WFExtension.m */; };
 		DD6C4DA4249BB4F1001C9344 /* XPRootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA3249BB4F1001C9344 /* XPRootNavigationController.m */; };
-		DD6C4DAD249E4C3C001C9344 /* CMPMCustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA5249E4C3B001C9344 /* CMPMCustomNavigationBar.m */; };
-		DD6C4DAE249E4C3C001C9344 /* CMPMBaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA6249E4C3B001C9344 /* CMPMBaseNavigationBar.m */; };
-		DD6C4DAF249E4C3C001C9344 /* CMPMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA9249E4C3C001C9344 /* CMPMBaseNavigationController.m */; };
-		DD6C4DB0249E4C3C001C9344 /* CMPMMaskBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DAB249E4C3C001C9344 /* CMPMMaskBackView.m */; };
+		DD6C4DAD249E4C3C001C9344 /* WFCustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA5249E4C3B001C9344 /* WFCustomNavigationBar.m */; };
+		DD6C4DAE249E4C3C001C9344 /* WFBaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA6249E4C3B001C9344 /* WFBaseNavigationBar.m */; };
+		DD6C4DAF249E4C3C001C9344 /* WFBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DA9249E4C3C001C9344 /* WFBaseNavigationController.m */; };
+		DD6C4DB0249E4C3C001C9344 /* WFMaskBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DAB249E4C3C001C9344 /* WFMaskBackView.m */; };
 		DD6C4DB6249FA008001C9344 /* WFFileReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DB5249FA008001C9344 /* WFFileReaderViewController.m */; };
 		DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DB8249FA080001C9344 /* WFFileReaderTableViewCell.m */; };
 		DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DBB249FA0A6001C9344 /* WFFileReaderModel.m */; };
@@ -80,8 +80,8 @@
 		DD1C7C0524A5EA8E004F7CEF /* WFBrushBoardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFBrushBoardView.m; sourceTree = "<group>"; };
 		DD1C7C0C24A78FB6004F7CEF /* WFSignatureLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSignatureLine.h; sourceTree = "<group>"; };
 		DD1C7C0D24A78FB6004F7CEF /* WFSignatureLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSignatureLine.m; sourceTree = "<group>"; };
-		DD1C7C1224B21073004F7CEF /* CMPMCommomTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMCommomTool.m; sourceTree = "<group>"; };
-		DD1C7C1324B21073004F7CEF /* CMPMCommomTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMCommomTool.h; sourceTree = "<group>"; };
+		DD1C7C1224B21073004F7CEF /* WFCommomTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCommomTool.m; sourceTree = "<group>"; };
+		DD1C7C1324B21073004F7CEF /* WFCommomTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCommomTool.h; sourceTree = "<group>"; };
 		DD1C7C1524B35CD1004F7CEF /* WFColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFColorTableViewCell.h; sourceTree = "<group>"; };
 		DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFColorTableViewCell.m; sourceTree = "<group>"; };
 		DD1C7C1824B360FB004F7CEF /* WFWidthTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFWidthTableViewCell.h; sourceTree = "<group>"; };
@@ -89,39 +89,39 @@
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
-		DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMBaseViewController.m; sourceTree = "<group>"; };
-		DD5F0468249BAC590043C2AE /* CMPMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMBaseViewController.h; sourceTree = "<group>"; };
+		DD5F0467249BAC590043C2AE /* WFBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFBaseViewController.m; sourceTree = "<group>"; };
+		DD5F0468249BAC590043C2AE /* WFBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFBaseViewController.h; sourceTree = "<group>"; };
 		DD6C4D72249BACB2001C9344 /* WFSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSignatureViewController.h; sourceTree = "<group>"; };
 		DD6C4D73249BACB2001C9344 /* WFSignatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSignatureView.h; sourceTree = "<group>"; };
 		DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSignatureViewController.m; sourceTree = "<group>"; };
 		DD6C4D75249BACB2001C9344 /* WFSignatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSignatureView.m; sourceTree = "<group>"; };
 		DD6C4D78249BACD0001C9344 /* WFHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFHomeViewController.h; sourceTree = "<group>"; };
 		DD6C4D79249BACD0001C9344 /* WFHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFHomeViewController.m; sourceTree = "<group>"; };
-		DD6C4D8B249BB3FE001C9344 /* UIButton+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D8C249BB3FF001C9344 /* NSDateFormatter+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D8D249BB3FF001C9344 /* UIViewController+CMPMExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CMPMExtention.m"; sourceTree = "<group>"; };
-		DD6C4D8E249BB3FF001C9344 /* UIButton+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D8F249BB3FF001C9344 /* NSCharacterSet+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D90249BB3FF001C9344 /* NSDateFormatter+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D91249BB3FF001C9344 /* NSString+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D92249BB3FF001C9344 /* UIColor+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D93249BB3FF001C9344 /* NSCharacterSet+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D94249BB3FF001C9344 /* UIColor+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D95249BB3FF001C9344 /* NSString+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D96249BB3FF001C9344 /* CATransition+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATransition+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D97249BB3FF001C9344 /* CATransition+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CATransition+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D98249BB400001C9344 /* UIImage+CMPMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CMPMExtension.m"; sourceTree = "<group>"; };
-		DD6C4D99249BB400001C9344 /* UIImage+CMPMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CMPMExtension.h"; sourceTree = "<group>"; };
-		DD6C4D9A249BB400001C9344 /* UIViewController+CMPMExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CMPMExtention.h"; sourceTree = "<group>"; };
+		DD6C4D8B249BB3FE001C9344 /* UIButton+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D8C249BB3FF001C9344 /* NSDateFormatter+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D8D249BB3FF001C9344 /* UIViewController+WFExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WFExtention.m"; sourceTree = "<group>"; };
+		DD6C4D8E249BB3FF001C9344 /* UIButton+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D8F249BB3FF001C9344 /* NSCharacterSet+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D90249BB3FF001C9344 /* NSDateFormatter+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D91249BB3FF001C9344 /* NSString+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D92249BB3FF001C9344 /* UIColor+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D93249BB3FF001C9344 /* NSCharacterSet+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D94249BB3FF001C9344 /* UIColor+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D95249BB3FF001C9344 /* NSString+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D96249BB3FF001C9344 /* CATransition+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATransition+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D97249BB3FF001C9344 /* CATransition+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CATransition+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D98249BB400001C9344 /* UIImage+WFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WFExtension.m"; sourceTree = "<group>"; };
+		DD6C4D99249BB400001C9344 /* UIImage+WFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WFExtension.h"; sourceTree = "<group>"; };
+		DD6C4D9A249BB400001C9344 /* UIViewController+WFExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WFExtention.h"; sourceTree = "<group>"; };
 		DD6C4DA3249BB4F1001C9344 /* XPRootNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPRootNavigationController.m; sourceTree = "<group>"; };
-		DD6C4DA5249E4C3B001C9344 /* CMPMCustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMCustomNavigationBar.m; sourceTree = "<group>"; };
-		DD6C4DA6249E4C3B001C9344 /* CMPMBaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMBaseNavigationBar.m; sourceTree = "<group>"; };
-		DD6C4DA7249E4C3B001C9344 /* CMPMBaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMBaseNavigationBar.h; sourceTree = "<group>"; };
-		DD6C4DA8249E4C3C001C9344 /* CMPMMaskBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMMaskBackView.h; sourceTree = "<group>"; };
-		DD6C4DA9249E4C3C001C9344 /* CMPMBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMBaseNavigationController.m; sourceTree = "<group>"; };
-		DD6C4DAA249E4C3C001C9344 /* CMPMCustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMCustomNavigationBar.h; sourceTree = "<group>"; };
-		DD6C4DAB249E4C3C001C9344 /* CMPMMaskBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPMMaskBackView.m; sourceTree = "<group>"; };
-		DD6C4DAC249E4C3C001C9344 /* CMPMBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPMBaseNavigationController.h; sourceTree = "<group>"; };
+		DD6C4DA5249E4C3B001C9344 /* WFCustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCustomNavigationBar.m; sourceTree = "<group>"; };
+		DD6C4DA6249E4C3B001C9344 /* WFBaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFBaseNavigationBar.m; sourceTree = "<group>"; };
+		DD6C4DA7249E4C3B001C9344 /* WFBaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFBaseNavigationBar.h; sourceTree = "<group>"; };
+		DD6C4DA8249E4C3C001C9344 /* WFMaskBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFMaskBackView.h; sourceTree = "<group>"; };
+		DD6C4DA9249E4C3C001C9344 /* WFBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFBaseNavigationController.m; sourceTree = "<group>"; };
+		DD6C4DAA249E4C3C001C9344 /* WFCustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCustomNavigationBar.h; sourceTree = "<group>"; };
+		DD6C4DAB249E4C3C001C9344 /* WFMaskBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFMaskBackView.m; sourceTree = "<group>"; };
+		DD6C4DAC249E4C3C001C9344 /* WFBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFBaseNavigationController.h; sourceTree = "<group>"; };
 		DD6C4DB1249E4CC2001C9344 /* XPRootNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPRootNavigationController.h; sourceTree = "<group>"; };
 		DD6C4DB4249FA008001C9344 /* WFFileReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFFileReaderViewController.h; sourceTree = "<group>"; };
 		DD6C4DB5249FA008001C9344 /* WFFileReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFFileReaderViewController.m; sourceTree = "<group>"; };
@@ -261,16 +261,16 @@
 			children = (
 				DD6C4DB1249E4CC2001C9344 /* XPRootNavigationController.h */,
 				DD6C4DA3249BB4F1001C9344 /* XPRootNavigationController.m */,
-				DD5F0468249BAC590043C2AE /* CMPMBaseViewController.h */,
-				DD5F0467249BAC590043C2AE /* CMPMBaseViewController.m */,
-				DD6C4DA7249E4C3B001C9344 /* CMPMBaseNavigationBar.h */,
-				DD6C4DA6249E4C3B001C9344 /* CMPMBaseNavigationBar.m */,
-				DD6C4DAC249E4C3C001C9344 /* CMPMBaseNavigationController.h */,
-				DD6C4DA9249E4C3C001C9344 /* CMPMBaseNavigationController.m */,
-				DD6C4DAA249E4C3C001C9344 /* CMPMCustomNavigationBar.h */,
-				DD6C4DA5249E4C3B001C9344 /* CMPMCustomNavigationBar.m */,
-				DD6C4DA8249E4C3C001C9344 /* CMPMMaskBackView.h */,
-				DD6C4DAB249E4C3C001C9344 /* CMPMMaskBackView.m */,
+				DD5F0468249BAC590043C2AE /* WFBaseViewController.h */,
+				DD5F0467249BAC590043C2AE /* WFBaseViewController.m */,
+				DD6C4DA7249E4C3B001C9344 /* WFBaseNavigationBar.h */,
+				DD6C4DA6249E4C3B001C9344 /* WFBaseNavigationBar.m */,
+				DD6C4DAC249E4C3C001C9344 /* WFBaseNavigationController.h */,
+				DD6C4DA9249E4C3C001C9344 /* WFBaseNavigationController.m */,
+				DD6C4DAA249E4C3C001C9344 /* WFCustomNavigationBar.h */,
+				DD6C4DA5249E4C3B001C9344 /* WFCustomNavigationBar.m */,
+				DD6C4DA8249E4C3C001C9344 /* WFMaskBackView.h */,
+				DD6C4DAB249E4C3C001C9344 /* WFMaskBackView.m */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -394,26 +394,26 @@
 		DD6C4D8A249BB3E8001C9344 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				DD1C7C1324B21073004F7CEF /* CMPMCommomTool.h */,
-				DD1C7C1224B21073004F7CEF /* CMPMCommomTool.m */,
+				DD1C7C1324B21073004F7CEF /* WFCommomTool.h */,
+				DD1C7C1224B21073004F7CEF /* WFCommomTool.m */,
 				DD6C4DE424A2460F001C9344 /* UIView+Extention.h */,
 				DD6C4DE524A2460F001C9344 /* UIView+Extention.m */,
-				DD6C4D97249BB3FF001C9344 /* CATransition+CMPMExtension.h */,
-				DD6C4D96249BB3FF001C9344 /* CATransition+CMPMExtension.m */,
-				DD6C4D8F249BB3FF001C9344 /* NSCharacterSet+CMPMExtension.h */,
-				DD6C4D93249BB3FF001C9344 /* NSCharacterSet+CMPMExtension.m */,
-				DD6C4D8C249BB3FF001C9344 /* NSDateFormatter+CMPMExtension.h */,
-				DD6C4D90249BB3FF001C9344 /* NSDateFormatter+CMPMExtension.m */,
-				DD6C4D95249BB3FF001C9344 /* NSString+CMPMExtension.h */,
-				DD6C4D91249BB3FF001C9344 /* NSString+CMPMExtension.m */,
-				DD6C4D8B249BB3FE001C9344 /* UIButton+CMPMExtension.h */,
-				DD6C4D8E249BB3FF001C9344 /* UIButton+CMPMExtension.m */,
-				DD6C4D92249BB3FF001C9344 /* UIColor+CMPMExtension.h */,
-				DD6C4D94249BB3FF001C9344 /* UIColor+CMPMExtension.m */,
-				DD6C4D99249BB400001C9344 /* UIImage+CMPMExtension.h */,
-				DD6C4D98249BB400001C9344 /* UIImage+CMPMExtension.m */,
-				DD6C4D9A249BB400001C9344 /* UIViewController+CMPMExtention.h */,
-				DD6C4D8D249BB3FF001C9344 /* UIViewController+CMPMExtention.m */,
+				DD6C4D97249BB3FF001C9344 /* CATransition+WFExtension.h */,
+				DD6C4D96249BB3FF001C9344 /* CATransition+WFExtension.m */,
+				DD6C4D8F249BB3FF001C9344 /* NSCharacterSet+WFExtension.h */,
+				DD6C4D93249BB3FF001C9344 /* NSCharacterSet+WFExtension.m */,
+				DD6C4D8C249BB3FF001C9344 /* NSDateFormatter+WFExtension.h */,
+				DD6C4D90249BB3FF001C9344 /* NSDateFormatter+WFExtension.m */,
+				DD6C4D95249BB3FF001C9344 /* NSString+WFExtension.h */,
+				DD6C4D91249BB3FF001C9344 /* NSString+WFExtension.m */,
+				DD6C4D8B249BB3FE001C9344 /* UIButton+WFExtension.h */,
+				DD6C4D8E249BB3FF001C9344 /* UIButton+WFExtension.m */,
+				DD6C4D92249BB3FF001C9344 /* UIColor+WFExtension.h */,
+				DD6C4D94249BB3FF001C9344 /* UIColor+WFExtension.m */,
+				DD6C4D99249BB400001C9344 /* UIImage+WFExtension.h */,
+				DD6C4D98249BB400001C9344 /* UIImage+WFExtension.m */,
+				DD6C4D9A249BB400001C9344 /* UIViewController+WFExtention.h */,
+				DD6C4D8D249BB3FF001C9344 /* UIViewController+WFExtention.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -626,7 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD6C4D9F249BB400001C9344 /* NSCharacterSet+CMPMExtension.m in Sources */,
+				DD6C4D9F249BB400001C9344 /* NSCharacterSet+WFExtension.m in Sources */,
 				DD1C7C1724B35CD1004F7CEF /* WFColorTableViewCell.m in Sources */,
 				DD6C4DDF24A24170001C9344 /* WFRecordVoiceHUD.m in Sources */,
 				DD6C4D7A249BACD0001C9344 /* WFHomeViewController.m in Sources */,
@@ -643,35 +643,35 @@
 				DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */,
 				DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */,
 				DD6C4DED24A246AD001C9344 /* amrFileCodec.m in Sources */,
-				DD6C4DA2249BB400001C9344 /* UIImage+CMPMExtension.m in Sources */,
-				DD6C4DA1249BB400001C9344 /* CATransition+CMPMExtension.m in Sources */,
+				DD6C4DA2249BB400001C9344 /* UIImage+WFExtension.m in Sources */,
+				DD6C4DA1249BB400001C9344 /* CATransition+WFExtension.m in Sources */,
 				CD795AA01D18DDDF000B7619 /* AppDelegate.m in Sources */,
-				DD1C7C1424B21073004F7CEF /* CMPMCommomTool.m in Sources */,
-				DD5F0469249BAC590043C2AE /* CMPMBaseViewController.m in Sources */,
+				DD1C7C1424B21073004F7CEF /* WFCommomTool.m in Sources */,
+				DD5F0469249BAC590043C2AE /* WFBaseViewController.m in Sources */,
 				DD6C4DA4249BB4F1001C9344 /* XPRootNavigationController.m in Sources */,
 				DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */,
-				DD6C4D9B249BB400001C9344 /* UIViewController+CMPMExtention.m in Sources */,
+				DD6C4D9B249BB400001C9344 /* UIViewController+WFExtention.m in Sources */,
 				DD6C4DB6249FA008001C9344 /* WFFileReaderViewController.m in Sources */,
 				DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */,
-				DD6C4DAE249E4C3C001C9344 /* CMPMBaseNavigationBar.m in Sources */,
+				DD6C4DAE249E4C3C001C9344 /* WFBaseNavigationBar.m in Sources */,
 				DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */,
-				DD6C4DB0249E4C3C001C9344 /* CMPMMaskBackView.m in Sources */,
+				DD6C4DB0249E4C3C001C9344 /* WFMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
 				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,
 				DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */,
 				DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */,
-				DD6C4D9D249BB400001C9344 /* NSDateFormatter+CMPMExtension.m in Sources */,
+				DD6C4D9D249BB400001C9344 /* NSDateFormatter+WFExtension.m in Sources */,
 				DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */,
-				DD6C4D9E249BB400001C9344 /* NSString+CMPMExtension.m in Sources */,
-				DD6C4DA0249BB400001C9344 /* UIColor+CMPMExtension.m in Sources */,
-				DD6C4DAF249E4C3C001C9344 /* CMPMBaseNavigationController.m in Sources */,
-				DD6C4DAD249E4C3C001C9344 /* CMPMCustomNavigationBar.m in Sources */,
+				DD6C4D9E249BB400001C9344 /* NSString+WFExtension.m in Sources */,
+				DD6C4DA0249BB400001C9344 /* UIColor+WFExtension.m in Sources */,
+				DD6C4DAF249E4C3C001C9344 /* WFBaseNavigationController.m in Sources */,
+				DD6C4DAD249E4C3C001C9344 /* WFCustomNavigationBar.m in Sources */,
 				DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */,
 				DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */,
 				DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */,
 				DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */,
 				DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */,
-				DD6C4D9C249BB400001C9344 /* UIButton+CMPMExtension.m in Sources */,
+				DD6C4D9C249BB400001C9344 /* UIButton+WFExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

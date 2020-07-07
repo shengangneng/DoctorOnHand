@@ -1,5 +1,5 @@
 //
-//  CMPMCommomTool.h
+//  WFCommomTool.h
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/12.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMPMCommomTool : NSObject
+@interface WFCommomTool : NSObject
 
 + (void)showTextWithTitle:(NSString *)title inView:(UIView *)view animation:(BOOL)animation;
 

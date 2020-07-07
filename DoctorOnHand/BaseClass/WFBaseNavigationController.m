@@ -1,28 +1,28 @@
 //
-//  CMPMBaseNavigationController.m
+//  WFBaseNavigationController.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "CMPMBaseNavigationController.h"
-#import "CMPMBaseNavigationBar.h"
+#import "WFBaseNavigationController.h"
+#import "WFBaseNavigationBar.h"
 #import "AppDelegate.h"
-#import "CMPMCustomNavigationBar.h"
+#import "WFCustomNavigationBar.h"
 
 const CGFloat kDistanceToPan = 10.0;
 const CGFloat kDistanceToStart = 0.0;
 const CGFloat kDistanceToLeft = 70.0;
 const CGFloat kGestureSpeed = 0.3;
 
-@interface CMPMBaseNavigationController () <UIGestureRecognizerDelegate, UINavigationControllerDelegate>
+@interface WFBaseNavigationController () <UIGestureRecognizerDelegate, UINavigationControllerDelegate>
 
 @property (strong ,nonatomic) NSMutableArray *screenShotsArray;      // 上一个页面的屏幕快照，可做动画
 
 @end
 
-@implementation CMPMBaseNavigationController
+@implementation WFBaseNavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -111,7 +111,7 @@ const CGFloat kGestureSpeed = 0.3;
 }
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController {
-    self = [super initWithNavigationBarClass:[CMPMCustomNavigationBar class] toolbarClass:nil];
+    self = [super initWithNavigationBarClass:[WFCustomNavigationBar class] toolbarClass:nil];
     if (self) {
         self.viewControllers = @[rootViewController];
     }

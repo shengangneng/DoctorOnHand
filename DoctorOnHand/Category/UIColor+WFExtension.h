@@ -1,8 +1,8 @@
 //
-//  CMPMBaseNavigationBar.h
+//  UIColor+WFExtension.h
 //  CommunityMPM
 //
-//  Created by shengangneng on 2019/4/7.
+//  Created by shengangneng on 2019/4/11.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMPMBaseNavigationBar : UINavigationBar
-- (void)whiteTitle;
-- (void)blackTitle;
+@interface UIColor (WFExtension)
+
++ (UIColor *)getThemeColor;
 
 @end
 

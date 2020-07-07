@@ -1,5 +1,5 @@
 //
-//  CMPMBaseNavigationController.h
+//  WFBaseNavigationController.h
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMPMBaseNavigationController : UINavigationController
+@interface WFBaseNavigationController : UINavigationController
 
 @property (nonatomic, strong) UIScreenEdgePanGestureRecognizer *screenEdgeRecognizer;   // 自定义滑动手势用于右滑返回
 

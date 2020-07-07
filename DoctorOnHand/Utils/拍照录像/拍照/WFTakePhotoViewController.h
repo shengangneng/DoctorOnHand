@@ -6,11 +6,11 @@
 //  Copyright © 2020 shengangneng. All rights reserved.
 //
 
-#import "CMPMBaseViewController.h"
+#import "WFBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WFTakePhotoViewController : CMPMBaseViewController
+@interface WFTakePhotoViewController : WFBaseViewController
 
 @end
 

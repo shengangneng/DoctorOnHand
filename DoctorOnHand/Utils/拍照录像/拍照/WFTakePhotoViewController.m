@@ -8,7 +8,7 @@
 
 #import "WFTakePhotoViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "CMPMCommomTool.h"
+#import "WFCommomTool.h"
 
 @interface WFTakePhotoViewController ()
 
@@ -256,7 +256,7 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     NSString *message = error ? @"保存图片失败" : @"保存图片成功";
     [self resetPhoto];
-    [CMPMCommomTool showTextWithTitle:message inView:self.view animation:YES];
+    [WFCommomTool showTextWithTitle:message inView:self.view animation:YES];
 }
 
 - (void)setTorchOn:(BOOL)torchOn {

@@ -1,20 +1,20 @@
 //
-//  CMPMBaseViewController.m
+//  WFBaseViewController.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "CMPMBaseViewController.h"
-#import "UIButton+CMPMExtension.h"
+#import "WFBaseViewController.h"
+#import "UIButton+WFExtension.h"
 #import "AppDelegate.h"
 
-@interface CMPMBaseViewController ()
+@interface WFBaseViewController ()
 
 @end
 
-@implementation CMPMBaseViewController
+@implementation WFBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

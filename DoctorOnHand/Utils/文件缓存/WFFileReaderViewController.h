@@ -6,11 +6,11 @@
 //  Copyright © 2020 shengangneng. All rights reserved.
 //
 
-#import "CMPMBaseViewController.h"
+#import "WFBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WFFileReaderViewController : CMPMBaseViewController
+@interface WFFileReaderViewController : WFBaseViewController
 
 /// 导航栏标题（默认缓存目录）
 @property (nonatomic, copy) NSString *cacheTitle;

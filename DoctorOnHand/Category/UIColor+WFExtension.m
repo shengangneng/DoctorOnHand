@@ -1,14 +1,14 @@
 //
-//  UIColor+CMPMExtension.m
+//  UIColor+WFExtension.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/11.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "UIColor+CMPMExtension.h"
+#import "UIColor+WFExtension.h"
 
-@implementation UIColor (CMPMExtension)
+@implementation UIColor (WFExtension)
 
 + (UIColor *)getThemeColor {
     NSString *color = [[NSUserDefaults standardUserDefaults] objectForKey:kThemeColorKey];

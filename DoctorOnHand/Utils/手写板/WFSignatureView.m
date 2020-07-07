@@ -9,10 +9,6 @@
 #import "WFSignatureView.h"
 #import "WFSignatureLine.h"
 
-// 最小、大宽度
-#define kWIDTH_MIN 3
-#define kWIDTH_MAX 6
-
 #define kDelta  0.05
 
 #define kERASER_WIDTH 40
@@ -20,14 +16,13 @@
 
 @interface WFSignatureView ()
 
-// 点集合
-@property (nonatomic, copy) NSArray *points;
-// 当前宽度
-@property (nonatomic, assign) CGFloat currentWidth;
-
-@property (nonatomic, strong) WFSignatureLine *tempSign;                           /** 用来记录一个线条 */
-@property (nonatomic, strong) NSMutableArray<WFSignatureLine *> *lineArray;        /** 记录写下的线条 */
-@property (nonatomic, strong) NSMutableArray<WFSignatureLine *> *cancelLineArray;  /** 记录取消的线条，为了可以点击下一步 */
+@property (nonatomic, copy) NSArray *points;                                        /// 点集合
+@property (nonatomic, assign) CGFloat currentWidth;                                 /// 当前宽度
+@property (nonatomic, assign) CGFloat minWidth;                                     /// 最小宽度
+@property (nonatomic, assign) CGFloat maxWidth;                                     /// 最大宽度
+@property (nonatomic, strong) WFSignatureLine *tempSign;                           /// 用来记录一个线条
+@property (nonatomic, strong) NSMutableArray<WFSignatureLine *> *lineArray;        /// 记录写下的线条
+@property (nonatomic, strong) NSMutableArray<WFSignatureLine *> *cancelLineArray;  /// 记录取消的线条，为了可以点击下一步
 
 @end
 
@@ -40,6 +35,7 @@
         self.cancelLineArray = [NSMutableArray array];
         self.lineWidth = 6;
         self.lineColor = kBlackColor;
+        
     }
     return self;
 }
@@ -55,6 +51,17 @@
         }break;
         default:
             break;
+    }
+}
+
+- (void)setLineWidth:(CGFloat)lineWidth {
+    _lineWidth = lineWidth;
+    if (lineWidth <= 10) {
+        self.minWidth = self.lineWidth - 3;
+        self.maxWidth = self.lineWidth + 3;
+    } else {
+        self.minWidth = self.lineWidth - 10;
+        self.maxWidth = self.lineWidth + 10;
     }
 }
 
@@ -84,11 +91,15 @@
         if (LineTypeNomal == roop.lineType) {
             UIBezierPath *path = roop.path;
             path.lineWidth = roop.lineWidth;
+            path.lineCapStyle = kCGLineCapRound;
+            path.lineJoinStyle = kCGLineJoinRound;
             [roop.lineColor set];
             [path stroke];
         } else if (LineTypeEraser == roop.lineType) {
             UIBezierPath *path = roop.path;
             path.lineWidth = kERASER_WIDTH;
+            path.lineCapStyle = kCGLineCapRound;
+            path.lineJoinStyle = kCGLineJoinRound;
             [KERASER_COLOR set];
             [path stroke];
         } else if (LineTypeSteelPen == roop.lineType) {
@@ -106,6 +117,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.targetVC animateWidgetHide:YES];
     UITouch *touch = touches.anyObject;
     CGPoint p = [touch locationInView:self];
     if (self.lineType == LineTypeNomal) {
@@ -125,7 +137,7 @@
     } else if (self.lineType == LineTypeSteelPen) {
         NSValue *vp = [NSValue valueWithCGPoint:p];
         self.points = @[vp,vp,vp];
-        self.currentWidth = kWIDTH_MIN;
+        self.currentWidth = self.minWidth;
         [self changeImage];
     }
     // 每次绘画了新的线条，就移除下一步的所有数据
@@ -151,6 +163,11 @@
 //    CGPoint currentPoint = [touch locationInView:self];
 //    [self.tempSign.path addLineToPoint:currentPoint];
 //    [self setNeedsDisplay];
+    [self.targetVC animateWidgetHide:NO];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.targetVC animateWidgetHide:NO];
 }
 
 #pragma mark - Public Method
@@ -195,7 +212,7 @@
     int len = (int)(sqrt(pow(x1, 2) + pow(x2, 2))*10);
     
     // 目标半径
-    CGFloat aimWidth = 300.0/(CGFloat)len * (kWIDTH_MAX - kWIDTH_MIN);
+    CGFloat aimWidth = 300.0/(CGFloat)len * (self.maxWidth - self.minWidth);
     
     // 获取贝塞尔点集
     NSArray * curvePoints = [self curveFactorizationWithFromPoint:tempPoint1 toPoint:tempPoint2 controlPoints:[NSArray arrayWithObject: self.points[1]] count:len];
@@ -226,17 +243,17 @@
             self.currentWidth += kDelta;
         }
         
-        if (self.currentWidth > kWIDTH_MAX) {
-            self.currentWidth = kWIDTH_MAX;
+        if (self.currentWidth > self.maxWidth) {
+            self.currentWidth = self.maxWidth;
         }
         
-        if (self.currentWidth < kWIDTH_MIN) {
-            self.currentWidth = kWIDTH_MIN;
+        if (self.currentWidth < self.minWidth) {
+            self.currentWidth = self.minWidth;
         }
         
         // 画线
         WFSignatureLine *line = [[WFSignatureLine alloc] init];
-        line.lineColor = [self.lineColor colorWithAlphaComponent:(self.currentWidth - kWIDTH_MIN)/kWIDTH_MAX *0.3 +0.2];
+        line.lineColor = [self.lineColor colorWithAlphaComponent:(self.currentWidth - self.minWidth)/self.maxWidth *0.3 +0.2];
         line.lineWidth = self.currentWidth;
         line.path = bPath;
         [tempLinesArray addObject:line];

@@ -1,47 +1,47 @@
 //
-//  CATransition+CMPMExtension.m
+//  CATransition+WFExtension.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
 //  Copyright © 2019年 shengangneng. All rights reserved.
 //
 
-#import "CATransition+CMPMExtension.h"
+#import "CATransition+WFExtension.h"
 
-@implementation CATransition (CMPMExtension)
+@implementation CATransition (WFExtension)
 
-+ (instancetype)transitionWithType:(CMPMTransitionType)type subType:(CMPMTransitionSubType)subType duration:(NSTimeInterval)duration {
++ (instancetype)transitionWithType:(WFTransitionType)type subType:(WFTransitionSubType)subType duration:(NSTimeInterval)duration {
     CATransition *animate = [CATransition animation];
     NSString *typeName;
     switch (type) {
-        case kCMPMTransitionTypeFade:{
+        case kWFTransitionTypeFade:{
             typeName = kCATransitionFade;
         }break;
-        case kCMPMTransitionTypeMoveIn:{
+        case kWFTransitionTypeMoveIn:{
             typeName = kCATransitionMoveIn;
         }break;
-        case kCMPMTransitionTypePush:{
+        case kWFTransitionTypePush:{
             typeName = kCATransitionPush;
         }break;
-        case kCMPMTransitionTypeReveal:{
+        case kWFTransitionTypeReveal:{
             typeName = kCATransitionReveal;
         }break;
-        case kCMPMTransitionTypePageCurl:{
+        case kWFTransitionTypePageCurl:{
             typeName = @"pageCurl";
         }break;
-        case kCMPMTransitionTypePageUnCurl:{
+        case kWFTransitionTypePageUnCurl:{
             typeName = @"pageUnCurl";
         }break;
-        case kCMPMTransitionTypeRippleEffect:{
+        case kWFTransitionTypeRippleEffect:{
             typeName = @"rippleEffect";
         }break;
-        case kCMPMTransitionTypeSuckEffect:{
+        case kWFTransitionTypeSuckEffect:{
             typeName = @"suckEffect";
         }break;
-        case kCMPMTransitionTypeCube:{
+        case kWFTransitionTypeCube:{
             typeName = @"cube";
         }break;
-        case kCMPMTransitionTypeOglFlip:{
+        case kWFTransitionTypeOglFlip:{
             typeName = @"oglFlip";
         }break;
         default:{
@@ -51,16 +51,16 @@
     
     NSString *subTypeName;
     switch (subType) {
-        case kCMPMTransitionSubTypeFromRight:{
+        case kWFTransitionSubTypeFromRight:{
             subTypeName = kCATransitionFromRight;
         }break;
-        case kCMPMTransitionSubTypeFromLeft:{
+        case kWFTransitionSubTypeFromLeft:{
             subTypeName = kCATransitionFromLeft;
         }break;
-        case kCMPMTransitionSubTypeFromTop:{
+        case kWFTransitionSubTypeFromTop:{
             subTypeName = kCATransitionFromTop;
         }break;
-        case kCMPMTransitionSubTypeFromBottom:{
+        case kWFTransitionSubTypeFromBottom:{
             subTypeName = kCATransitionFromBottom;
         }break;
         default:{

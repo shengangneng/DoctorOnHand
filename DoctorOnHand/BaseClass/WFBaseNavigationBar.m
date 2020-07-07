@@ -1,21 +1,21 @@
 //
-//  CMPMBaseNavigationBar.m
+//  WFBaseNavigationBar.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "CMPMBaseNavigationBar.h"
-#import "UIImage+CMPMExtension.h"
+#import "WFBaseNavigationBar.h"
+#import "UIImage+WFExtension.h"
 
-@interface CMPMBaseNavigationBar ()
+@interface WFBaseNavigationBar ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
-@implementation CMPMBaseNavigationBar
+@implementation WFBaseNavigationBar
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

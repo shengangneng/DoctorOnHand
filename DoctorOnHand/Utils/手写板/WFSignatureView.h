@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) LineType lineType;
 @property (nonatomic, assign, readonly) BOOL canLastStep;
 @property (nonatomic, assign, readonly) BOOL canNextStep;
-@property (nonatomic, weak)
+@property (nonatomic, weak) WFSignatureViewController *targetVC;
 
 - (void)lastStep;       /// 上一步
 - (void)nextStep;       /// 下一步

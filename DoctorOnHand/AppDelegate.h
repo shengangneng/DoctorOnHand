@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CMPMMaskBackView.h"
+#import "WFMaskBackView.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) CMPMMaskBackView *maskBackView;
+@property (strong, nonatomic) WFMaskBackView *maskBackView;
 
 @end
 

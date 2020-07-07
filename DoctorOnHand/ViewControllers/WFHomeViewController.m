@@ -8,7 +8,7 @@
 
 #import "WFHomeViewController.h"
 #import "WFLoginViewController.h"
-#import "CMPMSignatureViewController.h"
+#import "WFSignatureViewController.h"
 #import "WFHomeVideoViewController.h"
 #import "WFRecordAudioViewController.h"
 #import "WFRecordVideoViewController.h"
@@ -88,7 +88,7 @@
         }break;
         case 1: {
             // 手写板
-            CMPMSignatureViewController *sign = [[CMPMSignatureViewController alloc] init];
+            WFSignatureViewController *sign = [[WFSignatureViewController alloc] init];
             [self.navigationController pushViewController:sign animated:YES];
         }break;
         case 2: {

@@ -1,22 +1,22 @@
 //
-//  CMPMCustomNavigationBar.m
+//  WFCustomNavigationBar.m
 //  CommunityMPM
 //
 //  Created by gangneng shen on 2019/12/4.
 //  Copyright © 2019 jifenzhi. All rights reserved.
 //
 
-#import "CMPMCustomNavigationBar.h"
-#import "UIImage+CMPMExtension.h"
+#import "WFCustomNavigationBar.h"
+#import "UIImage+WFExtension.h"
 
-@interface CMPMCustomNavigationBar ()
+@interface WFCustomNavigationBar ()
 
 @property (nonatomic, strong) UIColor *titleColor;
 @property (nonatomic, strong) UIColor *backgroundColor;
 
 @end
 
-@implementation CMPMCustomNavigationBar
+@implementation WFCustomNavigationBar
 
 #pragma mark - Public Method
 - (void)updateTitleColor:(UIColor *)tColor backgroundColor:(UIColor *)bgColor {

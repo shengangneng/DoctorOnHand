@@ -1,25 +1,25 @@
 //
-//  CMPMMaskBackView.m
+//  WFMaskBackView.m
 //  CommunityMPM
 //
 //  Created by gangneng shen on 2019/10/10.
 //  Copyright © 2019 jifenzhi. All rights reserved.
 //
 
-#import "CMPMMaskBackView.h"
+#import "WFMaskBackView.h"
 #import "AppDelegate.h"
 
 const CGFloat kMaskingAlpha = 0.1;
 const CGFloat kWindowToScale = 1.0;
 static NSString *kTransform = @"transform";
 
-@interface CMPMMaskBackView ()
+@interface WFMaskBackView ()
 
 @property(nonatomic, weak) UIView *rootControllerView;
 
 @end
 
-@implementation CMPMMaskBackView
+@implementation WFMaskBackView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

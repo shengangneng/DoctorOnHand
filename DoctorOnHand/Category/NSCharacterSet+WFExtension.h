@@ -1,5 +1,5 @@
 //
-//  NSCharacterSet+CMPMExtension.h
+//  NSCharacterSet+WFExtension.h
 //  CommunityMPM
 //
 //  Created by gangneng shen on 2019/11/26.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSCharacterSet (CMPMExtension)
+@interface NSCharacterSet (WFExtension)
 
-+ (NSCharacterSet *)cmpm_urlAllowCharecterSet;
++ (NSCharacterSet *)wf_urlAllowCharecterSet;
 
 @end
 

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WFSignatureViewController : WFBaseViewController
 
+- (void)animateWidgetHide:(BOOL)hide;
+
 @end
 
 NS_ASSUME_NONNULL_END

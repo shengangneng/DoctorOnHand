@@ -1,5 +1,5 @@
 //
-//  UIImage+CMPMExtension.h
+//  UIImage+WFExtension.h
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/8.
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, GradientType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImage (CMPMExtension)
+@interface UIImage (WFExtension)
 /**
  *  根据给定的颜色，生成渐变色的图片
  *  @param imageSize    要生成的图片的大小

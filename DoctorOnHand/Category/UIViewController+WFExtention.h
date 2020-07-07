@@ -1,5 +1,5 @@
 //
-//  UIViewController+CMPMExtention.h
+//  UIViewController+WFExtention.h
 //  CommunityMPM
 //
 //  Created by sgn on 2020/3/2.
@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (CMPMExtention)
+@interface UIViewController (WFExtention)
 
 - (void)showAlertControllerWithStyle:(UIAlertControllerStyle)style
                                title:(NSString *)title

@@ -1,5 +1,5 @@
 //
-//  CMPMMaskBackView.h
+//  WFMaskBackView.h
 //  CommunityMPM
 //
 //  Created by gangneng shen on 2019/10/10.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMPMMaskBackView : UIView
+@interface WFMaskBackView : UIView
 
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UIView *maskView;

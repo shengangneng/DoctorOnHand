@@ -1,5 +1,5 @@
 //
-//  CMPMBaseViewController.h
+//  WFBaseViewController.h
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CMPMBaseViewController : UIViewController
+@interface WFBaseViewController : UIViewController
 
 - (void)setLeftBarButtonWithTitle:(NSString *)title action:(SEL)selector;
 

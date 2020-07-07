@@ -1,14 +1,14 @@
 //
-//  UIButton+CMPMExtension.m
+//  UIButton+WFExtension.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/7.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "UIButton+CMPMExtension.h"
+#import "UIButton+WFExtension.h"
 
-@implementation UIButton (CMPMExtension)
+@implementation UIButton (WFExtension)
 
 /** 设置普通按钮 */
 + (UIButton *)normalButtonWithTitle:(NSString *)title titleColor:(UIColor *)tColor bgcolor:(UIColor *)color {

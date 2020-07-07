@@ -20,12 +20,14 @@
 #define kNOR_PEN_TAG    666
 #define kSTE_PEN_TAG    777
 #define kERA_SER_TAG    888
+#define kANIMATE_DUR    0.25
 
 @interface WFSignatureViewController () <UITableViewDelegate, UITableViewDataSource>
 // Views
-@property (nonatomic, strong) WFSignatureView *signatureView; /// 手写板
-@property (nonatomic, strong) UIButton *backBt;                 /// 返回
+@property (nonatomic, strong) WFSignatureView *signatureView;   /// 手写板
+@property (nonatomic, strong) UIView *widgetBGView;             /// 小物件父视图
 @property (nonatomic, strong) UIButton *colorBarBt;             /// 调色盘
+@property (nonatomic, strong) UIButton *backBt;                 /// 返回
 @property (nonatomic, strong) UIView *colorSubView;             /// 调色盘旁边的小图
 @property (nonatomic, strong) UIButton *nomalPenBt;             /// 普通笔
 @property (nonatomic, strong) UIButton *steelPenBt;             /// 钢笔
@@ -33,9 +35,9 @@
 @property (nonatomic, strong) UIButton *clearAllBt;             /// 清空
 @property (nonatomic, strong) UIButton *lastStepBt;             /// 上一步
 @property (nonatomic, strong) UIButton *nextStepBt;             /// 下一步
+@property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
 @property (nonatomic, strong) UITableView *colorTableView;      /// 选择颜色值
 @property (nonatomic, strong) UITableView *widthTableView;      /// 选择宽度值
-@property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
 // Datas
 @property (nonatomic, copy) NSArray *colorsArray;               /// 颜色值数组
 @property (nonatomic, copy) NSArray *widthsArray;               /// 宽度数组
@@ -72,16 +74,17 @@
 
 - (void)setupSubViews {
     [self.view addSubview:self.signatureView];
+    [self.view addSubview:self.widgetBGView];
     [self.view addSubview:self.backBt];
     [self.view addSubview:self.saveToAlbumBt];
-    [self.view addSubview:self.colorBarBt];
+    [self.widgetBGView addSubview:self.colorBarBt];
     [self.colorBarBt addSubview:self.colorSubView];
-    [self.view addSubview:self.steelPenBt];
-    [self.view addSubview:self.nomalPenBt];
-    [self.view addSubview:self.eraserBt];
-    [self.view addSubview:self.clearAllBt];
-    [self.view addSubview:self.lastStepBt];
-    [self.view addSubview:self.nextStepBt];
+    [self.widgetBGView addSubview:self.steelPenBt];
+    [self.widgetBGView addSubview:self.nomalPenBt];
+    [self.widgetBGView addSubview:self.eraserBt];
+    [self.widgetBGView addSubview:self.clearAllBt];
+    [self.widgetBGView addSubview:self.lastStepBt];
+    [self.widgetBGView addSubview:self.nextStepBt];
     [self.view addSubview:self.colorTableView];
     [self.view addSubview:self.widthTableView];
 }
@@ -99,18 +102,22 @@
     [self.signatureView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    [self.widgetBGView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.top.bottom.equalTo(self.view);
+        make.width.equalTo(@(kMARGIN+kITEM_W));
+    }];
     [self.nomalPenBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
         make.centerY.equalTo(self.view.mas_centerY).offset(-kMARGIN);
     }];
     [self.steelPenBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
         make.bottom.equalTo(self.nomalPenBt.mas_top).offset(-kMARGIN);
     }];
     [self.colorBarBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
         make.bottom.equalTo(self.steelPenBt.mas_top).offset(-kMARGIN);
     }];
@@ -119,22 +126,22 @@
         make.bottom.trailing.equalTo(self.colorBarBt);
     }];
     [self.eraserBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
         make.top.equalTo(self.nomalPenBt.mas_bottom).offset(kMARGIN);
     }];
     [self.clearAllBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(kMARGIN);
         make.width.height.equalTo(@(kITEM_W));
         make.top.equalTo(self.eraserBt.mas_bottom).offset(kMARGIN);
     }];
     [self.lastStepBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(28);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(28);
         make.width.height.equalTo(@(kITEM_W2));
         make.top.equalTo(self.clearAllBt.mas_bottom).offset(30);
     }];
     [self.nextStepBt mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading).offset(28);
+        make.leading.equalTo(self.widgetBGView.mas_leading).offset(28);
         make.width.height.equalTo(@(kITEM_W2));
         make.top.equalTo(self.lastStepBt.mas_bottom).offset(kMARGIN);
     }];
@@ -150,6 +157,33 @@
         make.top.equalTo(self.colorBarBt.mas_top).offset(-25);
         make.leading.equalTo(self.colorTableView.mas_trailing).offset(20);
     }];
+}
+
+#pragma mark - Public Method
+
+- (void)animateWidgetHide:(BOOL)hide {
+    if (hide) {
+        // 缩起调色盘
+        self.colorTableView.hidden = self.widthTableView.hidden = YES;
+        self.colorBarBt.selected = YES;
+        self.colorBarBt.backgroundColor = kRGBA(22, 120, 255, 1);
+        [UIView animateWithDuration:kANIMATE_DUR animations:^{
+            [self.widgetBGView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.equalTo(self.view);
+                make.width.equalTo(@(kMARGIN+kITEM_W));
+                make.leading.equalTo(self.view.mas_leading).offset(-(kMARGIN+kITEM_W));
+            }];
+            [self.view layoutIfNeeded];
+        }];
+    } else {
+        [UIView animateWithDuration:kANIMATE_DUR animations:^{
+            [self.widgetBGView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.leading.top.bottom.equalTo(self.view);
+                make.width.equalTo(@(kMARGIN+kITEM_W));
+            }];
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 #pragma mark - Target Action
@@ -186,6 +220,12 @@
 - (void)selectColorBar:(UIButton *)sender {
     BOOL hidden = self.colorTableView.hidden;
     self.colorTableView.hidden = self.widthTableView.hidden = !hidden;
+    sender.selected = !sender.selected;
+    if (hidden) {
+        sender.backgroundColor = kRGBA(0, 0, 0, 0.1);
+    } else {
+        sender.backgroundColor = kRGBA(22, 120, 255, 1);
+    }
 }
 
 /// 钢笔、普通笔、橡皮切换
@@ -306,8 +346,16 @@
         _signatureView = [[WFSignatureView alloc] init];
         _signatureView.lineType = LineTypeSteelPen;
         _signatureView.backgroundColor = kWhiteColor;
+        _signatureView.targetVC = self;
     }
     return _signatureView;
+}
+- (UIView *)widgetBGView {
+    if (!_widgetBGView) {
+        _widgetBGView = [[UIView alloc] init];
+        _widgetBGView.backgroundColor = kWhiteColor;
+    }
+    return _widgetBGView;
 }
 - (UIButton *)backBt {
     if (!_backBt) {

@@ -1,16 +1,16 @@
 //
-//  NSCharacterSet+CMPMExtension.m
+//  NSCharacterSet+WFExtension.m
 //  CommunityMPM
 //
 //  Created by gangneng shen on 2019/11/26.
 //  Copyright © 2019 jifenzhi. All rights reserved.
 //
 
-#import "NSCharacterSet+CMPMExtension.h"
+#import "NSCharacterSet+WFExtension.h"
 
-@implementation NSCharacterSet (CMPMExtension)
+@implementation NSCharacterSet (WFExtension)
 
-+ (NSCharacterSet *)cmpm_urlAllowCharecterSet {
++ (NSCharacterSet *)wf_urlAllowCharecterSet {
     return [[NSCharacterSet characterSetWithCharactersInString:@"\"%<>[\\]^`{|} "] invertedSet];
 }
 

@@ -1,14 +1,14 @@
 //
-//  NSString+CMPMExtension.m
+//  NSString+WFExtension.m
 //  CommunityMPM
 //
 //  Created by shengangneng on 2019/4/16.
 //  Copyright © 2019年 jifenzhi. All rights reserved.
 //
 
-#import "NSString+CMPMExtension.h"
+#import "NSString+WFExtension.h"
 
-@implementation NSString (CMPMExtension)
+@implementation NSString (WFExtension)
 
 /** 去除字符串两边的空格 */
 - (NSString *)clearSideSpace {
