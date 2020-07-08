@@ -1,5 +1,5 @@
 //
-//  WFHomeVideoViewController.h
+//  WFPlayVideoViewController.h
 //  DoctorOnHand
 //
 //  Created by sgn on 2020/6/22.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WFHomeVideoViewController : WFBaseViewController
+@interface WFPlayVideoViewController : WFBaseViewController
 
 @end
 

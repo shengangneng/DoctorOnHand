@@ -45,7 +45,7 @@
 		DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DCC24A0F3D7001C9344 /* WFAVPlayerControlView.m */; };
 		DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */; };
 		DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */; };
-		DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */; };
+		DD6C4DD724A0F5FA001C9344 /* WFPlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DD624A0F5F9001C9344 /* WFPlayVideoViewController.m */; };
 		DD6C4DD924A0F6AA001C9344 /* movie.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DD6C4DD824A0F6AA001C9344 /* movie.mp4 */; };
 		DD6C4DDF24A24170001C9344 /* WFRecordVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DDC24A24170001C9344 /* WFRecordVoiceHUD.m */; };
 		DD6C4DE024A24170001C9344 /* WFRecordVoiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DDE24A24170001C9344 /* WFRecordVoiceButton.m */; };
@@ -142,8 +142,8 @@
 		DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAVPlayerSilder.m; sourceTree = "<group>"; };
 		DD6C4DD024A0F3D7001C9344 /* WFAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAVPlayerView.h; sourceTree = "<group>"; };
 		DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAVPlayerView.m; sourceTree = "<group>"; };
-		DD6C4DD524A0F5F9001C9344 /* WFHomeVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFHomeVideoViewController.h; sourceTree = "<group>"; };
-		DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFHomeVideoViewController.m; sourceTree = "<group>"; };
+		DD6C4DD524A0F5F9001C9344 /* WFPlayVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPlayVideoViewController.h; sourceTree = "<group>"; };
+		DD6C4DD624A0F5F9001C9344 /* WFPlayVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPlayVideoViewController.m; sourceTree = "<group>"; };
 		DD6C4DD824A0F6AA001C9344 /* movie.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = movie.mp4; sourceTree = "<group>"; };
 		DD6C4DDB24A24170001C9344 /* WFRecordVoiceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRecordVoiceButton.h; sourceTree = "<group>"; };
 		DD6C4DDC24A24170001C9344 /* WFRecordVoiceHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRecordVoiceHUD.m; sourceTree = "<group>"; };
@@ -430,8 +430,8 @@
 		DD6C4DC824A0EE45001C9344 /* 视频播放 */ = {
 			isa = PBXGroup;
 			children = (
-				DD6C4DD524A0F5F9001C9344 /* WFHomeVideoViewController.h */,
-				DD6C4DD624A0F5F9001C9344 /* WFHomeVideoViewController.m */,
+				DD6C4DD524A0F5F9001C9344 /* WFPlayVideoViewController.h */,
+				DD6C4DD624A0F5F9001C9344 /* WFPlayVideoViewController.m */,
 				DD6C4DD024A0F3D7001C9344 /* WFAVPlayerView.h */,
 				DD6C4DD124A0F3D7001C9344 /* WFAVPlayerView.m */,
 				DD6C4DCD24A0F3D7001C9344 /* WFAVPlayerControlView.h */,
@@ -640,7 +640,7 @@
 				DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */,
 				DD6C4DE924A24675001C9344 /* WFFileManager.m in Sources */,
 				DD6C4DE024A24170001C9344 /* WFRecordVoiceButton.m in Sources */,
-				DD6C4DD724A0F5FA001C9344 /* WFHomeVideoViewController.m in Sources */,
+				DD6C4DD724A0F5FA001C9344 /* WFPlayVideoViewController.m in Sources */,
 				DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */,
 				DD6C4DED24A246AD001C9344 /* amrFileCodec.m in Sources */,
 				DD6C4DA2249BB400001C9344 /* UIImage+WFExtension.m in Sources */,

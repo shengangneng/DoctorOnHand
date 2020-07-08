@@ -9,7 +9,7 @@
 #import "WFHomeViewController.h"
 #import "WFLoginViewController.h"
 #import "WFSignatureViewController.h"
-#import "WFHomeVideoViewController.h"
+#import "WFPlayVideoViewController.h"
 #import "WFRecordAudioViewController.h"
 #import "WFRecordVideoViewController.h"
 #import "WFTakePhotoViewController.h"
@@ -93,7 +93,7 @@
         }break;
         case 2: {
             // 视频播放
-            WFHomeVideoViewController *video = [[WFHomeVideoViewController alloc] init];
+            WFPlayVideoViewController *video = [[WFPlayVideoViewController alloc] init];
             [self.navigationController pushViewController:video animated:YES];
         }break;
         case 3: {

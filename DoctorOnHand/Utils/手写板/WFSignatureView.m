@@ -40,20 +40,6 @@
     return self;
 }
 
-- (void)setLineType:(LineType)lineType {
-    _lineType = lineType;
-    switch (lineType) {
-        case LineTypeNomal: {
-            self.lineColor = kBlackColor;;
-        }break;
-        case LineTypeSteelPen: {
-            self.lineColor = kBlackColor;
-        }break;
-        default:
-            break;
-    }
-}
-
 - (void)setLineWidth:(CGFloat)lineWidth {
     _lineWidth = lineWidth;
     if (lineWidth <= 10) {

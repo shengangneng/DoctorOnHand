@@ -1,21 +1,21 @@
 //
-//  WFHomeVideoViewController.m
+//  WFPlayVideoViewController.m
 //  DoctorOnHand
 //
 //  Created by sgn on 2020/6/22.
 //  Copyright © 2020 shengangneng. All rights reserved.
 //
 
-#import "WFHomeVideoViewController.h"
+#import "WFPlayVideoViewController.h"
 #import "WFAVPlayerView.h"
 
-@interface WFHomeVideoViewController () <WFAVPlayerViewDelegate>
+@interface WFPlayVideoViewController () <WFAVPlayerViewDelegate>
 
 @property (nonatomic, strong) WFAVPlayerView *playerView;
 
 @end
 
-@implementation WFHomeVideoViewController
+@implementation WFPlayVideoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
