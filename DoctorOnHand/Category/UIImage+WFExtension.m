@@ -1,9 +1,9 @@
 //
 //  UIImage+WFExtension.m
-//  CommunityMPM
+//  DoctorOnHand
 //
-//  Created by shengangneng on 2019/4/8.
-//  Copyright © 2019年 jifenzhi. All rights reserved.
+//  Created by sgn on 2020/6/26.
+//  Copyright © 2020 shengangneng. All rights reserved.
 //
 
 #import "UIImage+WFExtension.h"

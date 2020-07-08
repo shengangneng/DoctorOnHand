@@ -9,10 +9,12 @@
 #import "WFRecordVideoViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WFVideoProgress.h"
+#import "WFCommomTool.h"
+#import "WFFileManager.h"
 
 @interface WFRecordVideoViewController ()<AVCaptureFileOutputRecordingDelegate>
 
-@property (nonatomic, strong) NSTimer *timer;           // 定时器
+@property (nonatomic, strong) NSTimer *timer;                                       // 定时器
 @property (nonatomic, strong) AVCaptureSession *captureSession;                     // 负责输入和输出设置之间的数据传递
 @property (nonatomic, strong) AVCaptureDeviceInput *captureDeviceInput;             // 负责从AVCaptureDevice获得输入数据
 @property (nonatomic, strong) AVCaptureMovieFileOutput *captureMovieFileOutput;     // 视频输出流
@@ -30,13 +32,14 @@
 @property (nonatomic, strong) UIButton *headerReplyButton;      // 预览
 
 @property (nonatomic, strong) UIView *middleContentView;        // 录制视频容器
-@property (nonatomic, strong) UILabel *middleRECLabel;          // REC
+@property (nonatomic, strong) UIView *middleRECView;            // REC
 @property (nonatomic, strong) UILabel *middleRecordTimeLabel;   // 录制视频时长标签
 @property (nonatomic, strong) UIImageView *middleFocusCursor;   // 聚焦按钮
 
 @property (nonatomic, strong) UIView *middleVideoView;          // 播放器容器
 @property (nonatomic, strong) UIView *middlePreviewView;        // 预览视图
 @property (nonatomic, strong) UIButton *middlePlayButton;       // 播放按钮
+@property (nonatomic, strong) CALayer *playLayer;               // 播放按钮中的子layer
 @property (nonatomic, strong) UILabel *middleCurrentLabel;      // 预览视图当前时长
 @property (nonatomic, strong) WFVideoProgress *middleProgress;  // 播放进度
 @property (nonatomic, strong) UILabel *middleTotalLabel;        // 预览视图总时长
@@ -65,40 +68,6 @@
     [self initVideoInfo];
 }
 
-- (void)setupAttributes {
-    self.navigationItem.title = @"拍照";
-    self.view.backgroundColor = kWhiteColor;
-    [self.headerBackButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomFrontButton addTarget:self action:@selector(cameraSwitchBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomScanButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.headerReplyButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomLightButton addTarget:self action:@selector(light:) forControlEvents:UIControlEventTouchUpInside];
-    [self.middlePlayButton addTarget:self action:@selector(playBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)setupSubViews {
-    [self.view addSubview:self.headerView];
-    [self.headerView addSubview:self.headerBackButton];
-    [self.headerView addSubview:self.headerReplyButton];
-    
-    [self.view addSubview:self.middleContentView];
-    [self.middleContentView addSubview:self.middleRECLabel];
-    [self.middleContentView addSubview:self.middleRecordTimeLabel];
-    [self.middleContentView addSubview:self.middleFocusCursor];
-    
-    [self.view addSubview:self.middleVideoView];
-    [self.middleVideoView addSubview:self.middlePreviewView];
-    [self.middlePreviewView addSubview:self.middlePlayButton];
-    [self.middlePreviewView addSubview:self.middleCurrentLabel];
-    [self.middlePreviewView addSubview:self.middleProgress];
-    [self.middlePreviewView addSubview:self.middleTotalLabel];
-    
-    [self.view addSubview:self.bottomView];
-    [self.bottomView addSubview:self.bottomLightButton];
-    [self.bottomView addSubview:self.bottomScanButton];
-    [self.bottomView addSubview:self.bottomFrontButton];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.captureSession startRunning];
@@ -114,6 +83,40 @@
     }
     [self removeNotification];
     [self.captureSession stopRunning];
+}
+
+- (void)setupAttributes {
+    self.navigationItem.title = @"拍照";
+    self.view.backgroundColor = kWhiteColor;
+    [self.headerBackButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomFrontButton addTarget:self action:@selector(cameraSwitchBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomScanButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerReplyButton addTarget:self action:@selector(doneOrReplay:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomLightButton addTarget:self action:@selector(light:) forControlEvents:UIControlEventTouchUpInside];
+    [self.middlePlayButton addTarget:self action:@selector(playBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupSubViews {
+    [self.view addSubview:self.headerView];
+    [self.headerView addSubview:self.headerBackButton];
+    [self.headerView addSubview:self.headerReplyButton];
+    
+    [self.view addSubview:self.middleContentView];
+    [self.middleContentView addSubview:self.middleFocusCursor];
+    [self.middleContentView addSubview:self.middleRECView];
+    [self.middleContentView addSubview:self.middleRecordTimeLabel];
+    
+    [self.view addSubview:self.middleVideoView];
+    [self.middleVideoView addSubview:self.middlePreviewView];
+    [self.middlePreviewView addSubview:self.middlePlayButton];
+    [self.middlePreviewView addSubview:self.middleCurrentLabel];
+    [self.middlePreviewView addSubview:self.middleProgress];
+    [self.middlePreviewView addSubview:self.middleTotalLabel];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView addSubview:self.bottomLightButton];
+    [self.bottomView addSubview:self.bottomScanButton];
+    [self.bottomView addSubview:self.bottomFrontButton];
 }
 
 - (void)initVideoInfo {
@@ -188,40 +191,31 @@
 
 - (void)btnOnClick:(UIButton *)btn {
     btn.enabled = NO;
-    if (btn.tag == 1000) {
-        if (self.captureMovieFileOutput.isRecording) {
-            // 重新录制
-            [self finishBtnOnClick];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self startRecordVideo];
-            });
-        } else {
-            // 开始录制
-            [self startRecordVideo];
-        }
-        
-    } else if (btn.tag == 1001) {
-        if ([btn.titleLabel.text isEqualToString:@"完成录制"]) {
-            // 完成录制
-            [self finishBtnOnClick];
-        } else {
-            // 预览视频
-            [self reviewBtnOnClick];
-        }
+    if (self.captureMovieFileOutput.isRecording) {
+        // 结束录制
+        AudioServicesPlaySystemSound(1114);
+        [self finishBtnOnClick];
+    } else {
+        // 开始录制
+        [self startRecordVideo];
     }
-    
     btn.enabled = YES;
+}
+
+- (void)doneOrReplay:(UIButton *)sender {
+    // 预览视频
+    [self reviewBtnOnClick];
 }
 
 // 开始录制
 - (void)startRecordVideo {
     // 更新界面
     self.middleRecordTimeLabel.text = @"00:00";
-    UIButton *recordBtn = (UIButton *)[self.view viewWithTag:1000];
-    [recordBtn setTitle:@"重新录制" forState:UIControlStateNormal];
-    UIButton *reviewBtn = (UIButton *)[self.view viewWithTag:1001];
-    reviewBtn.hidden = NO;
-    [reviewBtn setTitle:@"完成录制" forState:UIControlStateNormal];
+    // 播放的layer动画
+    self.playLayer.frame = CGRectMake(18, 18, 30, 30);
+    self.playLayer.cornerRadius = 5;
+    
+    self.headerReplyButton.hidden = YES;
     _middleVideoView.hidden = YES;
     _middlePreviewView.hidden = YES;
     _bottomFrontButton.hidden = YES;
@@ -258,9 +252,13 @@
 // 完成录制
 - (void)finishBtnOnClick {
     // 更新界面
-    self.middleRECLabel.hidden = NO;
-    UIButton *reviewBtn = (UIButton *)[self.view viewWithTag:1001];
-    [reviewBtn setTitle:@"视频预览" forState:UIControlStateNormal];
+    self.middleRECView.hidden = NO;
+    self.middleRecordTimeLabel.text = @"00:00";
+    // 播放的layer动画
+    self.playLayer.frame = CGRectMake(6, 6, 54, 54);
+    self.playLayer.cornerRadius = 27;
+    // 预览按钮
+    self.headerReplyButton.hidden = NO;
     _bottomFrontButton.hidden = NO;
     
     // 结束录制
@@ -271,6 +269,7 @@
     
     // 配置avplayer的item
     [self setPlayerItem];
+    [WFCommomTool showTextWithTitle:@"录制完成！" inView:self.view animation:YES];
 }
 
 // 配置avplayer的item
@@ -293,14 +292,14 @@
 // 添加定时器
 - (void)addRecordTimer {
     _time = 0;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(recordTimerAction) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(recordTimerAction) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 
 // 定时器事件
 - (void)recordTimerAction {
     _time ++;
-    self.middleRECLabel.hidden = !self.middleRECLabel.hidden;
+    self.middleRECView.hidden = !self.middleRECView.hidden;
     self.middleRecordTimeLabel.text = [NSString stringWithFormat:@"%@", [self strWithTime:_time interval:1.f]];
 }
 
@@ -354,13 +353,14 @@
 
 // 视频路径
 - (NSString *)getPath {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYYMMdd"];
-    NSString *dateStr = [formatter stringFromDate:[NSDate date]];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"YYYYMMdd"];
+//    NSString *dateStr = [formatter stringFromDate:[NSDate date]];
+//
+//    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4", dateStr]];
     
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4", dateStr]];
     
-    return path;
+    return [WFFileManager videoFilePath];
 }
 
 #pragma mark - 视频输出代理
@@ -646,10 +646,9 @@
     if (!_headerReplyButton) {
         _headerReplyButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _headerReplyButton.frame = CGRectMake(kScreenWidth - 112, kStatusBarHeight+(kTopHeight - kStatusBarHeight - 35)/2, 100, 35);
-        _headerReplyButton.tag = 1001;
         _headerReplyButton.hidden = YES;
-        [_headerReplyButton setTitle:(@"预览") forState:UIControlStateNormal];
-        [_headerReplyButton setTitle:(@"预览") forState:UIControlStateHighlighted];
+        [_headerReplyButton setTitle:(@"预览视频") forState:UIControlStateNormal];
+        [_headerReplyButton setTitle:(@"预览视频") forState:UIControlStateHighlighted];
         [_headerReplyButton setTitleColor:kWhiteColor forState:UIControlStateHighlighted];
         [_headerReplyButton setTitleColor:kWhiteColor forState:UIControlStateNormal];
     }
@@ -700,13 +699,13 @@
         _bottomScanButton.layer.borderColor = kWhiteColor.CGColor;
         _bottomScanButton.backgroundColor = kClearColor;
         _bottomScanButton.frame = CGRectMake(kScreenWidth/2 - 33, 17, 66, 66);
-        _bottomScanButton.tag = 1000;
-        CALayer *smaLayer = [CALayer layer];
-        smaLayer.frame = CGRectMake(6, 6, 54, 54);
-        smaLayer.cornerRadius = 27;
-        smaLayer.backgroundColor = kRedColor.CGColor;
         
-        [_bottomScanButton.layer addSublayer:smaLayer];
+        self.playLayer = [CALayer layer];
+        self.playLayer.frame = CGRectMake(6, 6, 54, 54);
+        self.playLayer.cornerRadius = 27;
+        self.playLayer.backgroundColor = kRedColor.CGColor;
+        
+        [_bottomScanButton.layer addSublayer:self.playLayer];
     }
     return _bottomScanButton;
 }
@@ -732,21 +731,21 @@
     }
     return _middleVideoView;
 }
-- (UILabel *)middleRECLabel {
-    if (!_middleRECLabel) {
-        _middleRECLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 17, 60, 40)];
-        _middleRECLabel.text = @"REC";
-        _middleRECLabel.font = SystemFont(20);
-        _middleRECLabel.textColor = kRedColor;
+- (UIView *)middleRECView {
+    if (!_middleRECView) {
+        _middleRECView = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 6, 6)];
+        _middleRECView.layer.cornerRadius = 3;
+        _middleRECView.layer.masksToBounds = YES;
+        _middleRECView.backgroundColor = kRedColor;
     }
-    return _middleRECLabel;
+    return _middleRECView;
 }
 - (UILabel *)middleRecordTimeLabel {
     if (!_middleRecordTimeLabel) {
-        _middleRecordTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.middleRECLabel.frame), CGRectGetMinY(self.middleRECLabel.frame), 150, 40)];
+        _middleRecordTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.middleRECView.frame) + 8, CGRectGetMinY(self.middleRECView.frame) - 17, 150, 40)];
         _middleRecordTimeLabel.text = @"00:00";
         _middleRecordTimeLabel.textColor = kBlackColor;
-        _middleRecordTimeLabel.font = SystemFont(20);
+        _middleRecordTimeLabel.font = BoldSystemFont(20);
     }
     return _middleRecordTimeLabel;
 }

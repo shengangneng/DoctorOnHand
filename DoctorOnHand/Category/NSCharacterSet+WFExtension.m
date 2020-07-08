@@ -1,9 +1,9 @@
 //
 //  NSCharacterSet+WFExtension.m
-//  CommunityMPM
+//  DoctorOnHand
 //
-//  Created by gangneng shen on 2019/11/26.
-//  Copyright © 2019 jifenzhi. All rights reserved.
+//  Created by sgn on 2020/6/26.
+//  Copyright © 2020 shengangneng. All rights reserved.
 //
 
 #import "NSCharacterSet+WFExtension.h"

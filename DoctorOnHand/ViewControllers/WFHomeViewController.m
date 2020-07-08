@@ -45,8 +45,7 @@
         @"录音",
         @"拍照",
         @"摄像",
-        @"文件上传",
-        @"文件缓存查看"
+        @"缓存文件查看"
     ];
 }
 
@@ -112,10 +111,7 @@
             [self.navigationController pushViewController:recordVideo animated:YES];
         }break;
         case 6: {
-            // 文件上传
-        }break;
-        case 7: {
-            // 文件缓存查看
+            // 缓存文件查看
             WFFileReaderViewController *fileReader = [[WFFileReaderViewController alloc] init];
             [self.navigationController pushViewController:fileReader animated:YES];
         }break;

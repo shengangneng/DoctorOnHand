@@ -6,25 +6,37 @@
 //  Copyright © 2020 shengangneng. All rights reserved.
 //
 
-#define LOCAL_AUDIO_FOLDER @"CZHVoice"
+#define LOCAL_AUDIO_FOLDER @"Audio"
+#define LOCAL_VIDEO_FOLDER @"Video"
 
 #import "WFFileManager.h"
 #import "amrFileCodec.h"
 
 @implementation WFFileManager
 
-+ (NSString *)filePath {
-    NSString *path = [WFFileManager folderPath];
-    NSString *fileName = [WFFileManager fileName];
++ (NSString *)audioFilePath {
+    NSString *path = [WFFileManager voiceFolderPath];
+    NSString *fileName = [WFFileManager audioFileName];
     return [path stringByAppendingPathComponent:fileName];
 }
 
-+ (NSString *)fileName {
-    NSString *fileName = [NSString stringWithFormat:@"voice_%lld.wav",(long long)[NSDate timeIntervalSinceReferenceDate]];
++ (NSString *)videoFilePath {
+    NSString *path = [WFFileManager videoFolderPath];
+    NSString *fileName = [WFFileManager videoFileName];
+    return [path stringByAppendingPathComponent:fileName];
+}
+
++ (NSString *)audioFileName {
+    NSString *fileName = [NSString stringWithFormat:@"audio_%lld.wav",(long long)[NSDate timeIntervalSinceReferenceDate]];
     return fileName;
 }
 
-+ (NSString *)folderPath {
++ (NSString *)videoFileName {
+    NSString *fileName = [NSString stringWithFormat:@"video_%lld.mp4",(long long)[NSDate timeIntervalSinceReferenceDate]];
+    return fileName;
+}
+
++ (NSString *)voiceFolderPath {
     NSString *documentDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *cwFolderPath = [NSString stringWithFormat:@"%@/%@",documentDir, LOCAL_AUDIO_FOLDER];
     BOOL isExist =  [[NSFileManager defaultManager]fileExistsAtPath:cwFolderPath];
@@ -34,6 +46,15 @@
     return cwFolderPath;
 }
 
++ (NSString *)videoFolderPath {
+    NSString *documentDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *cwFolderPath = [NSString stringWithFormat:@"%@/%@",documentDir, LOCAL_VIDEO_FOLDER];
+    BOOL isExist =  [[NSFileManager defaultManager]fileExistsAtPath:cwFolderPath];
+    if (!isExist) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:cwFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return cwFolderPath;
+}
 
 // 转换为amr格式并生成文件到savePath(showSize是否在控制台打印转换后的文件大小)
 + (NSString *)convertWavtoAMRWithVoiceFilePath:(NSString *)voiceFilePath{
@@ -56,7 +77,7 @@
     
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:voiceUrl]];
     
-    NSString *folderPath = [WFFileManager folderPath];
+    NSString *folderPath = [WFFileManager voiceFolderPath];
     
     NSString *wavPath = [folderPath stringByAppendingPathComponent:[voiceUrl lastPathComponent]];
     
@@ -76,7 +97,7 @@
     
     data = DecodeAMRToWAVE(data);
     
-    NSString *folderPath = [WFFileManager folderPath];
+    NSString *folderPath = [WFFileManager voiceFolderPath];
     
     NSString *wavPath = [folderPath stringByAppendingPathComponent:[voiceFilePath lastPathComponent]];
     
@@ -99,7 +120,7 @@
     
     data = DecodeAMRToWAVE(data);
     
-    NSString *folderPath = [WFFileManager folderPath];
+    NSString *folderPath = [WFFileManager voiceFolderPath];
     
     NSString *wavPath = [folderPath stringByAppendingPathComponent:[voiceUrl lastPathComponent]];
     
@@ -118,7 +139,7 @@
 
 + (NSString *)voiceUrlIsExistInLocalWithLastPathComponent:(NSString *)lastPathComponent {
     
-    NSString *folderPath = [WFFileManager folderPath];
+    NSString *folderPath = [WFFileManager voiceFolderPath];
     
     NSString *wavPath = [folderPath stringByAppendingPathComponent:lastPathComponent];
     

@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.navigationItem.title = (_cacheTitle ? _cacheTitle : WFFileReaderTitle);
     
@@ -43,8 +42,8 @@
 
 - (void)loadView {
     [super loadView];
-    self.navigationItem.title = @"文件查看";
-    self.view.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.1];
+    self.navigationItem.title = @"缓存文件查看";
+    self.view.backgroundColor = kWhiteColor;
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         

@@ -142,7 +142,7 @@
             self.recordMessageLb.text = @"正在录音中，点击可暂停";
             DLog(@"---开始录音----");
             self.recordBt.selected = YES;
-            NSString *audioLocalPath = [WFFileManager filePath];
+            NSString *audioLocalPath = [WFFileManager audioFilePath];
             self.audioLocalPath = audioLocalPath;
             [[WFRecordTool shareRecordTool] beginRecordWithRecordPath:audioLocalPath];
             [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord inView:self.recordView];
@@ -183,7 +183,7 @@
     
     if (gr.state == UIGestureRecognizerStateBegan) {    // 长按开始
         DLog(@"---开始录音");
-        NSString *audioLocalPath = [WFFileManager filePath];
+        NSString *audioLocalPath = [WFFileManager audioFilePath];
         self.audioLocalPath = audioLocalPath;
         
         /// 开始录音

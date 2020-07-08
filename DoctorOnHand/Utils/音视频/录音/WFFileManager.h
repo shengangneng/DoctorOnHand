@@ -10,9 +10,16 @@
 
 @interface WFFileManager : NSObject
 
-+ (NSString *)folderPath;
++ (NSString *)audioFolderPath;
++ (NSString *)videoFolderPath;
+
 /// 音频文件保存的整个路径
-+ (NSString *)filePath;
++ (NSString *)audioFilePath;
+/// 视频文件保存的整个路径
++ (NSString *)videoFilePath;
+
+
+
 /// 删除文件
 + (BOOL)removeFile:(NSString *)filePath;
 /// 转换本地wav为本地amr

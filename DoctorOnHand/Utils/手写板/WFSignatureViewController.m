@@ -20,7 +20,7 @@
 #define kNOR_PEN_TAG    666
 #define kSTE_PEN_TAG    777
 #define kERA_SER_TAG    888
-#define kANIMATE_DUR    0.25
+#define kANIMATE_DUR    0.1
 
 @interface WFSignatureViewController () <UITableViewDelegate, UITableViewDataSource>
 // Views
@@ -167,22 +167,22 @@
         self.colorTableView.hidden = self.widthTableView.hidden = YES;
         self.colorBarBt.selected = YES;
         self.colorBarBt.backgroundColor = kRGBA(22, 120, 255, 1);
-        [UIView animateWithDuration:kANIMATE_DUR animations:^{
-            [self.widgetBGView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(self.view);
-                make.width.equalTo(@(kMARGIN+kITEM_W));
-                make.leading.equalTo(self.view.mas_leading).offset(-(kMARGIN+kITEM_W));
-            }];
-            [self.view layoutIfNeeded];
-        }];
+//        [UIView animateWithDuration:kANIMATE_DUR animations:^{
+//            [self.widgetBGView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.bottom.equalTo(self.view);
+//                make.width.equalTo(@(kMARGIN+kITEM_W));
+//                make.leading.equalTo(self.view.mas_leading).offset(-(kMARGIN+kITEM_W));
+//            }];
+//            [self.view layoutIfNeeded];
+//        }];
     } else {
-        [UIView animateWithDuration:kANIMATE_DUR animations:^{
-            [self.widgetBGView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.leading.top.bottom.equalTo(self.view);
-                make.width.equalTo(@(kMARGIN+kITEM_W));
-            }];
-            [self.view layoutIfNeeded];
-        }];
+//        [UIView animateWithDuration:kANIMATE_DUR animations:^{
+//            [self.widgetBGView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.leading.top.bottom.equalTo(self.view);
+//                make.width.equalTo(@(kMARGIN+kITEM_W));
+//            }];
+//            [self.view layoutIfNeeded];
+//        }];
     }
 }
 

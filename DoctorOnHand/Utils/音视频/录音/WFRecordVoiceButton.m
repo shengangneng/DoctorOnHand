@@ -62,7 +62,7 @@
     if (gr.state == UIGestureRecognizerStateBegan) {//长按开始
         DLog(@"---开始录音");
         [self setButtonStateWithRecording];
-        NSString *audioLocalPath = [WFFileManager filePath];
+        NSString *audioLocalPath = [WFFileManager audioFilePath];
         self.audioLocalPath = audioLocalPath;
         
         ///开始录音
