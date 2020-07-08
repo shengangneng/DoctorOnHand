@@ -44,9 +44,9 @@ static WFRecordTool *instance;
     [recordSettings setValue :[NSNumber numberWithFloat:8000] forKey: AVSampleRateKey];
     // 通道数
     [recordSettings setValue :[NSNumber numberWithInt:1] forKey: AVNumberOfChannelsKey];
-    //线性采样位数  8、16、24、32
+    // 线性采样位数  8、16、24、32
     [recordSettings setValue:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-    //录音的质量
+    // 录音的质量
     [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
     
     // 3. 创建录音对象
@@ -54,7 +54,7 @@ static WFRecordTool *instance;
     _audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
     _audioRecorder.meteringEnabled = YES;
     if (error) {
-        NSLog(@"%@",error);
+        NSLog(@"创建录音失败：%@",error);
         return NO;
     }
     return YES;
@@ -77,9 +77,8 @@ static WFRecordTool *instance;
     [self micPhonePermissions:^(BOOL ishave) {
         if (ishave) {
             [self startRecording];
-        }else {
+        } else {
             [self showPermissionsAlert];
-            //            NSLog(@"麦克风未开启权限");
         }
     }];
 }
@@ -101,10 +100,7 @@ static WFRecordTool *instance;
     }
     [self.audioRecorder record];
     
-    
 }
-
-
 
 - (void)endRecord {
     _isRecording = NO;
@@ -113,6 +109,10 @@ static WFRecordTool *instance;
 
 - (void)pauseRecord {
     [self.audioRecorder pause];
+}
+
+- (void)resumeRecord {
+    [self.audioRecorder record];
 }
 
 - (void)deleteRecord {
@@ -128,8 +128,7 @@ static WFRecordTool *instance;
     double aveChannel = pow(10, (ALPHA * [self.audioRecorder averagePowerForChannel:0]));
     if (aveChannel < 0) {
         aveChannel =0 ;
-    }
-    else if (aveChannel > 1){
+    } else if (aveChannel > 1){
         aveChannel = 1;
     }
     
@@ -157,7 +156,5 @@ static WFRecordTool *instance;
     [alert addAction:action];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
-
-
 
 @end

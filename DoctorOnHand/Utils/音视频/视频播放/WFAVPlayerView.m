@@ -68,8 +68,8 @@
     
     [self.controlView.playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
     [self.controlView.pauseButton addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
-    [self.controlView.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.controlView.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.controlView.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.controlView.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.controlView.closeButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     __weak typeof(self) weakSelf = self;
     self.controlView.playerSilder.tapChangeValue = ^(float value) {
@@ -226,33 +226,33 @@
                                                object:nil];
 }
 
-- (void)setIsFullScreen:(BOOL)isFullScreen {
-    _isFullScreen = isFullScreen;
-    if (isFullScreen) {
-        [self fullScreenButtonClick];
-    }
-}
+//- (void)setIsFullScreen:(BOOL)isFullScreen {
+//    _isFullScreen = isFullScreen;
+//    if (isFullScreen) {
+//        [self fullScreenButtonClick];
+//    }
+//}
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    if (!_isFullScreen) {
-        _shrinkRect = frame;
-    }
+//    if (!_isFullScreen) {
+//        _shrinkRect = frame;
+//    }
 }
 
-- (void)fullScreenButtonClick {
-    [self forceChangeOrientation:UIInterfaceOrientationLandscapeRight];
-    self.controlView.fullScreenButton.hidden = YES;
-    self.controlView.shrinkScreenButton.hidden = NO;
-    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-}
-
-- (void)shrinkScreenButtonClick {
-    [self forceChangeOrientation:UIInterfaceOrientationPortrait];
-    self.controlView.fullScreenButton.hidden = NO;
-    self.controlView.shrinkScreenButton.hidden = YES;
-    self.frame = _shrinkRect;
-}
+//- (void)fullScreenButtonClick {
+//    [self forceChangeOrientation:UIInterfaceOrientationLandscapeRight];
+//    self.controlView.fullScreenButton.hidden = YES;
+//    self.controlView.shrinkScreenButton.hidden = NO;
+//    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+//}
+//
+//- (void)shrinkScreenButtonClick {
+//    [self forceChangeOrientation:UIInterfaceOrientationPortrait];
+//    self.controlView.fullScreenButton.hidden = NO;
+//    self.controlView.shrinkScreenButton.hidden = YES;
+//    self.frame = _shrinkRect;
+//}
 
 /**
  * @brief 强制横屏
@@ -275,21 +275,21 @@
  * 屏幕旋转处理
  */
 - (void)orientationHandler {
-    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) {
-        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-            _isFullScreen = YES;
-            
-        }else {
-            _isFullScreen = NO;
-        }
-    } else {
-        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
-            _isFullScreen = YES;
-            
-        } else {
-            _isFullScreen = NO;
-        }
-    }
+//    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) {
+//        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+//            _isFullScreen = YES;
+//
+//        }else {
+//            _isFullScreen = NO;
+//        }
+//    } else {
+//        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
+//            _isFullScreen = YES;
+//
+//        } else {
+//            _isFullScreen = NO;
+//        }
+//    }
     
 }
 

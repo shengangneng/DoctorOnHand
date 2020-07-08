@@ -8,8 +8,8 @@
 
 #import "WFAVPlayerControlView.h"
 
-#define TopMenuH 60
-#define BotMenuH 60
+#define TopMenuH 70
+#define BotMenuH 70
 #define ImageWithName(imgStr)  [UIImage imageNamed:[NSString stringWithFormat:@"%@", imgStr]]
 @interface WFAVPlayerControlView()
 @property (nonatomic, assign) BOOL isAnimate;
@@ -29,8 +29,8 @@
         [self addSubview:self.bottomView];
         [self.bottomView addSubview:self.playButton];
         [self.bottomView addSubview:self.pauseButton];
-        [self.bottomView addSubview:self.fullScreenButton];
-        [self.bottomView addSubview:self.shrinkScreenButton];
+//        [self.bottomView addSubview:self.fullScreenButton];
+//        [self.bottomView addSubview:self.shrinkScreenButton];
         [self.bottomView addSubview:self.timeLabel];
         [self.bottomView addSubview:self.playerSilder];
         self.menuShow = YES;
@@ -40,7 +40,7 @@
         [self addGestureRecognizer:tapGR];
         
         self.playButton.hidden = YES;
-        self.shrinkScreenButton.hidden = YES;
+//        self.shrinkScreenButton.hidden = YES;
     }
     return self;
 }
@@ -111,9 +111,9 @@
     self.bottomView.frame = CGRectMake(0, self.frame.size.height - BotMenuH, self.frame.size.width, BotMenuH);
     self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomView.bounds) + 10, CGRectGetHeight(self.bottomView.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
     self.pauseButton.frame = self.playButton.frame;
-    self.fullScreenButton.frame   = CGRectMake(CGRectGetWidth(self.bottomView.bounds) - CGRectGetWidth(self.fullScreenButton.bounds) - 10, self.playButton.frame.origin.y, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
-    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
-    self.timeLabel.frame = CGRectMake(CGRectGetMinX(self.fullScreenButton.frame) - 60, self.playButton.frame.origin.y, 60, CGRectGetHeight(self.timeLabel.bounds));
+//    self.fullScreenButton.frame   = CGRectMake(CGRectGetWidth(self.bottomView.bounds) - CGRectGetWidth(self.fullScreenButton.bounds) - 10, self.playButton.frame.origin.y, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
+//    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
+    self.timeLabel.frame = CGRectMake(CGRectGetWidth(self.bottomView.bounds) - 90, self.playButton.frame.origin.y, 60, CGRectGetHeight(self.timeLabel.bounds));
     self.playerSilder.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), (CGRectGetHeight(self.bottomView.frame) - BotMenuH) * 0.5, CGRectGetMinX(self.timeLabel.frame) - CGRectGetMaxX(self.playButton.frame) - 5, BotMenuH);
 }
 
@@ -132,14 +132,33 @@
     return _timer;
 }
 
+// Top
 - (UIView *)topView {
     if (_topView == nil) {
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, TopMenuH)];
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, TopMenuH + 20)];
         _topView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     }
     return _topView;
 }
+- (UIButton *)closeButton {
+    if (!_closeButton) {
+        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_closeButton setImage:[UIImage imageNamed:@"btn_player_quit"] forState:UIControlStateNormal];
+        _closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _closeButton.bounds = CGRectMake(0, 20, TopMenuH * 4, TopMenuH);
+    }
+    return _closeButton;
+}
+- (UILabel *)titleLab {
+    if (!_titleLab) {
+        _titleLab = [[UILabel alloc] init];
+        _titleLab.textColor = [UIColor whiteColor];
+        _titleLab.font = SystemFont(15);
+    }
+    return _titleLab;
+}
 
+// Bottom
 - (UIView *)bottomView {
     if (_bottomView == nil) {
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - BotMenuH, self.frame.size.width, BotMenuH)];
@@ -148,14 +167,6 @@
     return _bottomView;
 }
 
-- (UILabel *)titleLab {
-    if (!_titleLab) {
-        _titleLab = [[UILabel alloc] init];
-        _titleLab.textColor = [UIColor whiteColor];
-        _titleLab.font = [UIFont systemFontOfSize:15];
-    }
-    return _titleLab;
-}
 - (UIButton *)playButton {
     if (!_playButton) {
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -176,39 +187,29 @@
     return _pauseButton;
 }
 
-- (UIButton *)fullScreenButton {
-    if (!_fullScreenButton) {
-        _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_fullScreenButton setImage:[UIImage imageNamed:@"btn_player_scale01"] forState:UIControlStateNormal];
-        _fullScreenButton.bounds = CGRectMake(0, 0, TopMenuH, TopMenuH);
-    }
-    return _fullScreenButton;
-}
-
-- (UIButton *)shrinkScreenButton {
-    if (!_shrinkScreenButton) {
-        _shrinkScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shrinkScreenButton setImage:[UIImage imageNamed:@"btn_player_scale02"] forState:UIControlStateNormal];
-        _shrinkScreenButton.bounds = CGRectMake(0, 0, TopMenuH, TopMenuH);
-    }
-    return _shrinkScreenButton;
-}
-
-- (UIButton *)closeButton {
-    if (!_closeButton) {
-        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeButton setImage:[UIImage imageNamed:@"btn_player_quit"] forState:UIControlStateNormal];
-        _closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        _closeButton.bounds = CGRectMake(0, 0, TopMenuH * 4, TopMenuH);
-    }
-    return _closeButton;
-}
+//- (UIButton *)fullScreenButton {
+//    if (!_fullScreenButton) {
+//        _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_fullScreenButton setImage:[UIImage imageNamed:@"btn_player_scale01"] forState:UIControlStateNormal];
+//        _fullScreenButton.bounds = CGRectMake(0, 0, TopMenuH, TopMenuH);
+//    }
+//    return _fullScreenButton;
+//}
+//
+//- (UIButton *)shrinkScreenButton {
+//    if (!_shrinkScreenButton) {
+//        _shrinkScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_shrinkScreenButton setImage:[UIImage imageNamed:@"btn_player_scale02"] forState:UIControlStateNormal];
+//        _shrinkScreenButton.bounds = CGRectMake(0, 0, TopMenuH, TopMenuH);
+//    }
+//    return _shrinkScreenButton;
+//}
 
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [UILabel new];
         _timeLabel.backgroundColor = [UIColor clearColor];
-        _timeLabel.font = [UIFont systemFontOfSize:13];
+        _timeLabel.font = SystemFont(13);
         _timeLabel.textColor = [UIColor lightGrayColor];
         _timeLabel.textAlignment = NSTextAlignmentRight;
         _timeLabel.bounds = CGRectMake(0, 0, TopMenuH, TopMenuH);

@@ -17,8 +17,8 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *pauseButton;
-@property (nonatomic, strong) UIButton *fullScreenButton;
-@property (nonatomic, strong) UIButton *shrinkScreenButton;
+//@property (nonatomic, strong) UIButton *fullScreenButton;
+//@property (nonatomic, strong) UIButton *shrinkScreenButton;
 @property (nonatomic, strong) WFAVPlayerSilder *playerSilder;
 
 @property (nonatomic, strong) UIView *bottomView;

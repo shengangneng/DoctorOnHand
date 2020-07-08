@@ -22,7 +22,7 @@
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 @property (nonatomic, strong) AVPlayer *avPlayer;
 @property (nonatomic, strong) WFAVPlayerControlView *controlView;
-@property (nonatomic, assign) BOOL isFullScreen;
+//@property (nonatomic, assign) BOOL isFullScreen;
 @property (nonatomic, weak) id<WFAVPlayerViewDelegate> delegate;
 
 - (instancetype)initWithPlayerItem:(AVPlayerItem *)playerItem;

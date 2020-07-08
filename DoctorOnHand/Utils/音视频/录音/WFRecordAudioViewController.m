@@ -12,6 +12,7 @@
 #import "WFRecordVoiceHUD.h"
 #import "WFFileManager.h"
 #import "WFRecordTool.h"
+#import "UIViewController+WFExtention.h"
 
 @interface WFRecordAudioViewController ()
 // Views
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) UILabel *recordMessageLb;
 // Datas
 @property (nonatomic, copy) NSString *audioLocalPath;
+@property (nonatomic, assign) WFRecordVoiceStatus recordVoiceStatus;
 
 @end
 
@@ -37,10 +39,12 @@
 
 - (void)setupAttributes {
     self.view.backgroundColor = kMainLightGrayColor;
+    self.recordVoiceStatus = WFRecordVoiceStatusReady;
     [self.deleteBt addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
     [self.saveBt addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
     [self.cancelBt addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-    [self.recordBt addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
+    [self.recordBt addTarget:self action:@selector(record:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.recordBt addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
 }
 
 - (void)setupSubViews {
@@ -87,26 +91,97 @@
 
 #pragma mark - Target Action
 - (void)delete:(UIButton *)sender {
-    
+    if (self.audioLocalPath.length > 0) {
+        self.recordVoiceStatus = WFRecordVoiceStatusPause;
+        __weak typeof(self) weakself = self;
+        [self showAlertControllerWithStyle:UIAlertControllerStyleAlert title:@"是否删除录音" message:nil sureTitle:@"删除" sureAction:^(UIAlertAction *action) {
+            __strong typeof(weakself) strongself = weakself;
+            strongself.recordVoiceStatus = WFRecordVoiceStatusEnd;
+            [[WFRecordTool shareRecordTool] deleteRecord];
+            // 删除wav文件
+            [WFFileManager removeFile:strongself.audioLocalPath];
+            strongself.audioLocalPath = nil;
+        } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:nil cancelStyle:UIAlertActionStyleDefault];
+    }
 }
 
 - (void)save:(UIButton *)sender {
-    
+    self.recordVoiceStatus = WFRecordVoiceStatusEnd;
+    [[WFAudioPlayer shareAudioPlayer] playAudioWith:self.audioLocalPath];
+}
+
+- (void)record:(UIButton *)sender {
+    if (WFRecordVoiceStatusReady == self.recordVoiceStatus) {
+        // 如果之前是未开始，则开始
+        self.recordVoiceStatus = WFRecordVoiceStatusBegin;
+    } else if (WFRecordVoiceStatusBegin == self.recordVoiceStatus || WFRecordVoiceStatusResum == self.recordVoiceStatus) {
+        // 如果之前是开始或者恢复，则暂停
+        self.recordVoiceStatus = WFRecordVoiceStatusPause;
+    } else if (WFRecordVoiceStatusPause == self.recordVoiceStatus) {
+        // 如果之前是暂停，则恢复
+        self.recordVoiceStatus = WFRecordVoiceStatusResum;
+    }
 }
 
 - (void)cancel:(UIButton *)sender {
-    
+    __weak typeof(self) weakself = self;
+    [self showAlertControllerWithStyle:UIAlertControllerStyleAlert title:@"是否退出？" message:nil sureTitle:@"退出" sureAction:^(UIAlertAction *action) {
+        __strong typeof(weakself) strongself = weakself;
+        [strongself.navigationController popViewControllerAnimated:YES];
+    } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:nil cancelStyle:UIAlertActionStyleDefault];
+}
+
+- (void)setRecordVoiceStatus:(WFRecordVoiceStatus)recordVoiceStatus {
+    _recordVoiceStatus = recordVoiceStatus;
+    switch (recordVoiceStatus) {
+        case WFRecordVoiceStatusReady: {
+            self.recordBt.selected = NO;
+            self.recordMessageLb.text = @"点击开始录音";
+        }break;
+        case WFRecordVoiceStatusBegin: {
+            self.recordMessageLb.text = @"正在录音中，点击可暂停";
+            DLog(@"---开始录音----");
+            self.recordBt.selected = YES;
+            NSString *audioLocalPath = [WFFileManager filePath];
+            self.audioLocalPath = audioLocalPath;
+            [[WFRecordTool shareRecordTool] beginRecordWithRecordPath:audioLocalPath];
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeBeginRecord inView:self.recordView];
+        }break;
+        case WFRecordVoiceStatusPause: {
+            DLog(@"---暂停录音----");
+            self.recordBt.selected = NO;
+            self.recordMessageLb.text = @"已暂停，点击可继续";
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypePause inView:self.recordView];
+            [[WFRecordTool shareRecordTool] pauseRecord];
+        }break;
+        case WFRecordVoiceStatusResum: {
+            DLog(@"---恢复录音----");
+            self.recordBt.selected = YES;
+            self.recordMessageLb.text = @"正在录音中，点击可暂停";
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeResume inView:self.recordView];
+            [[WFRecordTool shareRecordTool] resumeRecord];
+        }break;
+        case WFRecordVoiceStatusEnd: {
+            DLog(@"---结束录音----");
+            self.recordBt.selected = NO;
+            self.recordVoiceStatus = WFRecordVoiceStatusReady;
+            [[WFRecordVoiceHUD shareInstance] showHUDWithType:WFRecordVoiceHUDTypeEndRecord inView:self.recordView];
+            [[WFRecordTool shareRecordTool] endRecord];
+        }break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - 长按录制音频
 - (void)longPress:(UILongPressGestureRecognizer *)gr {
     
     CGPoint point = [gr locationInView:self.recordBt];
-    [WFRecordVoiceHUD shareInstance].longTimeHandler = ^{//超过最长时间还在长按，主动让手势不可用
+    [WFRecordVoiceHUD shareInstance].longTimeHandler = ^{   // 超过最长时间还在长按，主动让手势不可用
         gr.enabled = NO;
     };
     
-    if (gr.state == UIGestureRecognizerStateBegan) {//长按开始
+    if (gr.state == UIGestureRecognizerStateBegan) {    // 长按开始
         DLog(@"---开始录音");
         NSString *audioLocalPath = [WFFileManager filePath];
         self.audioLocalPath = audioLocalPath;
@@ -257,7 +332,7 @@
         _recordMessageLb = [[UILabel alloc] init];
         [_recordMessageLb sizeToFit];
         _recordMessageLb.font = SystemFont(14);
-        _recordMessageLb.text = @"长按开始录音";
+        _recordMessageLb.text = @"点击开始录音";
         _recordMessageLb.textAlignment = NSTextAlignmentCenter;
         _recordMessageLb.textColor = kRGBA(102, 102, 102, 1);
     }

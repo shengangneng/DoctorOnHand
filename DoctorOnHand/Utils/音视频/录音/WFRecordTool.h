@@ -51,6 +51,12 @@
  */
 - (void)pauseRecord;
 
+
+/**
+ *  恢复录音
+ */
+- (void)resumeRecord;
+
 /**
  *  删除录音
  */

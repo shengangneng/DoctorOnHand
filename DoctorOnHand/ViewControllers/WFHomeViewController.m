@@ -37,7 +37,7 @@
 }
 
 - (void)setupAttributes {
-    self.navigationItem.title = @"掌上医生";
+    self.navigationItem.title = @"移动医生";
     self.dataArray = @[
         @"登录",
         @"手写板",

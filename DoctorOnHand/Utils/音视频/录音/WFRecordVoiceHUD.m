@@ -30,8 +30,6 @@ static NSInteger const maxRecordTime = 60;
 @property (nonatomic, assign) NSInteger recordTime;
 ///
 @property (nonatomic, weak) UIView *containView;
-/// 描述
-@property (nonatomic, weak) UILabel *describeLabel;
 /// 倒计时
 @property (nonatomic, weak) UILabel *countDownLabel;
 /// 类型
@@ -47,7 +45,8 @@ static NSInteger const maxRecordTime = 60;
 
 @end
 
-static WFRecordVoiceHUD *_hud = nil;
+static WFRecordVoiceHUD *instance = nil;
+
 @implementation WFRecordVoiceHUD
 
 - (NSMutableArray *)allLevels {
@@ -68,9 +67,9 @@ static WFRecordVoiceHUD *_hud = nil;
 + (instancetype)shareInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _hud = [[WFRecordVoiceHUD alloc] init];
+        instance = [[WFRecordVoiceHUD alloc] init];
     });
-    return _hud;
+    return instance;
 }
 
 - (void)shareVoiceHudWithType:(WFRecordVoiceHUDType)type  {
@@ -128,9 +127,7 @@ static WFRecordVoiceHUD *_hud = nil;
     // 由于定时器默认是暂停的所以我们启动一下
     // 启动定时器
     dispatch_resume(self.timer);
-    
 }
-
 
 - (void)setView {
     UIView *containView = [[UIView alloc] init];
@@ -142,7 +139,7 @@ static WFRecordVoiceHUD *_hud = nil;
     gradientLayer.colors = @[(__bridge id)kRedColor.CGColor, (__bridge id)kGreenColor.CGColor];
     gradientLayer.startPoint = CGPointMake(0, 0);
     gradientLayer.endPoint = CGPointMake(0, 1.0);
-    gradientLayer.frame = _hud.containView.bounds;
+    gradientLayer.frame = instance.containView.bounds;
     [containView.layer addSublayer:gradientLayer];
     _gradientLayer = gradientLayer;
     
@@ -180,58 +177,55 @@ static WFRecordVoiceHUD *_hud = nil;
     layer.lineWidth = levelWidth;
     [repL addSublayer:layer];
     _levelLayer = layer;
-        
-    UILabel *describeLabel = [[UILabel alloc] init];
-    describeLabel.textAlignment = NSTextAlignmentCenter;
-    describeLabel.font = SystemFont(12);
-    describeLabel.textColor = kRGBColorHEX(0xffffff);
-    [containView addSubview:describeLabel];
-    self.describeLabel = describeLabel;
 }
 
 - (void)setType:(WFRecordVoiceHUDType)type {
     _type = type;
     
-    if (type == WFRecordVoiceHUDTypeBeginRecord) {//开始录制
-        _hud.describeLabel.text = @"松开发送，上滑取消";
-        _hud.levelContentView.hidden = NO;
-        _hud.gradientLayer.hidden = YES;
-        _hud.countDownLabel.hidden = YES;
+    if (type == WFRecordVoiceHUDTypeBeginRecord) {
+        // 开始录制
+        instance.levelContentView.hidden = NO;
+        instance.gradientLayer.hidden = YES;
+        instance.countDownLabel.hidden = YES;
         
         [self beginRecord];
         
         [self setType:WFRecordVoiceHUDTypeRecording];
         
-    } else if (type == WFRecordVoiceHUDTypeRecording) {//正在录制
-        
-        _hud.describeLabel.text = @"松开发送，上滑取消";
-        _hud.gradientLayer.hidden = YES;
-        
-        if (maxRecordTime - _hud.recordTime <= 6) {
-            _hud.levelContentView.hidden = YES;
-            _hud.countDownLabel.hidden = NO;
+    } else if (type == WFRecordVoiceHUDTypeRecording) {
+        // 正在录制
+        instance.gradientLayer.hidden = YES;
+        if (maxRecordTime - instance.recordTime <= 6) {
+            instance.levelContentView.hidden = YES;
+            instance.countDownLabel.hidden = NO;
         } else {
-            _hud.levelContentView.hidden = NO;
-            _hud.countDownLabel.hidden = YES;
+            instance.levelContentView.hidden = NO;
+            instance.countDownLabel.hidden = YES;
         }
         
-    } else if (type == WFRecordVoiceHUDTypeReleaseToCancle) {//松开取消
-        _hud.countDownLabel.hidden = YES;
-        _hud.levelContentView.hidden = YES;
-        _hud.gradientLayer.hidden = NO;
-        _hud.describeLabel.text = @"松开手指，取消发送";
+    } else if (type == WFRecordVoiceHUDTypePause) {
+        // 暂停录制
+        [self pauseRecord];
+    } else if (type == WFRecordVoiceHUDTypeResume) {
+        // 恢复录制
+        [self resumeRecord];
+    } else if (type == WFRecordVoiceHUDTypeReleaseToCancle) {
+        // 松开取消
+        instance.countDownLabel.hidden = YES;
+        instance.levelContentView.hidden = YES;
+        instance.gradientLayer.hidden = NO;
         
+    } else if (type == WFRecordVoiceHUDTypeAudioTooShort) {
+        // 录制太短了
+        instance.countDownLabel.hidden = YES;
+        instance.levelContentView.hidden = YES;
+        [instance removeHudWithTime:0.5];
         
-    } else if (type == WFRecordVoiceHUDTypeAudioTooShort) {//录制太短了
-        _hud.countDownLabel.hidden = YES;
-        _hud.levelContentView.hidden = YES;
-        [_hud removeHudWithTime:0.5];
-        
-        _hud.gradientLayer.hidden = YES;
-    } else if (type == WFRecordVoiceHUDTypeAudioTooLong) {//录制太长了
-        _hud.countDownLabel.hidden = YES;
-        _hud.levelContentView.hidden = YES;
-        _hud.describeLabel.text = @"说话时间太长";
+        instance.gradientLayer.hidden = YES;
+    } else if (type == WFRecordVoiceHUDTypeAudioTooLong) {
+        // 录制太长了
+        instance.countDownLabel.hidden = YES;
+        instance.levelContentView.hidden = YES;
         
         [self setType:WFRecordVoiceHUDTypeEndRecord];
         
@@ -239,46 +233,48 @@ static WFRecordVoiceHUD *_hud = nil;
             self.longTimeHandler();
         }
         
-    } else if (type == WFRecordVoiceHUDTypeEndRecord) {//录制完成
-        
-        if (_hud != nil) {
-            [_hud removeHudWithTime:0.2];
+    } else if (type == WFRecordVoiceHUDTypeEndRecord) {
+        // 录制完成
+        if (instance != nil) {
+            [instance removeHudWithTime:0.2];
         }
-        
         [self endRecord];
     }
 }
 
 - (void)beginRecord {
     [self.recordTimer invalidate];
-    
     // 开始录音先把上一次录音的振幅删掉
     [self.allLevels removeAllObjects];
     self.currentLevels = nil;
     [self startMeterTimer];
-    
-    self.recordTime = 0;
-    
-    self.recordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(addSeconed) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.recordTimer forMode:NSRunLoopCommonModes];
+    [self startRecorTimer];
+}
+
+- (void)pauseRecord {
+    [self pauseMeterTimer];
+    [self pauseRecordTimer];
+}
+
+- (void)resumeRecord {
+    [self resumeMeterTimer];
+    [self resumeRecordTimer];
 }
 
 - (void)addSeconed {
-    _hud.recordTime++;
-    
-    [self updateTimeWithRecordTime:_hud.recordTime];
+    instance.recordTime++;
+    [self updateTimeWithRecordTime:instance.recordTime];
 }
 
 - (void)endRecord {
-    if (_hud.recordTime < 1) {
-        [_hud setType:WFRecordVoiceHUDTypeAudioTooShort];
+    if (instance.recordTime < 1) {
+        [instance setType:WFRecordVoiceHUDTypeAudioTooShort];
     }
+    instance.recordTime = 0;
+    [self updateTimeWithRecordTime:instance.recordTime];
     
-    _hud.recordTime = 0;
-    [self updateTimeWithRecordTime:_hud.recordTime];
-    
-    [_hud stopMeterTimer];
-    [_hud stopRecordTimer];
+    [instance stopMeterTimer];
+    [instance stopRecordTimer];
 }
 
 #pragma mark - displayLink
@@ -287,27 +283,44 @@ static WFRecordVoiceHUD *_hud = nil;
     [self stopMeterTimer];
     // 定时获取分贝大小
     self.levelTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateMeter)];
-    
     if (@available(iOS 10.0, *)) {
         self.levelTimer.preferredFramesPerSecond = 10;
     } else {
         self.levelTimer.frameInterval = 6;
     }
-    
     [self.levelTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
 
-// 停止定时器
+- (void)startRecorTimer {
+    self.recordTime = 0;
+    self.recordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(addSeconed) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.recordTimer forMode:NSRunLoopCommonModes];
+}
+
+// 停止定时器（销毁）
 - (void)stopMeterTimer {
     [self.levelTimer invalidate];
     self.levelTimer = nil;
 }
-
 - (void)stopRecordTimer {
-    
     [self.recordTimer invalidate];
     self.recordTimer = nil;
-    
+}
+
+// 暂停定时器（未销毁）
+- (void)pauseMeterTimer {
+    [self.levelTimer setPaused:YES];
+}
+- (void)pauseRecordTimer {
+    [self.recordTimer setFireDate:[NSDate distantFuture]];
+}
+
+// 恢复定时器
+- (void)resumeMeterTimer {
+    [self.levelTimer setPaused:NO];
+}
+- (void)resumeRecordTimer {
+    [self.recordTimer setFireDate:[NSDate distantPast]];
 }
 
 // 定时获取分贝大小
@@ -324,7 +337,6 @@ static WFRecordVoiceHUD *_hud = nil;
 // 重绘bezierPath，重新展示
 - (void)updateLevelLayer {
     self.levelPath = [UIBezierPath bezierPath];
-    
     CGFloat height = CGRectGetHeight(self.levelLayer.frame);
     for (int i = 0; i < self.currentLevels.count; i++) {
         CGFloat x = i * (levelWidth + levelMargin) + 5;
@@ -345,7 +357,6 @@ static WFRecordVoiceHUD *_hud = nil;
 }
 
 - (void)updateTimeWithRecordTime:(NSInteger)recordTime {
-    
     NSString *text;
     if (recordTime < 60) {
         text = [NSString stringWithFormat:@"0:%02zd",recordTime];
@@ -354,15 +365,14 @@ static WFRecordVoiceHUD *_hud = nil;
         NSInteger seconed = recordTime % 60;
         text = [NSString stringWithFormat:@"%zd:%02zd",minutes,seconed];
     }
-    _hud.timeLabel.text = text;
+    instance.timeLabel.text = text;
     
     if (maxRecordTime - recordTime <= 0) {
-        _hud.countDownLabel.text = @"0";
+        instance.countDownLabel.text = @"0";
         [self setType:WFRecordVoiceHUDTypeAudioTooLong];
     } else {
-        _hud.countDownLabel.text = @(maxRecordTime - recordTime).stringValue;
+        instance.countDownLabel.text = @(maxRecordTime - recordTime).stringValue;
     }
-    
 }
 
 
@@ -390,15 +400,7 @@ static WFRecordVoiceHUD *_hud = nil;
     self.timeLabel.frame = CGRectMake(0, 0, (38), containViewH);
     self.timeLabel.center = self.levelContentView.center;
     
-    
     self.levelLayer.frame = CGRectMake(self.timeLabel.mj_x + self.timeLabel.mj_w, 0, self.levelContentView.mj_w / 2.0 - self.timeLabel.mj_w *0.5, self.levelContentView.mj_h);
-        
-    CGFloat describeLabelX = 0;
-    CGFloat describeLabelY = (119);
-    CGFloat describeLabelW = self.containView.mj_w;
-    CGFloat describeLabelH = (13);
-    CGRect describeLabelF = CGRectMake(describeLabelX, describeLabelY, describeLabelW, describeLabelH);
-    self.describeLabel.frame = describeLabelF;
 }
 
 @end

@@ -122,7 +122,7 @@
     
     NSString *wavPath = [folderPath stringByAppendingPathComponent:lastPathComponent];
     
-    //如果后缀是amr格式转成wav
+    // 如果后缀是amr格式转成wav
     if ([lastPathComponent hasSuffix:@"amr"]) {
         
         wavPath = [wavPath stringByReplacingOccurrencesOfString:@"amr" withString:@"wav"];
@@ -137,9 +137,7 @@
         NSLog(@"音频本地不存在");
         return @"";
     }
-    
 }
-
 
 // 查看文件大小(iOS是按照1000换算的,而不是1024,可查看NSByteCountFormatterCountStyle)
 + (NSString *)fileSizeAtPath:(NSString*)filePath{
@@ -147,15 +145,15 @@
     
     NSFileManager* manager =[NSFileManager defaultManager];
     if ([manager fileExistsAtPath:filePath]){
-        size=[[manager attributesOfItemAtPath:filePath error:nil] fileSize];
+        size = [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
         
-        if (size >=pow(10,9)) {
+        if (size >= pow(10,9)) {
             // size >= 1GB
             return [NSString stringWithFormat:@"%.2fGB",size/pow(10,9)];
-        } else if (size>=pow(10,6)) {
+        } else if (size >= pow(10,6)) {
             // 1GB > size >= 1MB
             return [NSString stringWithFormat:@"%.2fMB",size/pow(10,6)];
-        } else if (size >=pow(10,3)) {
+        } else if (size >= pow(10,3)) {
             // 1MB > size >= 1KB
             return [NSString stringWithFormat:@"%.2fKB",size/pow(10,3)];
         } else {
@@ -166,7 +164,7 @@
     return @"0";
 }
 
-+ (BOOL)removeFile:(NSString *)filePath{
++ (BOOL)removeFile:(NSString *)filePath {
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         return YES;
