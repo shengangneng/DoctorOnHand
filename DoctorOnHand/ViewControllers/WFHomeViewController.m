@@ -13,6 +13,7 @@
 #import "WFRecordAudioViewController.h"
 #import "WFRecordVideoViewController.h"
 #import "WFTakePhotoViewController.h"
+#import "WFTakePhotoPadViewController.h"
 #import "WFFileReaderViewController.h"
 
 @interface WFHomeViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -102,7 +103,7 @@
         }break;
         case 4: {
             // 拍照
-            WFTakePhotoViewController *takePhoto = [[WFTakePhotoViewController alloc] init];
+            WFTakePhotoPadViewController *takePhoto = [[WFTakePhotoPadViewController alloc] init];
             [self.navigationController pushViewController:takePhoto animated:YES];
         }break;
         case 5: {

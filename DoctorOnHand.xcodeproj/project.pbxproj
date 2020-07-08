@@ -19,6 +19,12 @@
 		DD1C7C1424B21073004F7CEF /* WFCommomTool.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1224B21073004F7CEF /* WFCommomTool.m */; };
 		DD1C7C1724B35CD1004F7CEF /* WFColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */; };
 		DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */; };
+		DD1C7C2B24B5FA9A004F7CEF /* WFTakePhotoPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C2A24B5FA9A004F7CEF /* WFTakePhotoPadViewController.m */; };
+		DD1C7C3524B609D0004F7CEF /* WFWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C2D24B609CF004F7CEF /* WFWKWebViewController.m */; };
+		DD1C7C3624B609D0004F7CEF /* WFWebViewBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C2F24B609CF004F7CEF /* WFWebViewBridge.m */; };
+		DD1C7C3724B609D0004F7CEF /* WFWebViewUIConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C3124B609D0004F7CEF /* WFWebViewUIConfiguration.m */; };
+		DD1C7C3C24B60A6A004F7CEF /* WFWebDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C3B24B60A6A004F7CEF /* WFWebDefaultView.m */; };
+		DD1C7C3F24B610C7004F7CEF /* WFCustomNavLeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C3D24B610C7004F7CEF /* WFCustomNavLeftButton.m */; };
 		DD5F0469249BAC590043C2AE /* WFBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* WFBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* WFSignatureView.m */; };
@@ -86,6 +92,19 @@
 		DD1C7C1624B35CD1004F7CEF /* WFColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFColorTableViewCell.m; sourceTree = "<group>"; };
 		DD1C7C1824B360FB004F7CEF /* WFWidthTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFWidthTableViewCell.h; sourceTree = "<group>"; };
 		DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFWidthTableViewCell.m; sourceTree = "<group>"; };
+		DD1C7C2924B5FA9A004F7CEF /* WFTakePhotoPadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFTakePhotoPadViewController.h; sourceTree = "<group>"; };
+		DD1C7C2A24B5FA9A004F7CEF /* WFTakePhotoPadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFTakePhotoPadViewController.m; sourceTree = "<group>"; };
+		DD1C7C2C24B609CF004F7CEF /* WFWebViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWebViewConst.h; sourceTree = "<group>"; };
+		DD1C7C2D24B609CF004F7CEF /* WFWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWKWebViewController.m; sourceTree = "<group>"; };
+		DD1C7C2E24B609CF004F7CEF /* WFWebViewBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWebViewBridge.h; sourceTree = "<group>"; };
+		DD1C7C2F24B609CF004F7CEF /* WFWebViewBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWebViewBridge.m; sourceTree = "<group>"; };
+		DD1C7C3024B609D0004F7CEF /* WFWebViewUIConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWebViewUIConfiguration.h; sourceTree = "<group>"; };
+		DD1C7C3124B609D0004F7CEF /* WFWebViewUIConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWebViewUIConfiguration.m; sourceTree = "<group>"; };
+		DD1C7C3224B609D0004F7CEF /* WFWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWKWebViewController.h; sourceTree = "<group>"; };
+		DD1C7C3A24B60A6A004F7CEF /* WFWebDefaultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWebDefaultView.h; sourceTree = "<group>"; };
+		DD1C7C3B24B60A6A004F7CEF /* WFWebDefaultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWebDefaultView.m; sourceTree = "<group>"; };
+		DD1C7C3D24B610C7004F7CEF /* WFCustomNavLeftButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCustomNavLeftButton.m; sourceTree = "<group>"; };
+		DD1C7C3E24B610C7004F7CEF /* WFCustomNavLeftButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCustomNavLeftButton.h; sourceTree = "<group>"; };
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
@@ -241,6 +260,8 @@
 			children = (
 				DD1C7C0124A4D716004F7CEF /* WFTakePhotoViewController.h */,
 				DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */,
+				DD1C7C2924B5FA9A004F7CEF /* WFTakePhotoPadViewController.h */,
+				DD1C7C2A24B5FA9A004F7CEF /* WFTakePhotoPadViewController.m */,
 			);
 			path = "拍照";
 			sourceTree = "<group>";
@@ -259,8 +280,27 @@
 		DD1C7C1B24B5BBDA004F7CEF /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				DD1C7C3924B60A55004F7CEF /* Views */,
+				DD1C7C3224B609D0004F7CEF /* WFWKWebViewController.h */,
+				DD1C7C2D24B609CF004F7CEF /* WFWKWebViewController.m */,
+				DD1C7C2E24B609CF004F7CEF /* WFWebViewBridge.h */,
+				DD1C7C2F24B609CF004F7CEF /* WFWebViewBridge.m */,
+				DD1C7C2C24B609CF004F7CEF /* WFWebViewConst.h */,
+				DD1C7C3024B609D0004F7CEF /* WFWebViewUIConfiguration.h */,
+				DD1C7C3124B609D0004F7CEF /* WFWebViewUIConfiguration.m */,
 			);
 			path = WebView;
+			sourceTree = "<group>";
+		};
+		DD1C7C3924B60A55004F7CEF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD1C7C3E24B610C7004F7CEF /* WFCustomNavLeftButton.h */,
+				DD1C7C3D24B610C7004F7CEF /* WFCustomNavLeftButton.m */,
+				DD1C7C3A24B60A6A004F7CEF /* WFWebDefaultView.h */,
+				DD1C7C3B24B60A6A004F7CEF /* WFWebDefaultView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		DD6C4D7B249BACF5001C9344 /* BaseClass */ = {
@@ -666,20 +706,26 @@
 				DD6C4DB0249E4C3C001C9344 /* WFMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
 				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,
+				DD1C7C3524B609D0004F7CEF /* WFWKWebViewController.m in Sources */,
 				DD6C4DB9249FA080001C9344 /* WFFileReaderTableViewCell.m in Sources */,
 				DD6C4DBC249FA0A6001C9344 /* WFFileReaderModel.m in Sources */,
 				DD6C4D9D249BB400001C9344 /* NSDateFormatter+WFExtension.m in Sources */,
 				DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */,
 				DD6C4D9E249BB400001C9344 /* NSString+WFExtension.m in Sources */,
+				DD1C7C3624B609D0004F7CEF /* WFWebViewBridge.m in Sources */,
+				DD1C7C3724B609D0004F7CEF /* WFWebViewUIConfiguration.m in Sources */,
 				DD6C4DA0249BB400001C9344 /* UIColor+WFExtension.m in Sources */,
+				DD1C7C2B24B5FA9A004F7CEF /* WFTakePhotoPadViewController.m in Sources */,
 				DD6C4DAF249E4C3C001C9344 /* WFBaseNavigationController.m in Sources */,
 				DD6C4DAD249E4C3C001C9344 /* WFCustomNavigationBar.m in Sources */,
+				DD1C7C3F24B610C7004F7CEF /* WFCustomNavLeftButton.m in Sources */,
 				DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */,
 				DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */,
 				DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */,
 				DD6C4DD324A0F3D7001C9344 /* WFAVPlayerSilder.m in Sources */,
 				DD6C4DC3249FA912001C9344 /* WFFileReaderTableView.m in Sources */,
 				DD6C4D9C249BB400001C9344 /* UIButton+WFExtension.m in Sources */,
+				DD1C7C3C24B60A6A004F7CEF /* WFWebDefaultView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

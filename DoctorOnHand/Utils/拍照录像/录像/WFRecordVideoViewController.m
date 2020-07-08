@@ -353,13 +353,6 @@
 
 // 视频路径
 - (NSString *)getPath {
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"YYYYMMdd"];
-//    NSString *dateStr = [formatter stringFromDate:[NSDate date]];
-//
-//    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4", dateStr]];
-    
-    
     return [WFFileManager videoFilePath];
 }
 
