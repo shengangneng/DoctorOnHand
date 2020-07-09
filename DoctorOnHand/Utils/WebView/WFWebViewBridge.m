@@ -10,9 +10,16 @@
 // 定位
 #import "AppDelegate.h"
 #import "WFWKWebViewController.h"
+#import "WFBaseNavigationController.h"
 #import "WFWebViewConst.h"
 #import "NSCharacterSet+WFExtension.h"
 #import "WFCustomNavigationBar.h"
+#import "WFSignatureViewController.h"           /// 手写板
+#import "WFRecordAudioViewController.h"         /// 录音
+#import "WFRecordVideoViewController.h"         /// 录制视频
+#import "WFTakePhotoPadViewController.h"        /// 拍照
+#import "WFPlayVideoViewController.h"           /// 播放视频
+#import "WFLoginViewController.h"               /// 登录页
 
 @interface WFWebViewBridge ()
 
@@ -59,22 +66,99 @@
         
         if ([func isEqualToString:kGetAccountInfo]) {
             // 登录后获取用户信息
+            /*
+             callback = appFuncResponseCallback;
+             func = getAccountInfo;
+             params =     {
+                 msg = getAccountInfo;
+             };
+             */
         } else if ([func isEqualToString:kClearCache]) {
             // 清除缓存
+            
         } else if ([func isEqualToString:kTakePhoto]) {
             // 拍照
+            /*
+             callback = appFuncResponseCallback;
+             func = takePhoto;
+             params =     {
+                 msg = takePhoto;
+             };
+             */
+            WFTakePhotoPadViewController *takePhoto = [[WFTakePhotoPadViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:takePhoto animated:YES];
         } else if ([func isEqualToString:kHandWriting]) {
             // 手写板
+            /*
+             callback = appFuncResponseCallback;
+             func = handWriting;
+             params =     {
+                 msg = handWriting;
+             };
+             */
+            WFSignatureViewController *sign = [[WFSignatureViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:sign animated:YES];
+            
         } else if ([func isEqualToString:kRecordSound]) {
             // 录音
+            /*
+            callback = appFuncResponseCallback;
+            func = recordSound;
+            params =     {
+                msg = recordSound;
+            };
+             */
+            WFRecordAudioViewController *recordAudio = [[WFRecordAudioViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:recordAudio animated:YES];
+            
         } else if ([func isEqualToString:kRecordVideo]) {
             // 录视频
+            /*
+             callback = appFuncResponseCallback;
+             func = recordVideo;
+             params =     {
+                 msg = recordVideo;
+             };
+             */
+            WFRecordVideoViewController *recordVideo = [[WFRecordVideoViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:recordVideo animated:YES];
         } else if ([func isEqualToString:kPreviewImg]) {
             // 预览图片
+            /*
+             callback = cb;
+             func = previewImg;
+             params =     {
+                 data = "[{\"name\":\"\U56fe\U7247/\U674e\U4e3b\U4efb\U7684\U67e5\U623f\U8bb0\U5f55\",\"url\":\"https://cn.vuejs.org/images/logo.png\"}]";
+                 msg = previewImg;
+             };
+             */
+            
         } else if ([func isEqualToString:kPlaySound]) {
             // 播放录音
+            /*
+            callback = cb;
+            func = playSound;
+            params =     {
+                data = "[{\"name\":\"\U64ad\U653e\U5f55\U97f3\",\"url\":\"\"}]";
+                msg = playSound;
+            };
+            */
         } else if ([func isEqualToString:kPlayVideo]) {
             // 播放视频
+            /*
+             callback = cb;
+             func = playVideo;
+             params =     {
+                 data = "[{\"name\":\"\U64ad\U653e\U89c6\U9891\",\"url\":\"\"}]";
+                 msg = playVideo;
+             };
+             */
+            WFPlayVideoViewController *playVideo = [[WFPlayVideoViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:playVideo animated:YES];
+        } else if ([func isEqualToString:kLogout]) {
+            // 退出登录
+            WFLoginViewController *login = [[WFLoginViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:login animated:YES];
         }
     }
 }

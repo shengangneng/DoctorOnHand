@@ -8,6 +8,8 @@
 
 #import "WFLoginViewController.h"
 #import "WFBrushBoardView.h"
+#import "WFWKWebViewController.h"
+#import "WFBaseNavigationController.h"
 
 @interface WFLoginViewController () <UITextFieldDelegate>
 
@@ -155,8 +157,14 @@
     [self.view endEditing:YES];
 }
 - (void)login:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithFileURL:url];
+    web.webViewUIConfiguration.navHidden = YES;
+    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
+    [UIApplication sharedApplication].delegate.window.rootViewController = nav;
 }
+
 - (void)cancel:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -1,18 +1,18 @@
 //
-//  WFRecordVideoViewController.m
+//  WFRecordVideoPadViewController.m
 //  DoctorOnHand
 //
-//  Created by sgn on 2020/6/25.
-//  Copyright © 2020 shengangneng. All rights reserved.
+//  Created by sgn on 2020/7/10.
+//  Copyright © 2020 sgn. All rights reserved.
 //
 
-#import "WFRecordVideoViewController.h"
+#import "WFRecordVideoPadViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WFVideoProgress.h"
 #import "WFCommomTool.h"
 #import "WFFileManager.h"
 
-@interface WFRecordVideoViewController ()<AVCaptureFileOutputRecordingDelegate>
+@interface WFRecordVideoPadViewController ()<AVCaptureFileOutputRecordingDelegate>
 
 @property (nonatomic, strong) NSTimer *timer;                                       // 定时器
 @property (nonatomic, strong) AVCaptureSession *captureSession;                     // 负责输入和输出设置之间的数据传递
@@ -27,7 +27,6 @@
 @property (nonatomic, assign) NSInteger time;                   // 录制时长
 
 // Views
-@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *headerBackButton;       // 返回按钮
 @property (nonatomic, strong) UIButton *headerReplyButton;      // 预览
 
@@ -44,7 +43,6 @@
 @property (nonatomic, strong) WFVideoProgress *middleProgress;  // 播放进度
 @property (nonatomic, strong) UILabel *middleTotalLabel;        // 预览视图总时长
 
-@property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UIButton *bottomLightButton;      // 闪光灯
 @property (nonatomic, strong) UIButton *bottomScanButton;       // 录制按钮
 @property (nonatomic, strong) UIButton *bottomFrontButton;      // 切换前后摄像头
@@ -54,7 +52,7 @@
 
 @end
 
-@implementation WFRecordVideoViewController
+@implementation WFRecordVideoPadViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,6 +86,8 @@
 - (void)setupAttributes {
     self.navigationItem.title = @"录像";
     self.view.backgroundColor = kWhiteColor;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleStatusBarOrientationChange:)
+    name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [self.headerBackButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomFrontButton addTarget:self action:@selector(cameraSwitchBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomScanButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,9 +97,6 @@
 }
 
 - (void)setupSubViews {
-    [self.view addSubview:self.headerView];
-    [self.headerView addSubview:self.headerBackButton];
-    [self.headerView addSubview:self.headerReplyButton];
     
     [self.view addSubview:self.middleContentView];
     [self.middleContentView addSubview:self.middleFocusCursor];
@@ -113,10 +110,21 @@
     [self.middlePreviewView addSubview:self.middleProgress];
     [self.middlePreviewView addSubview:self.middleTotalLabel];
     
-    [self.view addSubview:self.bottomView];
-    [self.bottomView addSubview:self.bottomLightButton];
-    [self.bottomView addSubview:self.bottomScanButton];
-    [self.bottomView addSubview:self.bottomFrontButton];
+    [self.view addSubview:self.headerBackButton];
+    [self.view addSubview:self.headerReplyButton];
+    [self.view addSubview:self.bottomLightButton];
+    [self.view addSubview:self.bottomScanButton];
+    [self.view addSubview:self.bottomFrontButton];
+}
+- (void)handleStatusBarOrientationChange:(NSNotification *)notification {
+    AVCaptureConnection *captureConnection = [self.captureVideoPreviewLayer connection];
+    if (self.preferredInterfaceOrientationForPresentation == UIInterfaceOrientationLandscapeLeft) {
+        captureConnection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else if (self.preferredInterfaceOrientationForPresentation == UIInterfaceOrientationLandscapeRight) {
+        captureConnection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    } else {
+        captureConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    }
 }
 
 - (void)initVideoInfo {
@@ -174,7 +182,13 @@
     
     // 摄像头方向
     AVCaptureConnection *captureConnection = [self.captureVideoPreviewLayer connection];
-    captureConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    if (self.preferredInterfaceOrientationForPresentation == UIInterfaceOrientationLandscapeLeft) {
+        captureConnection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else if (self.preferredInterfaceOrientationForPresentation == UIInterfaceOrientationLandscapeRight) {
+        captureConnection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    } else {
+        captureConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    }
     
     CALayer *layer = self.middleContentView.layer;
     layer.masksToBounds = YES;
@@ -581,7 +595,6 @@
     self.torchOn = !self.torchOn;
 }
 
-
 - (void)setTorchOn:(BOOL)torchOn {
     // 如果是前置摄像头，就直接不起作用
     AVCaptureDevicePosition position = [[self.captureDeviceInput device] position];
@@ -620,18 +633,10 @@
     
     return _player;
 }
-- (UIView *)headerView {
-    if (!_headerView) {
-        _headerView = [[UIView alloc] init];
-        _headerView.frame = CGRectMake(0, 0, kScreenWidth, kTopHeight);
-        _headerView.backgroundColor = kRGBA(69, 74, 73, 1);
-    }
-    return _headerView;
-}
 - (UIButton *)headerBackButton {
     if (!_headerBackButton) {
         _headerBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _headerBackButton.frame = CGRectMake(12, kStatusBarHeight+(kTopHeight - kStatusBarHeight - 35)/2, 50, 35);
+        _headerBackButton.frame = CGRectMake(12, 20 + 8, 50, 35);
         [_headerBackButton setTitle:(@"返回") forState:UIControlStateNormal];
         [_headerBackButton setTitle:(@"返回") forState:UIControlStateHighlighted];
         [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateHighlighted];
@@ -643,7 +648,7 @@
 - (UIButton *)headerReplyButton {
     if (!_headerReplyButton) {
         _headerReplyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _headerReplyButton.frame = CGRectMake(kScreenWidth - 112, kStatusBarHeight+(kTopHeight - kStatusBarHeight - 35)/2, 100, 35);
+        _headerReplyButton.frame = CGRectMake(kScreenWidth - 93, (kScreenHeight + 66) / 2 + 80, 80, 35);
         _headerReplyButton.hidden = YES;
         [_headerReplyButton setTitle:(@"预览视频") forState:UIControlStateNormal];
         [_headerReplyButton setTitle:(@"预览视频") forState:UIControlStateHighlighted];
@@ -654,7 +659,7 @@
 }
 - (UIView *)middleContentView {
     if (!_middleContentView) {
-        _middleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, kTopHeight, kScreenWidth, kScreenHeight - kTopHeight - kBottomHeight - 100)];
+        _middleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _middleContentView.backgroundColor = kWhiteColor;
     }
     return _middleContentView;
@@ -668,19 +673,10 @@
     return _middleFocusCursor;
 }
 
-- (UIView *)bottomView {
-    if (!_bottomView) {
-        _bottomView = [[UIView alloc] init];
-        _bottomView.frame = CGRectMake(0, kScreenHeight - kBottomHeight - 100, kScreenWidth, kBottomHeight + 100);
-        _bottomView.backgroundColor = kRGBA(69, 74, 73, 1);
-    }
-    return _bottomView;
-}
-
 - (UIButton *)bottomLightButton {
     if (!_bottomLightButton) {
         _bottomLightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _bottomLightButton.frame = CGRectMake(16, 35, 40, 40);
+        _bottomLightButton.frame = CGRectMake(kScreenWidth - 73, (kScreenHeight + 66) / 2 + 20, 40, 40);
         [_bottomLightButton setImage:ImageName(@"camera_light_n") forState:UIControlStateNormal];
         [_bottomLightButton setImage:ImageName(@"camera_light_h") forState:UIControlStateHighlighted];
         [_bottomLightButton setImage:ImageName(@"camera_light_h") forState:UIControlStateSelected];
@@ -696,7 +692,7 @@
         _bottomScanButton.layer.borderWidth = 0.5;
         _bottomScanButton.layer.borderColor = kWhiteColor.CGColor;
         _bottomScanButton.backgroundColor = kClearColor;
-        _bottomScanButton.frame = CGRectMake(kScreenWidth/2 - 33, 17, 66, 66);
+        _bottomScanButton.frame = CGRectMake(kScreenWidth - 86, (kScreenHeight - 66) / 2, 66, 66);
         
         self.playLayer = [CALayer layer];
         self.playLayer.frame = CGRectMake(6, 6, 54, 54);
@@ -711,7 +707,7 @@
 - (UIButton *)bottomFrontButton {
     if (!_bottomFrontButton) {
         _bottomFrontButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _bottomFrontButton.frame = CGRectMake(kScreenWidth - 56, 30, 40, 40);
+        _bottomFrontButton.frame = CGRectMake(kScreenWidth - 73, (kScreenHeight - 66) / 2 - 60, 40, 40);
         [_bottomFrontButton setImage:ImageName(@"front_cammer") forState:UIControlStateNormal];
         [_bottomFrontButton setImage:ImageName(@"front_cammer") forState:UIControlStateHighlighted];
     }
@@ -720,7 +716,7 @@
 
 - (UIView *)middleVideoView {
     if (!_middleVideoView) {
-        _middleVideoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kTopHeight, kScreenWidth, kScreenHeight - kTopHeight - kBottomHeight - 100)];
+        _middleVideoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _middleVideoView.layer.borderColor = kWhiteColor.CGColor;
         _middleVideoView.layer.cornerRadius = 1;
         _middleVideoView.layer.masksToBounds = YES;
@@ -731,7 +727,7 @@
 }
 - (UIView *)middleRECView {
     if (!_middleRECView) {
-        _middleRECView = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 6, 6)];
+        _middleRECView = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 60)/2 - 14, 20, 6, 6)];
         _middleRECView.layer.cornerRadius = 3;
         _middleRECView.layer.masksToBounds = YES;
         _middleRECView.backgroundColor = kRedColor;
@@ -740,7 +736,7 @@
 }
 - (UILabel *)middleRecordTimeLabel {
     if (!_middleRecordTimeLabel) {
-        _middleRecordTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.middleRECView.frame) + 8, CGRectGetMinY(self.middleRECView.frame) - 17, 150, 40)];
+        _middleRecordTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 60)/2, 3, 60, 40)];
         _middleRecordTimeLabel.text = @"00:00";
         _middleRecordTimeLabel.textColor = kBlackColor;
         _middleRecordTimeLabel.font = BoldSystemFont(20);

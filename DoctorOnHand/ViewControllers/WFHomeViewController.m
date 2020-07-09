@@ -11,6 +11,7 @@
 #import "WFSignatureViewController.h"
 #import "WFPlayVideoViewController.h"
 #import "WFRecordAudioViewController.h"
+#import "WFRecordVideoPadViewController.h"
 #import "WFRecordVideoViewController.h"
 #import "WFTakePhotoViewController.h"
 #import "WFTakePhotoPadViewController.h"
@@ -108,7 +109,7 @@
         }break;
         case 5: {
             // 摄像
-            WFRecordVideoViewController *recordVideo = [[WFRecordVideoViewController alloc] init];
+            WFRecordVideoPadViewController *recordVideo = [[WFRecordVideoPadViewController alloc] init];
             [self.navigationController pushViewController:recordVideo animated:YES];
         }break;
         case 6: {

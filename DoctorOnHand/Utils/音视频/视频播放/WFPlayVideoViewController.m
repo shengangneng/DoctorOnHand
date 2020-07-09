@@ -19,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kWhiteColor;
+    self.navigationItem.title = @"视频播放";
     WFAVPlayerView *playerView = [[WFAVPlayerView alloc] init];
     playerView.frame = self.view.bounds;
     playerView.delegate = self;

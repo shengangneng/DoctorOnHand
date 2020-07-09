@@ -9,7 +9,7 @@
 #ifndef WFWebViewConst_h
 #define WFWebViewConst_h
 
-static NSString *const kBridge = @"Bridge";                                     // 桥接名称
+static NSString *const kNative = @"native";                                     // 桥接名称
 
 // JS调用原生方法名
 static NSString *const kGetAccountInfo = @"getAccountInfo";                     // 获取用户信息
@@ -21,6 +21,7 @@ static NSString *const kRecordVideo = @"recordVideo";                           
 static NSString *const kPreviewImg = @"previewImg";                             // 图片预览
 static NSString *const kPlaySound = @"playSound";                               // 播放音频
 static NSString *const kPlayVideo = @"playVideo";                               // 播放视频
+static NSString *const kLogout = @"logout";                                     // 退出登录
 
 
 #endif /* WFWebViewConst_h */

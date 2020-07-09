@@ -25,6 +25,7 @@
 		DD1C7C3724B609D0004F7CEF /* WFWebViewUIConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C3124B609D0004F7CEF /* WFWebViewUIConfiguration.m */; };
 		DD1C7C3C24B60A6A004F7CEF /* WFWebDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C3B24B60A6A004F7CEF /* WFWebDefaultView.m */; };
 		DD1C7C3F24B610C7004F7CEF /* WFCustomNavLeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C3D24B610C7004F7CEF /* WFCustomNavLeftButton.m */; };
+		DD1C7C4224B73F9D004F7CEF /* WebResources in Resources */ = {isa = PBXBuildFile; fileRef = DD1C7C4124B73F9D004F7CEF /* WebResources */; };
 		DD5F0469249BAC590043C2AE /* WFBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5F0467249BAC590043C2AE /* WFBaseViewController.m */; };
 		DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D74249BACB2001C9344 /* WFSignatureViewController.m */; };
 		DD6C4D77249BACB2001C9344 /* WFSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4D75249BACB2001C9344 /* WFSignatureView.m */; };
@@ -63,6 +64,7 @@
 		DD6C4DF324A246C0001C9344 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF124A246C0001C9344 /* libopencore-amrnb.a */; };
 		DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */; };
 		DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */; };
+		DDE9E18724B7C92B005E453C /* WFRecordVideoPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +107,7 @@
 		DD1C7C3B24B60A6A004F7CEF /* WFWebDefaultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWebDefaultView.m; sourceTree = "<group>"; };
 		DD1C7C3D24B610C7004F7CEF /* WFCustomNavLeftButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCustomNavLeftButton.m; sourceTree = "<group>"; };
 		DD1C7C3E24B610C7004F7CEF /* WFCustomNavLeftButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCustomNavLeftButton.h; sourceTree = "<group>"; };
+		DD1C7C4124B73F9D004F7CEF /* WebResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebResources; sourceTree = "<group>"; };
 		DD5F045C249BA8240043C2AE /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		DD5F045E249BA8240043C2AE /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		DD5F045F249BA8240043C2AE /* UserDefaultKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultKey.h; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 		DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordAudioViewController.m; sourceTree = "<group>"; };
 		DD6C4DFD24A2514F001C9344 /* WFAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAudioPlayer.h; sourceTree = "<group>"; };
 		DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAudioPlayer.m; sourceTree = "<group>"; };
+		DDE9E18524B7C92B005E453C /* WFRecordVideoPadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFRecordVideoPadViewController.h; sourceTree = "<group>"; };
+		DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordVideoPadViewController.m; sourceTree = "<group>"; };
 		FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginViewController.h; sourceTree = "<group>"; };
 		FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginViewController.m; sourceTree = "<group>"; };
 		FEA4AEF7249B4B7B006B9ABE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -216,6 +221,7 @@
 		CD795A8F1D18DDDF000B7619 = {
 			isa = PBXGroup;
 			children = (
+				DD1C7C4124B73F9D004F7CEF /* WebResources */,
 				CD795A9A1D18DDDF000B7619 /* DoctorOnHand */,
 				CD795A991D18DDDF000B7619 /* Products */,
 				DA9C5F5F1AC4E5EE953C2E0D /* Pods */,
@@ -271,6 +277,8 @@
 			children = (
 				DD1C7BFB24A444AD004F7CEF /* WFRecordVideoViewController.h */,
 				DD1C7BFC24A444AD004F7CEF /* WFRecordVideoViewController.m */,
+				DDE9E18524B7C92B005E453C /* WFRecordVideoPadViewController.h */,
+				DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */,
 				DD1C7BFE24A444F4004F7CEF /* WFVideoProgress.h */,
 				DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */,
 			);
@@ -620,6 +628,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD6C4DD924A0F6AA001C9344 /* movie.mp4 in Resources */,
+				DD1C7C4224B73F9D004F7CEF /* WebResources in Resources */,
 				CD795AA81D18DDDF000B7619 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,6 +709,7 @@
 				DD1C7C0624A5EA8E004F7CEF /* WFBrushBoardView.m in Sources */,
 				DD6C4D9B249BB400001C9344 /* UIViewController+WFExtention.m in Sources */,
 				DD6C4DB6249FA008001C9344 /* WFFileReaderViewController.m in Sources */,
+				DDE9E18724B7C92B005E453C /* WFRecordVideoPadViewController.m in Sources */,
 				DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */,
 				DD6C4DAE249E4C3C001C9344 /* WFBaseNavigationBar.m in Sources */,
 				DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */,

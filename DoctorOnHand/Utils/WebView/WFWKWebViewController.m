@@ -21,7 +21,7 @@
 
 #define URL_CUT_LENGTH 50
 
-@interface WFWKWebViewController () <WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, WFWebDefaultViewDelegate, UIGestureRecognizerDelegate>
+@interface WFWKWebViewController () <WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, WFWebDefaultViewDelegate, UIGestureRecognizerDelegate, WFWebViewBridgeDelegate>
 
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewConfiguration *webViewConfiguration;
@@ -76,6 +76,7 @@
     self = [super init];
     if (self) {
         self.webViewBridge = [[WFWebViewBridge alloc] initWithTargetWebview:self.webView cantPopVC:@[@"WFQRCodeViewController"]];
+        self.webViewBridge.delegate = self;
         self.webViewUIConfiguration = [WFWebViewUIConfiguration defaultUIConfiguration];
         // 当退出登录的时候，需要释放WKWebView
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewNeedDealloc) name:kWebViewNeedDeallocNotification object:nil];
@@ -139,7 +140,8 @@
         if (@available(iOS 9.0, *)) {
             [self.webView loadFileURL:self.fileURL allowingReadAccessToURL:self.fileURL];
         } else {
-            [self.webView loadRequest:[NSURLRequest requestWithURL:self.fileURL]];
+            NSURL *fileURL = [self fileURLForBuggyWKWebView8:self.fileURL];
+            [self.webView loadRequest:[NSURLRequest requestWithURL:fileURL]];
         }
     } else {
         NSURL *url;
@@ -155,6 +157,24 @@
         [self.webView loadRequest:request];
     }
     self.webViewUIConfiguration.lastUpdateTime = [NSDate date].timeIntervalSince1970;
+}
+
+- (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL {
+    NSError *error = nil;
+    if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error]) {
+        return nil;
+    }
+    // Create "/temp/www" directory
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    NSURL *temDirURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:@"www"];
+    [fileManager createDirectoryAtURL:temDirURL withIntermediateDirectories:YES attributes:nil error:&error];
+    
+    NSURL *dstURL = [temDirURL URLByAppendingPathComponent:fileURL.lastPathComponent];
+    // Now copy given file to the temp directory
+    [fileManager removeItemAtURL:dstURL error:&error];
+    [fileManager copyItemAtURL:fileURL toURL:dstURL error:&error];
+    // Files in "/temp/www" load flawlesly :)
+    return dstURL;
 }
 
 - (void)loadURL:(NSString *)urlString {
@@ -328,7 +348,7 @@
 
 // 移除方法注入，否则会导致内存泄漏
 - (void)removeScriptInject {
-    [self.webViewConfiguration.userContentController removeScriptMessageHandlerForName:kBridge];
+    [self.webViewConfiguration.userContentController removeScriptMessageHandlerForName:kNative];
 }
 
 - (void)evaluateJavaScript:(NSString *)js {
@@ -493,9 +513,9 @@
     if (!_webView) {
         CGRect frame;
         if (self.webViewUIConfiguration.navHidden) {
-            frame = CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight-kStatusBarHeight-kBottomHeight);
+            frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         } else {
-            frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-kBottomHeight);
+            frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         }
         _webView = [[WKWebView alloc] initWithFrame:frame configuration:self.webViewConfiguration];
         _webView.scrollView.scrollEnabled = YES;
@@ -521,8 +541,8 @@
         _webViewConfiguration.userContentController = [[WKUserContentController alloc] init];
         
         // 将 window.webkit.messageHandlers.Bridge 改名成 window.Bridge 与 Android 统一
-        [_webViewConfiguration.userContentController addScriptMessageHandler:self name:kBridge];
-        WKUserScript* userScript = [[WKUserScript alloc]initWithSource:@"if (typeof window.webkit != 'undefined' && typeof window.webkit.messageHandlers.Bridge != 'undefined') { window.Bridge = window.webkit.messageHandlers.Bridge;}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [_webViewConfiguration.userContentController addScriptMessageHandler:self name:kNative];
+        WKUserScript* userScript = [[WKUserScript alloc]initWithSource:@"if (typeof window.webkit != 'undefined' && typeof window.webkit.messageHandlers.native != 'undefined') { window.native = window.webkit.messageHandlers.native;}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
         [_webViewConfiguration.userContentController addUserScript:userScript];
         
         // 偏好设置
