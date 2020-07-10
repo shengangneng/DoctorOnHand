@@ -54,6 +54,18 @@ static WFAudioPlayer *instance;
     return self.player;
 }
 
+- (AVPlayer *)playAudioWithURL:(NSString *)urlStr {
+    NSURL *url = [NSURL URLWithString:urlStr];
+    if (kIsNilString(urlStr) || !url) {
+        return nil;
+    }
+    NSError *err;
+    self.urlPlayer = [[AVPlayer alloc] initWithURL:url];
+    if (!err) {
+        [self.urlPlayer play];
+    }
+    return self.urlPlayer;
+}
 
 - (void)resumeCurrentAudio {
     [self.player play];
@@ -83,11 +95,16 @@ static WFAudioPlayer *instance;
     return self.player.isPlaying;
 }
 
+#pragma mark - delegate
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     NSLog(@"----%@播放完", player);
     if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayerFinish)]) {
         [self.delegate audioPlayerFinish];
     }
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error {
+    NSLog(@"播放失败：%@",error);
 }
 
 @end

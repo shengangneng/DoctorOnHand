@@ -70,8 +70,10 @@
 
 - (void)setTrackValue:(float)trackValue {
     _trackValue = trackValue;
-    
-    CGFloat finishW = self.frame.size.width * trackValue;
+    if (isnan(_trackValue)) {
+        _trackValue = 60;
+    }
+    CGFloat finishW = self.frame.size.width * _trackValue;
     self.trackView.frame = CGRectMake(0, (SlipW - SilderH) / 2, finishW, CGRectGetHeight(self.trackView.frame));
     self.slipImgView.frame = CGRectMake(finishW - SlipW * 0.5, (self.frame.size.height - SlipW) * 0.5, SlipW, SlipW);
 }

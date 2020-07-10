@@ -22,10 +22,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
     
-    WFHomeViewController *home = [[WFHomeViewController alloc] init];
-    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
+//    WFHomeViewController *home = [[WFHomeViewController alloc] init];
+//    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
     
-//    WFLoginViewController *nav = [[WFLoginViewController alloc] init];
+    WFLoginViewController *nav = [[WFLoginViewController alloc] init];
     
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];

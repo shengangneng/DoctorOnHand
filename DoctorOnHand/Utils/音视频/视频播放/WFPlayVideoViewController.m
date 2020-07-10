@@ -26,7 +26,10 @@
     playerView.delegate = self;
     [self.view addSubview:playerView];
     NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"mp4"];
-    [playerView settingPlayerItemWithUrl:[NSURL fileURLWithPath:moviePath]];
+    NSURL *fileURL = [NSURL fileURLWithPath:moviePath];
+    NSURL *url = [NSURL URLWithString:@"http://dict.youdao.com/dictvoice?audio=people&type=2"];
+    
+    [playerView settingPlayerItemWithUrl:fileURL];
 }
 
 #pragma mark - WFAVPlayerViewDelegate

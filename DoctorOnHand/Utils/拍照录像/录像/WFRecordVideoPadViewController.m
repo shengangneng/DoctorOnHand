@@ -744,7 +744,7 @@
 }
 - (UILabel *)middleRecordTimeLabel {
     if (!_middleRecordTimeLabel) {
-        _middleRecordTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 60)/2, 3, 60, 40)];
+        _middleRecordTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 65)/2, 3, 66, 40)];
         _middleRecordTimeLabel.text = @"00:00";
         _middleRecordTimeLabel.textColor = kBlackColor;
         _middleRecordTimeLabel.font = BoldSystemFont(20);

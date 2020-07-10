@@ -16,10 +16,11 @@
 #import "WFCustomNavigationBar.h"
 #import "WFSignatureViewController.h"           /// 手写板
 #import "WFRecordAudioViewController.h"         /// 录音
-#import "WFRecordVideoViewController.h"         /// 录制视频
+#import "WFRecordVideoPadViewController.h"      /// 录像
 #import "WFTakePhotoPadViewController.h"        /// 拍照
 #import "WFPlayVideoViewController.h"           /// 播放视频
 #import "WFLoginViewController.h"               /// 登录页
+#import "WFAudioPlayer.h"                       /// 单例：播放语音
 
 @interface WFWebViewBridge ()
 
@@ -120,7 +121,7 @@
                  msg = recordVideo;
              };
              */
-            WFRecordVideoViewController *recordVideo = [[WFRecordVideoViewController alloc] init];
+            WFRecordVideoPadViewController *recordVideo = [[WFRecordVideoPadViewController alloc] init];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:recordVideo animated:YES];
         } else if ([func isEqualToString:kPreviewImg]) {
             // 预览图片
@@ -132,6 +133,15 @@
                  msg = previewImg;
              };
              */
+            NSString *urlString = [[params[@"data"] stringByReplacingOccurrencesOfString:@"[" withString:@""] stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            NSError *err;
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[urlString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&err];
+            NSString *url = dic[@"url"];
+            if (kIsNilString(url)) {
+                url = @"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1141259048,554497535&fm=26&gp=0.jpg";
+            }
+            WFWKWebViewController *webView = [[WFWKWebViewController alloc] initWithURL:url];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:webView animated:YES];
             
         } else if ([func isEqualToString:kPlaySound]) {
             // 播放录音
@@ -143,6 +153,14 @@
                 msg = playSound;
             };
             */
+            NSString *urlString = [[params[@"data"] stringByReplacingOccurrencesOfString:@"[" withString:@""] stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            NSError *err;
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[urlString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&err];
+            NSString *url = dic[@"url"];
+            if (kIsNilString(url)) {
+                url = @"http://dict.youdao.com/dictvoice?audio=people&type=2";
+            }
+            [[WFAudioPlayer shareAudioPlayer] playAudioWithURL:url];
         } else if ([func isEqualToString:kPlayVideo]) {
             // 播放视频
             /*

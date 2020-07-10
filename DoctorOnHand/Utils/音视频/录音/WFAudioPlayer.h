@@ -24,8 +24,10 @@
 @interface WFAudioPlayer : NSObject
 ///
 @property (nonatomic, copy, readonly) NSString *localPath;
-/** 音频播放器 */
+/** 音频播放器（本地） */
 @property (nonatomic ,strong) AVAudioPlayer *player;
+/// 网络
+@property (nonatomic, strong) AVPlayer *urlPlayer;
 /// 播放进度
 @property (nonatomic, assign, readonly) float progress;
 /// 播放进度
@@ -35,8 +37,11 @@
 
 + (instancetype)shareAudioPlayer;
 
-/// 播放音频
+/// 播放音频（本地路径）
 - (AVAudioPlayer *)playAudioWith:(NSString *)audioPath;
+/// 播放音频（网络）
+- (AVPlayer *)playAudioWithURL:(NSString *)urlStr;
+
 /// 恢复播放音频
 - (void)resumeCurrentAudio;
 /// 暂停播放
