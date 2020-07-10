@@ -66,6 +66,10 @@
 		DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */; };
 		DDE9E18724B7C92B005E453C /* WFRecordVideoPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */; };
 		DDE9E18A24B7E236005E453C /* WFDocumentReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */; };
+		FE19468624B86D6000C1BEC1 /* WFUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468524B86D6000C1BEC1 /* WFUploadViewController.m */; };
+		FE19468924B86D7000C1BEC1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468824B86D7000C1BEC1 /* Reachability.m */; };
+		FE19468C24B86F2E00C1BEC1 /* WFResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */; };
+		FE19468F24B873E100C1BEC1 /* WFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468E24B873E100C1BEC1 /* WFNetworkManager.m */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -194,6 +198,14 @@
 		DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordVideoPadViewController.m; sourceTree = "<group>"; };
 		DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFDocumentReaderViewController.h; sourceTree = "<group>"; };
 		DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFDocumentReaderViewController.m; sourceTree = "<group>"; };
+		FE19468424B86D5F00C1BEC1 /* WFUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUploadViewController.h; sourceTree = "<group>"; };
+		FE19468524B86D6000C1BEC1 /* WFUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUploadViewController.m; sourceTree = "<group>"; };
+		FE19468724B86D7000C1BEC1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		FE19468824B86D7000C1BEC1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		FE19468A24B86F2E00C1BEC1 /* WFResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFResponseModel.h; sourceTree = "<group>"; };
+		FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFResponseModel.m; sourceTree = "<group>"; };
+		FE19468D24B873E100C1BEC1 /* WFNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFNetworkManager.h; sourceTree = "<group>"; };
+		FE19468E24B873E100C1BEC1 /* WFNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFNetworkManager.m; sourceTree = "<group>"; };
 		FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginViewController.h; sourceTree = "<group>"; };
 		FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginViewController.m; sourceTree = "<group>"; };
 		FEA4AEF7249B4B7B006B9ABE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -379,6 +391,14 @@
 		DD6C4D83249BAD87001C9344 /* 文件上传 */ = {
 			isa = PBXGroup;
 			children = (
+				FE19468724B86D7000C1BEC1 /* Reachability.h */,
+				FE19468824B86D7000C1BEC1 /* Reachability.m */,
+				FE19468D24B873E100C1BEC1 /* WFNetworkManager.h */,
+				FE19468E24B873E100C1BEC1 /* WFNetworkManager.m */,
+				FE19468424B86D5F00C1BEC1 /* WFUploadViewController.h */,
+				FE19468524B86D6000C1BEC1 /* WFUploadViewController.m */,
+				FE19468A24B86F2E00C1BEC1 /* WFResponseModel.h */,
+				FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */,
 			);
 			path = "文件上传";
 			sourceTree = "<group>";
@@ -649,10 +669,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-DoctorOnHand/Pods-DoctorOnHand-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -698,11 +720,14 @@
 				DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */,
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
 				DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */,
+				FE19468924B86D7000C1BEC1 /* Reachability.m in Sources */,
 				DD6C4DE324A2421C001C9344 /* WFRecordTool.m in Sources */,
 				DD1C7C1A24B360FB004F7CEF /* WFWidthTableViewCell.m in Sources */,
 				DD6C4DE924A24675001C9344 /* WFFileManager.m in Sources */,
 				DD6C4DE024A24170001C9344 /* WFRecordVoiceButton.m in Sources */,
+				FE19468C24B86F2E00C1BEC1 /* WFResponseModel.m in Sources */,
 				DD6C4DD724A0F5FA001C9344 /* WFPlayVideoViewController.m in Sources */,
+				FE19468F24B873E100C1BEC1 /* WFNetworkManager.m in Sources */,
 				DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */,
 				DD6C4DED24A246AD001C9344 /* amrFileCodec.m in Sources */,
 				DD6C4DA2249BB400001C9344 /* UIImage+WFExtension.m in Sources */,
@@ -718,6 +743,7 @@
 				DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */,
 				DD6C4DAE249E4C3C001C9344 /* WFBaseNavigationBar.m in Sources */,
 				DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */,
+				FE19468624B86D6000C1BEC1 /* WFUploadViewController.m in Sources */,
 				DD6C4DB0249E4C3C001C9344 /* WFMaskBackView.m in Sources */,
 				CD795A9D1D18DDDF000B7619 /* main.m in Sources */,
 				DD6C4DD224A0F3D7001C9344 /* WFAVPlayerControlView.m in Sources */,

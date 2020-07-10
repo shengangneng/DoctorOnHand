@@ -6,4 +6,5 @@ pod 'SDWebImage'
 pod 'MJExtension'
 pod 'MBProgressHUD'
 pod 'MJRefresh'  
+pod 'TZImagePickerController'
 end

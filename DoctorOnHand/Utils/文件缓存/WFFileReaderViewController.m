@@ -103,7 +103,8 @@
 - (void)loadData {
     if (self.cacheArray == nil) {
         // 初始化，首次显示总目录
-        NSString *path = [WFFileReaderManager homeDirectoryPath];
+//        NSString *path = [WFFileReaderManager homeDirectoryPath];
+        NSString *path = [WFFileReaderManager documentDirectoryPath];
         NSArray *array = [WFFileReaderManager fileModelsWithFilePath:path];
         self.cacheArray = [NSMutableArray arrayWithArray:array];
     }
