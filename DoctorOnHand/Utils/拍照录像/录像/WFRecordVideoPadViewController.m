@@ -312,7 +312,7 @@
 
 // 定时器事件
 - (void)recordTimerAction {
-    _time ++;
+    _time++;
     self.middleRECView.hidden = !self.middleRECView.hidden;
     self.middleRecordTimeLabel.text = [NSString stringWithFormat:@"%@", [self strWithTime:_time interval:1.f]];
 }
@@ -337,6 +337,10 @@
     _middleVideoView.hidden = NO;
     _middlePreviewView.hidden = NO;
     _middlePlayButton.selected = YES;
+    
+    _bottomFrontButton.hidden = YES;
+    _bottomLightButton.hidden = YES;
+    
     _middleTotalLabel.text = [self strWithTime:_time interval:1.f];
     [_middleProgress setProgress:0 duration:0];
     
@@ -516,11 +520,15 @@
         if (current) {
             [self.middleProgress setProgress:(current / _time) duration:1.f];
         }
-        if ((int)current == _time) {
+        if (self.middleProgress.progress == 1) {
+            // 播放结束
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.middlePlayButton.selected = NO;
                 self.middleVideoView.hidden = YES;
                 self.middlePreviewView.hidden = YES;
+                
+                self.bottomFrontButton.hidden =
+                self.bottomLightButton.hidden = NO;
             });
         }
     }];
@@ -639,8 +647,8 @@
         _headerBackButton.frame = CGRectMake(12, 20 + 8, 50, 35);
         [_headerBackButton setTitle:(@"返回") forState:UIControlStateNormal];
         [_headerBackButton setTitle:(@"返回") forState:UIControlStateHighlighted];
-        [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateHighlighted];
-        [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateNormal];
+        [_headerBackButton setTitleColor:kRGBA(22, 120, 255, 1) forState:UIControlStateHighlighted];
+        [_headerBackButton setTitleColor:kRGBA(22, 120, 255, 1) forState:UIControlStateNormal];
     }
     return _headerBackButton;
 }

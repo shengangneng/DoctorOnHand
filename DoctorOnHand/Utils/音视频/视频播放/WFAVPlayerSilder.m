@@ -34,13 +34,13 @@
 }
 
 - (void)slipImgPanGRAction:(UIPanGestureRecognizer *)panGR {
-    //获取偏移量
+    // 获取偏移量
     CGFloat moveX = [panGR translationInView:self].x;
     
-    //重置偏移量，避免下次获取到的是原基础的增量
+    // 重置偏移量，避免下次获取到的是原基础的增量
     [panGR setTranslation:CGPointMake(0, 0) inView:self];
     
-    //计算当前中心值
+    // 计算当前中心值
     CGFloat centerX = CGRectGetMaxX(self.slipImgView.frame) - SlipW * 0.5 + moveX;
     
     //防止瞬间大偏移量滑动影响显示效果

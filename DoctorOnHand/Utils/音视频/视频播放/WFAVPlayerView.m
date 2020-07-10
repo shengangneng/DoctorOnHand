@@ -190,7 +190,10 @@
 // 更新进度条时间
 - (void)updateVideoSlider:(float)currentPlayTime {
     CMTime duration = _playerItem.duration;
-    self.controlView.timeLabel.text = [NSString stringWithFormat:@"%.0f:%.0f", currentPlayTime, CMTimeGetSeconds(duration)];
+    int lessTime = (int)(CMTimeGetSeconds(duration) - currentPlayTime);
+    int min = lessTime / 60;
+    int sec = lessTime % 60;
+    self.controlView.timeLabel.text = [NSString stringWithFormat:@"-%02d:%02d", min, sec];
     self.controlView.playerSilder.trackValue = currentPlayTime / CMTimeGetSeconds(duration);
 }
 

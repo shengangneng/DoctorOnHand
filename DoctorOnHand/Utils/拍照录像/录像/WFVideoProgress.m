@@ -11,6 +11,7 @@
 @interface WFVideoProgress ()
 
 @property (nonatomic, weak) UIView *tView;
+@property (nonatomic, assign) int playProgress;
 
 @end
 
@@ -37,8 +38,13 @@
     return self;
 }
 
+- (int)progress {
+    return self.playProgress;
+}
+
 - (void)setProgress:(CGFloat)progress duration:(CGFloat)duration {
     if (progress > 1) progress = 1;
+    _playProgress = progress;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         _tView.frame = CGRectMake(0, 0, self.bounds.size.width * progress, self.bounds.size.height);
     } completion:nil];

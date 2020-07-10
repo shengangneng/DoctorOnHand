@@ -65,6 +65,7 @@
 		DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */; };
 		DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */; };
 		DDE9E18724B7C92B005E453C /* WFRecordVideoPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */; };
+		DDE9E18A24B7E236005E453C /* WFDocumentReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -191,6 +192,8 @@
 		DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAudioPlayer.m; sourceTree = "<group>"; };
 		DDE9E18524B7C92B005E453C /* WFRecordVideoPadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFRecordVideoPadViewController.h; sourceTree = "<group>"; };
 		DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordVideoPadViewController.m; sourceTree = "<group>"; };
+		DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFDocumentReaderViewController.h; sourceTree = "<group>"; };
+		DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFDocumentReaderViewController.m; sourceTree = "<group>"; };
 		FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginViewController.h; sourceTree = "<group>"; };
 		FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginViewController.m; sourceTree = "<group>"; };
 		FEA4AEF7249B4B7B006B9ABE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -383,8 +386,8 @@
 		DD6C4D84249BAD91001C9344 /* 拍照录像 */ = {
 			isa = PBXGroup;
 			children = (
-				DD1C7BFA24A44480004F7CEF /* 录像 */,
 				DD1C7BF924A44479004F7CEF /* 拍照 */,
+				DD1C7BFA24A44480004F7CEF /* 录像 */,
 			);
 			path = "拍照录像";
 			sourceTree = "<group>";
@@ -419,6 +422,8 @@
 		DD6C4D87249BADA6001C9344 /* 音视频 */ = {
 			isa = PBXGroup;
 			children = (
+				DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */,
+				DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */,
 				DD6C4DDA24A2415E001C9344 /* 录音 */,
 				DD6C4DC824A0EE45001C9344 /* 视频播放 */,
 			);
@@ -729,6 +734,7 @@
 				DD6C4DAF249E4C3C001C9344 /* WFBaseNavigationController.m in Sources */,
 				DD6C4DAD249E4C3C001C9344 /* WFCustomNavigationBar.m in Sources */,
 				DD1C7C3F24B610C7004F7CEF /* WFCustomNavLeftButton.m in Sources */,
+				DDE9E18A24B7E236005E453C /* WFDocumentReaderViewController.m in Sources */,
 				DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */,
 				DD6C4D76249BACB2001C9344 /* WFSignatureViewController.m in Sources */,
 				DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */,

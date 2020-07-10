@@ -16,6 +16,7 @@
 #import "WFTakePhotoViewController.h"
 #import "WFTakePhotoPadViewController.h"
 #import "WFFileReaderViewController.h"
+#import "WFDocumentReaderViewController.h"
 
 @interface WFHomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -46,7 +47,7 @@
         @"视频播放",
         @"录音",
         @"拍照",
-        @"摄像",
+        @"录像",
         @"缓存文件查看"
     ];
 }
@@ -96,6 +97,12 @@
             // 视频播放
             WFPlayVideoViewController *video = [[WFPlayVideoViewController alloc] init];
             [self.navigationController pushViewController:video animated:YES];
+            
+//            NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"mp4"];
+//            WFDocumentReaderViewController *doc = [[WFDocumentReaderViewController alloc] init];
+//            [doc fileReadWithFilePath:moviePath];
+//            [self.navigationController pushViewController:doc animated:YES];
+            
         }break;
         case 3: {
             // 录音
@@ -108,7 +115,7 @@
             [self.navigationController pushViewController:takePhoto animated:YES];
         }break;
         case 5: {
-            // 摄像
+            // 录像
             WFRecordVideoPadViewController *recordVideo = [[WFRecordVideoPadViewController alloc] init];
             [self.navigationController pushViewController:recordVideo animated:YES];
         }break;

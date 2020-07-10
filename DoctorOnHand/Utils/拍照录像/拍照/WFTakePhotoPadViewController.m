@@ -464,8 +464,8 @@
         _headerBackButton.frame = CGRectMake(12, 20 + 8, 50, 35);
         [_headerBackButton setTitle:(@"返回") forState:UIControlStateNormal];
         [_headerBackButton setTitle:(@"返回") forState:UIControlStateHighlighted];
-        [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateHighlighted];
-        [_headerBackButton setTitleColor:kWhiteColor forState:UIControlStateNormal];
+        [_headerBackButton setTitleColor:kRGBA(22, 120, 255, 1) forState:UIControlStateHighlighted];
+        [_headerBackButton setTitleColor:kRGBA(22, 120, 255, 1) forState:UIControlStateNormal];
     }
     return _headerBackButton;
 }

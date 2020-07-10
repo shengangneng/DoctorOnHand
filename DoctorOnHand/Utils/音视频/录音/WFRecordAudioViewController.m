@@ -127,6 +127,16 @@
     __weak typeof(self) weakself = self;
     [self showAlertControllerWithStyle:UIAlertControllerStyleAlert title:@"是否退出？" message:nil sureTitle:@"退出" sureAction:^(UIAlertAction *action) {
         __strong typeof(weakself) strongself = weakself;
+        
+        if (strongself.audioLocalPath.length > 0) {
+            strongself.recordVoiceStatus = WFRecordVoiceStatusPause;
+            strongself.recordVoiceStatus = WFRecordVoiceStatusEnd;
+            [[WFRecordTool shareRecordTool] deleteRecord];
+            // 删除wav文件
+            [WFFileManager removeFile:strongself.audioLocalPath];
+            strongself.audioLocalPath = nil;
+        }
+        
         [strongself.navigationController popViewControllerAnimated:YES];
     } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:nil cancelStyle:UIAlertActionStyleDefault];
 }

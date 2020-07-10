@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WFVideoProgress : UIView
 
+@property (nonatomic, assign, readonly) int progress;
+
 - (void)setProgress:(CGFloat)progress duration:(CGFloat)duration;
 
 @end

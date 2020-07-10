@@ -495,6 +495,10 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     if ([self.statusView.backgroundColor isEqual:kRGBA(255, 255, 255, 1)]) {
         return UIStatusBarStyleDefault;
@@ -518,7 +522,7 @@
             frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         }
         _webView = [[WKWebView alloc] initWithFrame:frame configuration:self.webViewConfiguration];
-        _webView.scrollView.scrollEnabled = YES;
+        _webView.scrollView.scrollEnabled = NO;
         if (@available(iOS 11.0, *)) {
             // 顶部有空白，需要进行如下设置
             _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -527,7 +531,7 @@
         longPress.minimumPressDuration = 0.3;
         longPress.delegate = self;
         [_webView addGestureRecognizer:longPress];
-        _webView.allowsBackForwardNavigationGestures = YES;
+        _webView.allowsBackForwardNavigationGestures = NO;
         _webView.backgroundColor = kWhiteColor;
         _webView.navigationDelegate = self;
         _webView.UIDelegate = self;

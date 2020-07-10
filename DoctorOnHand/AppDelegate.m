@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "WFHomeViewController.h"
 #import "WFBaseNavigationController.h"
+#import "WFLoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,8 +21,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
+    
     WFHomeViewController *home = [[WFHomeViewController alloc] init];
     WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
+    
+//    WFLoginViewController *nav = [[WFLoginViewController alloc] init];
+    
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     return YES;
