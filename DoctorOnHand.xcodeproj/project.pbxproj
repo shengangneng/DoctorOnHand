@@ -66,6 +66,7 @@
 		DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */; };
 		DDE9E18724B7C92B005E453C /* WFRecordVideoPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */; };
 		DDE9E18A24B7E236005E453C /* WFDocumentReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */; };
+		DDE9E18D24C08777005E453C /* WFLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18C24C08777005E453C /* WFLoginModel.m */; };
 		FE19468624B86D6000C1BEC1 /* WFUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468524B86D6000C1BEC1 /* WFUploadViewController.m */; };
 		FE19468924B86D7000C1BEC1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468824B86D7000C1BEC1 /* Reachability.m */; };
 		FE19468C24B86F2E00C1BEC1 /* WFResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */; };
@@ -198,6 +199,8 @@
 		DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordVideoPadViewController.m; sourceTree = "<group>"; };
 		DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFDocumentReaderViewController.h; sourceTree = "<group>"; };
 		DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFDocumentReaderViewController.m; sourceTree = "<group>"; };
+		DDE9E18B24C08777005E453C /* WFLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginModel.h; sourceTree = "<group>"; };
+		DDE9E18C24C08777005E453C /* WFLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginModel.m; sourceTree = "<group>"; };
 		FE19468424B86D5F00C1BEC1 /* WFUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUploadViewController.h; sourceTree = "<group>"; };
 		FE19468524B86D6000C1BEC1 /* WFUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUploadViewController.m; sourceTree = "<group>"; };
 		FE19468724B86D7000C1BEC1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -504,6 +507,8 @@
 			children = (
 				FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */,
 				FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */,
+				DDE9E18B24C08777005E453C /* WFLoginModel.h */,
+				DDE9E18C24C08777005E453C /* WFLoginModel.m */,
 			);
 			path = "登录";
 			sourceTree = "<group>";
@@ -719,6 +724,7 @@
 				DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */,
 				DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */,
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
+				DDE9E18D24C08777005E453C /* WFLoginModel.m in Sources */,
 				DD6C4DC0249FA19E001C9344 /* WFFileReaderManager.m in Sources */,
 				FE19468924B86D7000C1BEC1 /* Reachability.m in Sources */,
 				DD6C4DE324A2421C001C9344 /* WFRecordTool.m in Sources */,

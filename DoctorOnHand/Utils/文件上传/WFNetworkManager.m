@@ -33,8 +33,7 @@ static WFNetworkManager *instance;
 
 - (void)other_requestManager {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = nil;
     instance.manager = manager;
@@ -50,7 +49,7 @@ static WFNetworkManager *instance;
 
 - (void)requestWithType:(WFRequestType)requestType
                     URL:(NSString *)url
-                headers:(NSDictionary *)headers
+                headers:(NSDictionary * _Nullable)headers
                  params:(_Nullable id)params
                 success:(void(^)(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject))success
                 failure:(void(^)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error))failure {
@@ -69,13 +68,12 @@ static WFNetworkManager *instance;
                 
                 WFResponseModel *response = [WFResponseModel mj_objectWithKeyValues:responseObject];
                 
-                
-                if (response.code.intValue == 200 || response.code.intValue == 202) {
+                if (response.code.intValue == 200) {
                     success(task,responseObject);
                 } else {
                     NSString *message = nil;
-                    if ([response.msg isKindOfClass:[NSString class]] && ((NSString *)response.msg).length != 0) {
-                        message = (NSString *)response.msg;
+                    if ([response.message isKindOfClass:[NSString class]] && ((NSString *)response.message).length != 0) {
+                        message = (NSString *)response.message;
                     } else {
                         message = @"错误信息为空";
                     }

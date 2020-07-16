@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WFResponseModel : NSObject
 
-@property (strong, nonatomic) id msg;// msg可能是NSString，也可能是NSArray（停机维护的时候）
+@property (strong, nonatomic) id message;// msg可能是NSString，也可能是NSArray（停机维护的时候）
 @property (copy,   nonatomic) NSString *code;
 @property (strong, nonatomic) NSDictionary *dataobj;
 

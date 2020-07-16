@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)requestWithType:(WFRequestType)requestType
                     URL:(NSString *)url
-                headers:(NSDictionary *)headers
+                headers:(NSDictionary * _Nullable)headers
                  params:(_Nullable id)params
                 success:(void(^)(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject))success
                 failure:(void(^)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error))failure;

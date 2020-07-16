@@ -10,6 +10,10 @@
 #import "WFBrushBoardView.h"
 #import "WFWKWebViewController.h"
 #import "WFBaseNavigationController.h"
+#import "WFNetworkManager.h"
+#import "WFCommomTool.h"
+#import "NSString+WFExtension.h"
+#import "WFLoginModel.h"
 
 @interface WFLoginViewController () <UITextFieldDelegate>
 
@@ -157,12 +161,32 @@
     [self.view endEditing:YES];
 }
 - (void)login:(UIButton *)sender {
-    NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithFileURL:url];
-    web.webViewUIConfiguration.navHidden = YES;
-    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
-    [UIApplication sharedApplication].delegate.window.rootViewController = nav;
+    
+    NSString *username = self.userTextField.text.clearSideSpace;
+    NSString *password = self.passTextField.text.clearSideSpace;
+    if (kIsNilString(username)) {
+        [WFCommomTool showTextWithTitle:@"用户名不能为空！" inView:self.view animation:YES];
+        return;
+    } else if (kIsNilString(password)) {
+        [WFCommomTool showTextWithTitle:@"密码不能为空！" inView:self.view animation:YES];
+        return;
+    }
+    
+    NSString *url = @"http://10.0.1.101:9098/md/v1/login";
+    NSDictionary *params = @{@"account":username,@"password":password};
+    [[WFNetworkManager shareManager] other_requestManager];
+    [[WFNetworkManager shareManager] requestWithType:WFRequestTypePOST URL:url headers:nil params:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        WFLoginModel *model = [WFLoginModel mj_objectWithKeyValues:responseObject[@"resultData"]];
+//        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources"];
+        NSString *path = [NSString stringWithFormat:@"http://10.0.1.101:8081/#/patient/card?token=%@&userId=%@&userName=%@",model.token,model.userId,model.username];
+        WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithURL:path];
+        web.webViewUIConfiguration.navHidden = YES;
+        WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
+        [UIApplication sharedApplication].delegate.window.rootViewController = nav;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"%@",error);
+    }];
 }
 
 - (void)cancel:(UIButton *)sender {
