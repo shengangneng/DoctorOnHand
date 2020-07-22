@@ -165,10 +165,10 @@
     NSString *username = self.userTextField.text.clearSideSpace;
     NSString *password = self.passTextField.text.clearSideSpace;
     if (kIsNilString(username)) {
-        [WFCommomTool showTextWithTitle:@"用户名不能为空！" inView:self.view animation:YES];
+        [WFCommomTool showTextWithTitle:@"用户名不能为空" inView:self.view animation:YES];
         return;
     } else if (kIsNilString(password)) {
-        [WFCommomTool showTextWithTitle:@"密码不能为空！" inView:self.view animation:YES];
+        [WFCommomTool showTextWithTitle:@"密码不能为空" inView:self.view animation:YES];
         return;
     }
     
