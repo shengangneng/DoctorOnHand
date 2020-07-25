@@ -10,6 +10,7 @@
 #import "WFHomeViewController.h"
 #import "WFBaseNavigationController.h"
 #import "WFLoginViewController.h"
+#import "WFWKWebViewController.h"
 
 @interface AppDelegate ()
 
@@ -25,9 +26,18 @@
 //    WFHomeViewController *home = [[WFHomeViewController alloc] init];
 //    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
     
-    WFLoginViewController *nav = [[WFLoginViewController alloc] init];
+    if (kIsNilString([[NSUserDefaults standardUserDefaults] stringForKey:kServerURL])) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/config"];
+        WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithFileURL:[NSURL fileURLWithPath:path]];
+        web.webViewUIConfiguration.navHidden = YES;
+        web.webViewUIConfiguration.webViewScrollEnabled = YES;
+        WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
+        self.window.rootViewController = nav;
+    } else {
+        WFLoginViewController *nav = [[WFLoginViewController alloc] init];
+        self.window.rootViewController = nav;
+    }
     
-    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     return YES;
 }

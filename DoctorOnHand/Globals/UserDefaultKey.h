@@ -29,5 +29,10 @@
 #define kRecord         @"record"       // 是否记录用户名和密码
 #define kSaveOrgCache   @"save_orgcache"// 是否记录用户名和密码
 
+#define kFrontHost      @"frontHost"    // 前端域名
+#define kFrontPort      @"frontPort"    // 前端端口
+#define kBackHost       @"backHost"     // 后台域名
+#define kBackPort       @"backPort"     // 后台端口
+
 
 #endif /* UserDefaultKey_h */

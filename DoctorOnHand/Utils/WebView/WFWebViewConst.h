@@ -19,9 +19,11 @@ static NSString *const kHandWriting = @"handWriting";                           
 static NSString *const kRecordSound = @"recordSound";                           // 录音
 static NSString *const kRecordVideo = @"recordVideo";                           // 录像
 static NSString *const kPreviewImg = @"previewImg";                             // 图片预览
-static NSString *const kPlaySound = @"playSound";                               // 播放音频
+static NSString *const kPlaySound = @"playSound";                               // 播放音频setConfigUrl
 static NSString *const kPlayVideo = @"playVideo";                               // 播放视频
 static NSString *const kLogout = @"logout";                                     // 退出登录
+static NSString *const kSetConfigUrl = @"setConfigUrl";                         // 点击确定传入配置给壳
+static NSString *const kGetConfigUrl = @"getConfigUrl";                         // 调出配置页面
 
 
 #endif /* WFWebViewConst_h */

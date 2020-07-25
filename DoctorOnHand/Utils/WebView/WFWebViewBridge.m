@@ -177,7 +177,20 @@
             // 退出登录
             WFLoginViewController *login = [[WFLoginViewController alloc] init];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:login animated:YES];
-        }
+        } else if ([func isEqualToString:kGetConfigUrl]) {
+            // 调出配置页面
+            NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/config"];
+            WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithFileURL:[NSURL fileURLWithPath:path]];
+            web.webViewUIConfiguration.navHidden = YES;
+            web.webViewUIConfiguration.webViewScrollEnabled = YES;
+            WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
+            [UIApplication sharedApplication].delegate.window.rootViewController = nav;
+        } else if ([func isEqualToString:kSetConfigUrl]) {
+            // 确定了配置信息，传到壳保存（然后跳到登录页）
+            NSString *config = params[@"config"];
+            WFLoginViewController *login = [[WFLoginViewController alloc] init];
+            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:login animated:YES];
+       }
     }
 }
 

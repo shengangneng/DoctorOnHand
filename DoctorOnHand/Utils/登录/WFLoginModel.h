@@ -11,20 +11,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- account = 1113;
- birthday = "0001-01-01 00:00:00";
- department = "\U5916\U79d1";
- deptId = 1401;
- email = "<null>";
- hosiptal = "<null>";
- phone = "<null>";
- photo = "<null>";
- sex = "\U7537";
- token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJBcGkiLCJpc3MiOiJXaXNlZmx5IiwibmFtZSI6IjExMTMiLCJuYmYiOjE1OTQ5MDQxNjksImV4cCI6MTU5NDkxMTM2OSwiaWF0IjoxNTk0OTA0MTY5fQ.R9sW7lAJzTvv19yiPNVngTsTrvDdbI8E75y5MMoK-Es";
- type = "<null>";
- userId = 80502;
- username = "\U9648\U5065\U660e";
- wards = "<null>";
+ code = 200;
+ message = "";
+ resultData: {
+     account = 1113;
+     birthday = "0001-01-01 00:00:00";
+     department = "\U5916\U79d1";
+     deptId = 1401;
+     email = "<null>";
+     hosiptal = "<null>";
+     phone = "<null>";
+     photo = "<null>";
+     sex = "\U7537";
+     token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJBcGkiLCJpc3MiOiJXaXNlZmx5IiwibmFtZSI6IjExMTMiLCJuYmYiOjE1OTQ5MDQxNjksImV4cCI6MTU5NDkxMTM2OSwiaWF0IjoxNTk0OTA0MTY5fQ.R9sW7lAJzTvv19yiPNVngTsTrvDdbI8E75y5MMoK-Es";
+     type = "<null>";
+     userId = 80502;
+     username = "\U9648\U5065\U660e";
+     wards = "<null>";
+ }
  */
 
 @interface WFLoginModel : NSObject

@@ -162,8 +162,8 @@
 }
 - (void)login:(UIButton *)sender {
     
-    NSString *username = self.userTextField.text.clearSideSpace;
-    NSString *password = self.passTextField.text.clearSideSpace;
+    NSString *username = [self.userTextField.text clearSideSpace];
+    NSString *password = [self.passTextField.text clearSideSpace];
     if (kIsNilString(username)) {
         [WFCommomTool showTextWithTitle:@"用户名不能为空" inView:self.view animation:YES];
         return;
@@ -178,7 +178,7 @@
     [[WFNetworkManager shareManager] requestWithType:WFRequestTypePOST URL:url headers:nil params:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         WFLoginModel *model = [WFLoginModel mj_objectWithKeyValues:responseObject[@"resultData"]];
-//        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources"];
+//        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/home"];
         NSString *path = [NSString stringWithFormat:@"http://10.0.1.101:8081/#/patient/card?token=%@&userId=%@&userName=%@",model.token,model.userId,model.username];
         WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithURL:path];
         web.webViewUIConfiguration.navHidden = YES;

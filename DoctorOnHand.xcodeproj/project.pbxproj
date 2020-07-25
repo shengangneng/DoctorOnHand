@@ -876,7 +876,7 @@
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-sh";
 				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -898,7 +898,7 @@
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-sh";
 				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
