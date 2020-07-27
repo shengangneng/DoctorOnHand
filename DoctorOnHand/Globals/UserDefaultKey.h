@@ -12,7 +12,6 @@
 //    NSString *url = @"https://auth.jifenzhi.com/oauth/token";
 
 #define kHasLogin       @"hasLogin"     // 是否已经登录
-#define kUserName       @"username"     // 记录用户名
 #define kPassWord       @"password"     // 记录密码
 #define kComyCode       @"comycode"     // 记录社区码
 #define kBaseBsco       @"basebscore"   // 记录基础分
@@ -21,13 +20,25 @@
 
 #define kAccessToken    @"access_token" // token
 #define kRefreshToken   @"refresh_token"// refreshtoken
-#define kUserId         @"userId"       // 用户id
 #define kCustomNote     @"customNote"   // 登录凭证
 #define kServerURL      @"server_url"   // 保存服务器地址
 #define kLoginType      @"login_type"   // 登录方式：local和enterprise
 #define kName           @"name"         // 真实姓名
 #define kRecord         @"record"       // 是否记录用户名和密码
 #define kSaveOrgCache   @"save_orgcache"// 是否记录用户名和密码
+
+#define kDepartment     @"department"
+#define kdeptId         @"deptId"
+#define kEmail          @"email"
+#define kHosiptal       @"hosiptal"
+#define kJobTitle       @"jobTitle"
+#define kPhone          @"phone"
+#define kRealName       @"realName"
+#define kSex            @"sex"
+#define kToken          @"token"
+#define kUserId         @"userId"       
+#define kUserName       @"userName"
+#define kWards          @"wards"
 
 #define kFrontHost      @"frontHost"    // 前端域名
 #define kFrontPort      @"frontPort"    // 前端端口

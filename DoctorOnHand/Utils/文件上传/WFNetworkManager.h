@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareManager;
 
+- (void)form_reqeustManager;
+
 - (void)other_requestManager;   // 其他设置
 
 - (void)requestWithType:(WFRequestType)requestType

@@ -13,6 +13,8 @@
 #import "WFCommomTool.h"
 #import "WFColorTableViewCell.h"
 #import "WFWidthTableViewCell.h"
+#import "UIImage+WFExtension.h"
+#import "WFNetworkManager.h"
 
 #define kITEM_W     64
 #define kITEM_W2    48
@@ -36,6 +38,7 @@
 @property (nonatomic, strong) UIButton *lastStepBt;             /// 上一步
 @property (nonatomic, strong) UIButton *nextStepBt;             /// 下一步
 @property (nonatomic, strong) UIButton *saveToAlbumBt;          /// 保存相册
+@property (nonatomic, strong) UIButton *uploadBt;               /// 上传
 @property (nonatomic, strong) UITableView *colorTableView;      /// 选择颜色值
 @property (nonatomic, strong) UITableView *widthTableView;      /// 选择宽度值
 // Datas
@@ -61,6 +64,7 @@
     // 设置点击事件
     [self.backBt addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [self.saveToAlbumBt addTarget:self action:@selector(saveImage:) forControlEvents:UIControlEventTouchUpInside];
+    [self.uploadBt addTarget:self action:@selector(upload:) forControlEvents:UIControlEventTouchUpInside];
     [self.colorBarBt addTarget:self action:@selector(selectColorBar:) forControlEvents:UIControlEventTouchUpInside];
     [self.nomalPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
     [self.steelPenBt addTarget:self action:@selector(changePen:) forControlEvents:UIControlEventTouchUpInside];
@@ -77,6 +81,7 @@
     [self.view addSubview:self.widgetBGView];
     [self.view addSubview:self.backBt];
     [self.view addSubview:self.saveToAlbumBt];
+    [self.view addSubview:self.uploadBt];
     [self.widgetBGView addSubview:self.colorBarBt];
     [self.colorBarBt addSubview:self.colorSubView];
     [self.widgetBGView addSubview:self.steelPenBt];
@@ -94,6 +99,11 @@
         make.width.height.equalTo(@(kITEM_W));
         make.trailing.equalTo(self.view.mas_trailing).offset(-kMARGIN);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kMARGIN);
+    }];
+    [self.uploadBt mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@(kITEM_W));
+        make.trailing.equalTo(self.view.mas_trailing).offset(-kMARGIN);
+        make.bottom.equalTo(self.saveToAlbumBt.mas_top).offset(-kMARGIN);
     }];
     [self.backBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading).offset(kMARGIN);
@@ -199,6 +209,40 @@
     UIGraphicsEndImageContext();
     // 保存到相册
     UIImageWriteToSavedPhotosAlbum(shotImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+- (void)upload:(UIButton *)sender {
+    UIGraphicsBeginImageContextWithOptions(self.signatureView.frame.size, NO, 0.0);
+    [self.signatureView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *shotImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    NSString *url = @"http://10.0.1.101:9098/md/v1/assistants/upload/image";
+    NSDictionary *params = @{@"type":@"image",
+                             @"remark":@"image"};
+    NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];
+    // 创建一个无重复的字符串作为图片名
+    CFUUIDRef uniqueID = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef uniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, uniqueID);
+    NSString *imageName = (__bridge NSString *)uniqueIDString;
+    CFRelease(uniqueID);
+    CFRelease(uniqueIDString);
+    
+    [[WFNetworkManager shareManager] form_reqeustManager];
+    [[WFNetworkManager shareManager].manager POST:url parameters:params
+                                          headers:@{@"Authorization":[NSString stringWithFormat:@"Bearer %@",kSafeString(kAppDelegate.loginModel.token)]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:imagedata
+                                    name:@"files"
+                                fileName:[NSString stringWithFormat:@"%@.png",imageName]
+                                mimeType:@"image/png"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        DLog(@"%@",uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 上传失败
+        [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
+    }];
 }
 
 - (void)changeColor:(UIColor *)color width:(CGFloat)width {
@@ -341,6 +385,15 @@
     }
     return _saveToAlbumBt;
 }
+- (UIButton *)uploadBt {
+    if (!_uploadBt) {
+        _uploadBt = [UIButton buttonWithNomalHignImage:ImageName(@"sign_upload") selectImage:ImageName(@"sign_save_album")];
+        _uploadBt.layer.cornerRadius = kITEM_W / 2;
+        _uploadBt.backgroundColor = kRGBA(9, 187, 7, 1);
+    }
+    return _uploadBt;
+}
+
 - (WFSignatureView *)signatureView {
     if (!_signatureView) {
         _signatureView = [[WFSignatureView alloc] init];

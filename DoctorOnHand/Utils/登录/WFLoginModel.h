@@ -39,13 +39,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *deptId;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *hosiptal;
+@property (nonatomic, copy) NSString *jobTitle;
 @property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *realName;
 @property (nonatomic, copy) NSString *photo;
 @property (nonatomic, copy) NSString *sex;
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *wards;
 
 @end

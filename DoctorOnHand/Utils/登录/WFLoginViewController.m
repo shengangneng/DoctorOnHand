@@ -14,6 +14,7 @@
 #import "WFCommomTool.h"
 #import "NSString+WFExtension.h"
 #import "WFLoginModel.h"
+#import "AppDelegate.h"
 
 @interface WFLoginViewController () <UITextFieldDelegate>
 
@@ -161,7 +162,7 @@
     [self.view endEditing:YES];
 }
 - (void)login:(UIButton *)sender {
-    
+    [self.view endEditing:YES];
     NSString *username = [self.userTextField.text clearSideSpace];
     NSString *password = [self.passTextField.text clearSideSpace];
     if (kIsNilString(username)) {
@@ -179,13 +180,30 @@
         DLog(@"%@",responseObject);
         WFLoginModel *model = [WFLoginModel mj_objectWithKeyValues:responseObject[@"resultData"]];
 //        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/home"];
-        NSString *path = [NSString stringWithFormat:@"http://10.0.1.101:8081/#/patient/card?token=%@&userId=%@&userName=%@",model.token,model.userId,model.username];
+        ((AppDelegate *)[UIApplication sharedApplication].delegate).loginModel = model;
+        NSString *path = [NSString stringWithFormat:@"http://10.0.1.101:8081/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@",model.department,model.deptId,model.email,model.hosiptal,model.jobTitle,model.phone,model.realName,model.sex,model.token,model.userId,model.userName,model.wards];
+        // 保存数据
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:kSafeString(model.department) forKey:kDepartment];
+        [defaults setValue:kSafeString(model.deptId) forKey:kdeptId];
+        [defaults setValue:kSafeString(model.email) forKey:kEmail];
+        [defaults setValue:kSafeString(model.hosiptal) forKey:kHosiptal];
+        [defaults setValue:kSafeString(model.jobTitle) forKey:kJobTitle];
+        [defaults setValue:kSafeString(model.phone) forKey:kPhone];
+        [defaults setValue:kSafeString(model.realName) forKey:kRealName];
+        [defaults setValue:kSafeString(model.sex) forKey:kSex];
+        [defaults setValue:kSafeString(model.token) forKey:kToken];
+        [defaults setValue:kSafeString(model.userId) forKey:kUserId];
+        [defaults setValue:kSafeString(model.userName) forKey:kUserName];
+        [defaults setValue:kSafeString(model.wards) forKey:kWards];
+        
         WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithURL:path];
         web.webViewUIConfiguration.navHidden = YES;
         WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
         [UIApplication sharedApplication].delegate.window.rootViewController = nav;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"%@",error);
+        [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
     }];
 }
 
@@ -303,7 +321,7 @@
         [_userTextField sizeToFit];
         _userTextField.delegate = self;
         _userTextField.placeholder = @"工号/手机号/姓名";
-        _userTextField.textColor = kRGBA(153, 153, 153, 1);
+        _userTextField.textColor = kBlackColor;
     }
     return _userTextField;
 }
@@ -315,7 +333,7 @@
         _passTextField.delegate = self;
         _passTextField.textAlignment = NSTextAlignmentLeft;
         _passTextField.placeholder = @"请输入密码";
-        _passTextField.textColor = kRGBA(153, 153, 153, 1);
+        _passTextField.textColor = kBlackColor;
     }
     return _passTextField;
 }

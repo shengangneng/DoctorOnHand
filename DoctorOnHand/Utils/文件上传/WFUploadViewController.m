@@ -83,6 +83,7 @@
                 sourceAssets:(NSArray *)assets
        isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
     
+    
 }
 
 // 选择视频的回调

@@ -22,21 +22,48 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
-    
-//    WFHomeViewController *home = [[WFHomeViewController alloc] init];
-//    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
-    
-    if (kIsNilString([[NSUserDefaults standardUserDefaults] stringForKey:kServerURL])) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/config"];
-        WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithFileURL:[NSURL fileURLWithPath:path]];
+
+    // 保存数据
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:kToken];
+    if (token) {
+        
+        WFLoginModel *model = [[WFLoginModel alloc] init];
+        model.department = [defaults valueForKey:kDepartment];
+        model.deptId = [defaults valueForKey:kdeptId];
+        model.email = [defaults valueForKey:kEmail];
+        model.hosiptal = [defaults valueForKey:kHosiptal];
+        model.jobTitle = [defaults valueForKey:kJobTitle];
+        model.phone = [defaults valueForKey:kPhone];
+        model.realName = [defaults valueForKey:kRealName];
+        model.sex = [defaults valueForKey:kSex];
+        model.token = [defaults valueForKey:kToken];
+        model.userId = [defaults valueForKey:kUserId];
+        model.userName = [defaults valueForKey:kUserName];
+        model.wards = [defaults valueForKey:kWards];
+        self.loginModel = model;
+        
+        NSString *path = [NSString stringWithFormat:@"http://10.0.1.101:8081/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@",model.department,model.deptId,model.email,model.hosiptal,model.jobTitle,model.phone,model.realName,model.sex,token,model.userId,model.userName,model.wards];
+        WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithURL:path];
         web.webViewUIConfiguration.navHidden = YES;
-        web.webViewUIConfiguration.webViewScrollEnabled = YES;
         WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
-        self.window.rootViewController = nav;
+        [UIApplication sharedApplication].delegate.window.rootViewController = nav;
     } else {
         WFLoginViewController *nav = [[WFLoginViewController alloc] init];
         self.window.rootViewController = nav;
     }
+    
+//    if (kIsNilString([[NSUserDefaults standardUserDefaults] stringForKey:kServerURL])) {
+//        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/config"];
+//        WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithFileURL:[NSURL fileURLWithPath:path]];
+//        web.webViewUIConfiguration.navHidden = YES;
+//        web.webViewUIConfiguration.webViewScrollEnabled = YES;
+//        WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
+//        self.window.rootViewController = nav;
+//    } else {
+//        WFLoginViewController *nav = [[WFLoginViewController alloc] init];
+//        self.window.rootViewController = nav;
+//    }
     
     [self.window makeKeyAndVisible];
     return YES;

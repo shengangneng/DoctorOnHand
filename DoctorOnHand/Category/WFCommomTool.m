@@ -14,6 +14,17 @@
 @implementation WFCommomTool
 
 + (void)showTextWithTitle:(NSString *)title inView:(UIView *)view animation:(BOOL)animation {
+    if (![NSThread currentThread].isMainThread) {
+        dispatch_async(kMainQueue, ^{
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:animation];
+            hud.mode = MBProgressHUDModeText;
+            hud.removeFromSuperViewOnHide = YES;
+            hud.label.text = title;
+            hud.label.numberOfLines = 0;
+            [hud hideAnimated:YES afterDelay:1.0];
+        });
+        return;
+    }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:animation];
     hud.mode = MBProgressHUDModeText;
     hud.removeFromSuperViewOnHide = YES;

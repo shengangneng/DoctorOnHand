@@ -57,6 +57,7 @@
 #define kSafeString(str) kIsNilString(str) ? @"" : str
 #define kNoNullString(obj) [obj isKindOfClass:[NSString class]] ? kSafeString(obj) : @""
 #define kNumberSafeString(obj) [obj isKindOfClass:[NSString class]] ? obj : ([obj isKindOfClass:[NSNumber class]] ? ((NSNumber *)obj).stringValue : @"")
+#define kAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 /***** 常用标量 *****/
 #define CLIENT_ID       @"app_mpm_ios"
