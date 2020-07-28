@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)showDefaultViewWithType:(WebDefaultViewType)type;   /** 缺省页显示 */
 - (void)hideDefaultView;                                    /** 缺省页隐藏 */
-- (void)changeStatusBarWithColor:(UIColor *)color;          /** 改变状态栏颜色 */
 - (void)changeNavBarHidden:(BOOL)navHidden;                 /** 隐藏或者显示导航栏 */
 
 @end

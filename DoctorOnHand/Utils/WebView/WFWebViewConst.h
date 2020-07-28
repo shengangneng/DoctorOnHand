@@ -24,6 +24,7 @@ static NSString *const kPlayVideo = @"playVideo";                               
 static NSString *const kLogout = @"logout";                                     // 退出登录
 static NSString *const kSetConfigUrl = @"setConfigUrl";                         // 点击确定传入配置给壳
 static NSString *const kGetConfigUrl = @"getConfigUrl";                         // 调出配置页面
+static NSString *const kHomePageNeedRefresh = @"homePageNeedRefresh";           // 壳通知调用H5的“首页”、“消息”、“我的”页面需要刷新
 
 
 #endif /* WFWebViewConst_h */

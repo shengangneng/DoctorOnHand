@@ -217,7 +217,7 @@
     
     NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/4",kAppDelegate.backHost];
     NSDictionary *params = @{@"type":@"4",
-                             @"remark":@"image"};
+                             @"remark":@"手写"};
     NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];
     // 创建一个无重复的字符串作为图片名
     CFUUIDRef uniqueID = CFUUIDCreate(kCFAllocatorDefault);

@@ -28,7 +28,6 @@
 @property (nonatomic, strong) WFWebViewBridge *webViewBridge;             /** 与H5交互的类 */
 @property (nonatomic, strong) WFCustomNavLeftButton *backButton;          /** 返回按钮（包含exitButton) */
 @property (nonatomic, strong) UIProgressView *progressView;                 /** 进度条 */
-@property (nonatomic, strong) UIView *statusView;                           /** 自定义状态栏 */
 
 // Datas
 @property (nonatomic, copy) NSString *url;                                  /** 记录跳转url */
@@ -42,6 +41,7 @@
     self = [self init];
     if (self) {
         self.url = url;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNeedRefresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
         if (self.url.length > URL_CUT_LENGTH) {
             self.originURLPrefix = [self.url substringToIndex:URL_CUT_LENGTH];
         }
@@ -70,6 +70,13 @@
 
 - (void)reloadURL {
     [self.webView reload];
+}
+
+#pragma mark - UIApplicationWillEnterForegroundNotification
+- (void)homePageNeedRefresh:(NSNotification *)notification {
+    if (self.isViewLoaded && self.view.window) {
+        [self mpm_homepageNeedRefresh];
+    }
 }
 
 - (instancetype)init {
@@ -119,15 +126,34 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = self.webViewUIConfiguration.navHidden;
+    [self mpm_homepageNeedRefresh];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - Private Method
+- (void)mpm_homepageNeedRefresh {
+    NSTimeInterval duration = [NSDate date].timeIntervalSince1970 - self.webViewUIConfiguration.lastUpdateTime;
+    if (duration > 3) {
+        // 两秒钟内不允许反复刷新
+        self.webViewUIConfiguration.lastUpdateTime = [NSDate date].timeIntervalSince1970;
+        dispatch_async(kMainQueue, ^{
+            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"%@()",kHomePageNeedRefresh] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                
+            }];
+        });
+    }
+}
+
 - (void)setupAttributes {
     self.view.backgroundColor = kWhiteColor;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11.0, *)) {
+        // 顶部有空白，需要进行如下设置
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     __weak typeof(self) weakself = self;
     self.backButton.exitBlock = ^(UIButton * _Nonnull exitButton) {
@@ -190,7 +216,6 @@
 }
 
 - (void)setupSubViews {
-    [self.view addSubview:self.statusView];
     [self.view addSubview:self.webView];
     [self.webView addSubview:self.progressView];
     [self.view addSubview:self.webDefaultView];
@@ -490,21 +515,8 @@
     self.webDefaultView.hidden = YES;
 }
 
-- (void)changeStatusBarWithColor:(UIColor *)color {
-    self.statusView.backgroundColor = color;
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([self.statusView.backgroundColor isEqual:kRGBA(255, 255, 255, 1)]) {
-        return UIStatusBarStyleDefault;
-    } else {
-        return UIStatusBarStyleLightContent;
-    }
 }
 
 - (void)changeNavBarHidden:(BOOL)navHidden {
@@ -523,10 +535,6 @@
         }
         _webView = [[WKWebView alloc] initWithFrame:frame configuration:self.webViewConfiguration];
         _webView.scrollView.scrollEnabled = NO;
-        if (@available(iOS 11.0, *)) {
-            // 顶部有空白，需要进行如下设置
-            _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
         longPress.minimumPressDuration = 0.3;
         longPress.delegate = self;
@@ -564,16 +572,6 @@
         _progressView.progressTintColor = kMainBlueColor;
     }
     return _progressView;
-}
-
-- (UIView *)statusView {
-    if (!_statusView) {
-        _statusView = [[UIView alloc] init];
-        _statusView.backgroundColor = kRGBA(255, 255, 255, 1);
-        _statusView.frame = CGRectMake(0, 0, kScreenWidth, kStatusBarHeight);
-        _statusView.hidden = !self.webViewUIConfiguration.navHidden;
-    }
-    return _statusView;
 }
 
 - (WFWebDefaultView *)webDefaultView {

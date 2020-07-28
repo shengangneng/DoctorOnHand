@@ -11,6 +11,7 @@
 #import "WFVideoProgress.h"
 #import "WFCommomTool.h"
 #import "WFFileManager.h"
+#import "WFNetworkManager.h"
 
 @interface WFRecordVideoPadViewController ()<AVCaptureFileOutputRecordingDelegate>
 
@@ -36,6 +37,7 @@
 @property (nonatomic, strong) UIImageView *middleFocusCursor;   // 聚焦按钮
 
 @property (nonatomic, strong) UIView *middleVideoView;          // 播放器容器
+@property (nonatomic, strong) UIButton *middleUploadBt;         // 上传
 @property (nonatomic, strong) UIView *middlePreviewView;        // 预览视图
 @property (nonatomic, strong) UIButton *middlePlayButton;       // 播放按钮
 @property (nonatomic, strong) CALayer *playLayer;               // 播放按钮中的子layer
@@ -94,6 +96,7 @@
     [self.headerReplyButton addTarget:self action:@selector(doneOrReplay:) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomLightButton addTarget:self action:@selector(light:) forControlEvents:UIControlEventTouchUpInside];
     [self.middlePlayButton addTarget:self action:@selector(playBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.middleUploadBt addTarget:self action:@selector(upload:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupSubViews {
@@ -109,6 +112,7 @@
     [self.middlePreviewView addSubview:self.middleCurrentLabel];
     [self.middlePreviewView addSubview:self.middleProgress];
     [self.middlePreviewView addSubview:self.middleTotalLabel];
+    [self.middlePreviewView addSubview:self.middleUploadBt];
     
     [self.view addSubview:self.headerBackButton];
     [self.view addSubview:self.headerReplyButton];
@@ -367,6 +371,41 @@
         [self.player pause];
         btn.selected = NO;
     }
+}
+
+- (void)upload:(UIButton *)sender {
+    NSData *audioData = [NSData dataWithContentsOfFile:self.path];
+    if (!audioData) {
+        [WFCommomTool showTextWithTitle:@"上传失败" inView:kAppDelegate.window animation:YES];
+        return;
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/3",kAppDelegate.backHost];
+    NSDictionary *params = @{@"type":@"3",
+                             @"remark":@"mp4"};
+    // 创建一个无重复的字符串作为图片名
+    CFUUIDRef uniqueID = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef uniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, uniqueID);
+    NSString *audioName = (__bridge NSString *)uniqueIDString;
+    CFRelease(uniqueID);
+    CFRelease(uniqueIDString);
+    
+    [[WFNetworkManager shareManager] form_reqeustManager];
+    [[WFNetworkManager shareManager].manager POST:url parameters:params
+                                          headers:@{@"Authorization":[NSString stringWithFormat:@"Bearer %@",kSafeString(kAppDelegate.loginModel.token)]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:audioData
+                                    name:@"files"
+                                fileName:[NSString stringWithFormat:@"%@.mp4",audioName]
+                                mimeType:@"video/mpeg4"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        DLog(@"%@",uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 上传失败
+        [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
+    }];
 }
 
 // 视频路径
@@ -732,6 +771,19 @@
         _middleVideoView.hidden = YES;
     }
     return _middleVideoView;
+}
+- (UIButton *)middleUploadBt {
+    if (!_middleUploadBt) {
+        _middleUploadBt = [UIButton buttonWithType:UIButtonTypeCustom];
+        _middleUploadBt.layer.cornerRadius = 33;
+        _middleUploadBt.layer.masksToBounds = YES;
+        _middleUploadBt.layer.borderWidth = 0.5;
+        _middleUploadBt.layer.borderColor = kWhiteColor.CGColor;
+        _middleUploadBt.frame = CGRectMake(kScreenWidth - 86, (kScreenHeight - 66) / 2, 66, 66);
+        [_middleUploadBt setImage:ImageName(@"camera_upload") forState:UIControlStateNormal];
+        [_middleUploadBt setImage:ImageName(@"camera_upload") forState:UIControlStateHighlighted];
+    }
+    return _middleUploadBt;
 }
 - (UIView *)middleRECView {
     if (!_middleRECView) {

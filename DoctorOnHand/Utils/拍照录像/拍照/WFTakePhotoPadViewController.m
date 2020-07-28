@@ -9,6 +9,8 @@
 #import "WFTakePhotoPadViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WFCommomTool.h"
+#import "UIImage+WFExtension.h"
+#import "WFNetworkManager.h"
 
 @interface WFTakePhotoPadViewController ()
 
@@ -54,7 +56,7 @@
     [self.bottomScanButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerReplyButton addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomLightButton addTarget:self action:@selector(light:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomDownButton addTarget:self action:@selector(download:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomDownButton addTarget:self action:@selector(upload:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupSubViews {
@@ -267,6 +269,39 @@
 - (void)download:(UIButton *)sender {
     // 保存到相册
     UIImageWriteToSavedPhotosAlbum(self.middleImageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void)upload:(UIButton *)sender {
+    UIImage *shotImage = self.middleImageView.image;
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/1",kAppDelegate.backHost];
+    NSDictionary *params = @{@"type":@"1",
+                             @"remark":@"图片"};
+    NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];
+    // 创建一个无重复的字符串作为图片名
+    CFUUIDRef uniqueID = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef uniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, uniqueID);
+    NSString *imageName = (__bridge NSString *)uniqueIDString;
+    CFRelease(uniqueID);
+    CFRelease(uniqueIDString);
+    
+    [[WFNetworkManager shareManager] form_reqeustManager];
+    [[WFNetworkManager shareManager].manager POST:url parameters:params
+                                          headers:@{@"Authorization":[NSString stringWithFormat:@"Bearer %@",kSafeString(kAppDelegate.loginModel.token)]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:imagedata
+                                    name:@"files"
+                                fileName:[NSString stringWithFormat:@"%@.png",imageName]
+                                mimeType:@"image/png"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        DLog(@"%@",uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 上传失败
+        [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
+    }];
 }
 
 #pragma mark - Save Image
@@ -527,8 +562,8 @@
         _bottomDownButton.layer.cornerRadius = 33;
         _bottomDownButton.hidden = YES;
         _bottomDownButton.frame = CGRectMake(kScreenWidth - 86, (kScreenHeight - 66) / 2, 66, 66);
-        [_bottomDownButton setImage:ImageName(@"camera_down") forState:UIControlStateNormal];
-        [_bottomDownButton setImage:ImageName(@"camera_down") forState:UIControlStateHighlighted];
+        [_bottomDownButton setImage:ImageName(@"camera_upload") forState:UIControlStateNormal];
+        [_bottomDownButton setImage:ImageName(@"camera_upload") forState:UIControlStateHighlighted];
     }
     return _bottomDownButton;
 }

@@ -69,7 +69,7 @@
     [self.contentView addSubview:self.userLine];
     [self.contentView addSubview:self.passLine];
     [self.contentView addSubview:self.loginBt];
-    [self.contentView addSubview:self.canceBt];
+//    [self.contentView addSubview:self.canceBt];
 }
 
 - (void)setupConstraints {
@@ -140,16 +140,17 @@
     }];
     [self.loginBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.passIcon.mas_leading);
-        make.width.equalTo(@227);
-        make.height.equalTo(@57);
-        make.top.equalTo(self.passLine.mas_bottom).offset(42);
-    }];
-    [self.canceBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.contentView.mas_trailing).offset(-37.5);
-        make.width.equalTo(@134);
+//        make.width.equalTo(@227);
         make.height.equalTo(@57);
         make.top.equalTo(self.passLine.mas_bottom).offset(42);
     }];
+//    [self.canceBt mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.trailing.equalTo(self.contentView.mas_trailing).offset(-37.5);
+//        make.width.equalTo(@134);
+//        make.height.equalTo(@57);
+//        make.top.equalTo(self.passLine.mas_bottom).offset(42);
+//    }];
 }
 
 - (BOOL)prefersStatusBarHidden {
