@@ -11,11 +11,20 @@
 
 @interface WFPlayVideoViewController () <WFAVPlayerViewDelegate>
 
+@property (nonatomic, copy) NSString *url;
 @property (nonatomic, strong) WFAVPlayerView *playerView;
 
 @end
 
 @implementation WFPlayVideoViewController
+
+- (instancetype)initWithURL:(NSString *)url {
+    self = [super init];
+    if (self) {
+        self.url = url;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,11 +34,14 @@
     playerView.frame = self.view.bounds;
     playerView.delegate = self;
     [self.view addSubview:playerView];
-    NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"mp4"];
-    NSURL *fileURL = [NSURL fileURLWithPath:moviePath];
-    NSURL *url = [NSURL URLWithString:@"http://dict.youdao.com/dictvoice?audio=people&type=2"];
-    
-    [playerView settingPlayerItemWithUrl:fileURL];
+    if (!kIsNilString(self.url) && [NSURL URLWithString:self.url]) {
+        AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:self.url]];
+        [playerView settingPlayerItem:item];
+    } else {
+        NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"mp4"];
+        NSURL *fileURL = [NSURL fileURLWithPath:moviePath];
+        [playerView settingPlayerItemWithUrl:fileURL];
+    }
 }
 
 #pragma mark - WFAVPlayerViewDelegate

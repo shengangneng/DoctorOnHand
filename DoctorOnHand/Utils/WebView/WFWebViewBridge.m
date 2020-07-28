@@ -171,7 +171,11 @@
                  msg = playVideo;
              };
              */
-            WFPlayVideoViewController *playVideo = [[WFPlayVideoViewController alloc] init];
+            NSString *urlString = [[params[@"data"] stringByReplacingOccurrencesOfString:@"[" withString:@""] stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            NSError *err;
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[urlString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&err];
+            NSString *url = dic[@"url"];
+            WFPlayVideoViewController *playVideo = [[WFPlayVideoViewController alloc] initWithURL:url];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:playVideo animated:YES];
         } else if ([func isEqualToString:kLogout]) {
             // 退出登录

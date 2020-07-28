@@ -23,40 +23,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
-
-    // 保存数据
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *token = [defaults valueForKey:kToken];
-//    if (token) {
-//
-//        WFLoginModel *model = [[WFLoginModel alloc] init];
-//        model.department = [defaults valueForKey:kDepartment];
-//        model.deptId = [defaults valueForKey:kdeptId];
-//        model.email = [defaults valueForKey:kEmail];
-//        model.hosiptal = [defaults valueForKey:kHosiptal];
-//        model.jobTitle = [defaults valueForKey:kJobTitle];
-//        model.phone = [defaults valueForKey:kPhone];
-//        model.realName = [defaults valueForKey:kRealName];
-//        model.sex = [defaults valueForKey:kSex];
-//        model.token = [defaults valueForKey:kToken];
-//        model.userId = [defaults valueForKey:kUserId];
-//        model.userName = [defaults valueForKey:kUserName];
-//        model.wards = [defaults valueForKey:kWards];
-//        self.loginModel = model;
-//
-//        NSString *path = [NSString stringWithFormat:@"http://192.168.10.222:8080/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@",kSafeString(model.department),kSafeString(model.deptId),kSafeString(model.email),kSafeString(model.hosiptal),kSafeString(model.jobTitle),kSafeString(model.phone),kSafeString(model.realName),kSafeString(model.sex),kSafeString(token),kSafeString(model.userId),kSafeString(model.userName),kSafeString(model.wards)];
-//        WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithURL:path];
-//        web.webViewUIConfiguration.navHidden = YES;
-//        WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:web];
-//        [UIApplication sharedApplication].delegate.window.rootViewController = nav;
-//    } else {
-//        WFLoginViewController *nav = [[WFLoginViewController alloc] init];
-//        self.window.rootViewController = nav;
-//    }
+    
+//    WFHomeViewController *home = [[WFHomeViewController alloc] init];
+//    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
+//    self.window.rootViewController = nav;
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.frontHost = [defaults valueForKey:kFrontHost];
     self.backHost = [defaults valueForKey:kBackHost];
-    
+
     if (kIsNilString(self.frontHost) && kIsNilString(self.backHost)) {
         // 没有配置信息
         NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/config"];
@@ -82,7 +57,7 @@
             model.userName = [defaults valueForKey:kUserName];
             model.wards = [defaults valueForKey:kWards];
             self.loginModel = model;
-    
+
             NSString *path = [NSString stringWithFormat:@"http://%@/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@&backHost=%@",self.frontHost,kSafeString(model.department),kSafeString(model.deptId),kSafeString(model.email),kSafeString(model.hosiptal),kSafeString(model.jobTitle),kSafeString(model.phone),kSafeString(model.realName),kSafeString(model.sex),kSafeString(token),kSafeString(model.userId),kSafeString(model.userName),kSafeString(model.wards),self.backHost];
             WFWKWebViewController *web = [[WFWKWebViewController alloc] initWithURL:path];
             web.webViewUIConfiguration.navHidden = YES;

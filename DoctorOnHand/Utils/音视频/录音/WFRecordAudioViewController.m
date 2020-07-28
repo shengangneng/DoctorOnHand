@@ -15,6 +15,7 @@
 #import "UIViewController+WFExtention.h"
 #import "WFNetworkManager.h"
 #import "WFCommomTool.h"
+#import "MPMProgressHUD.h"
 
 @interface WFRecordAudioViewController ()
 // Views
@@ -109,7 +110,7 @@
 
 - (void)save:(UIButton *)sender {
     self.recordVoiceStatus = WFRecordVoiceStatusEnd;
-    [[WFAudioPlayer shareAudioPlayer] playAudioWith:self.audioLocalPath];
+//    [[WFAudioPlayer shareAudioPlayer] playAudioWith:self.audioLocalPath];
     /// 把wav转成amr，减小文件大小
     NSString *newFilePath = [WFFileManager convertWavToMp3fromPath:self.audioLocalPath];
     if (newFilePath) {
@@ -128,7 +129,8 @@
     NSString *audioName = (__bridge NSString *)uniqueIDString;
     CFRelease(uniqueID);
     CFRelease(uniqueIDString);
-    
+
+    [MPMProgressHUD showProgressHUD];
     [[WFNetworkManager shareManager] form_reqeustManager];
     [[WFNetworkManager shareManager].manager POST:url parameters:params
                                           headers:@{@"Authorization":[NSString stringWithFormat:@"Bearer %@",kSafeString(kAppDelegate.loginModel.token)]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -140,9 +142,15 @@
         DLog(@"%@",uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
+        [MPMProgressHUD dismiss];
+        [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:kAppDelegate.window animation:YES];
+        // 删除wav文件
+        [WFFileManager removeFile:self.audioLocalPath];
+        self.audioLocalPath = nil;
+        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 上传失败
+        [MPMProgressHUD dismiss];
         [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
     }];
 }
@@ -161,21 +169,22 @@
 }
 
 - (void)cancel:(UIButton *)sender {
+    
     __weak typeof(self) weakself = self;
     [self showAlertControllerWithStyle:UIAlertControllerStyleAlert title:@"是否退出？" message:nil sureTitle:@"退出" sureAction:^(UIAlertAction *action) {
         __strong typeof(weakself) strongself = weakself;
-        
+
         if (strongself.audioLocalPath.length > 0) {
-            strongself.recordVoiceStatus = WFRecordVoiceStatusPause;
-            strongself.recordVoiceStatus = WFRecordVoiceStatusEnd;
-            [[WFRecordTool shareRecordTool] deleteRecord];
+            if (WFRecordVoiceStatusBegin == strongself.recordVoiceStatus || WFRecordVoiceStatusResum == strongself.recordVoiceStatus) {
+                strongself.recordVoiceStatus = WFRecordVoiceStatusEnd;
+            }
             // 删除wav文件
             [WFFileManager removeFile:strongself.audioLocalPath];
             strongself.audioLocalPath = nil;
         }
-        
+
         [strongself.navigationController popViewControllerAnimated:YES];
-    } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:nil cancelStyle:UIAlertActionStyleDefault];
+    } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:^(UIAlertAction *action) {} cancelStyle:UIAlertActionStyleDefault];
 }
 
 - (void)setRecordVoiceStatus:(WFRecordVoiceStatus)recordVoiceStatus {

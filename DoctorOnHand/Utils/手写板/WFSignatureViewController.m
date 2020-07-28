@@ -15,6 +15,7 @@
 #import "WFWidthTableViewCell.h"
 #import "UIImage+WFExtension.h"
 #import "WFNetworkManager.h"
+#import "MPMProgressHUD.h"
 
 #define kITEM_W     64
 #define kITEM_W2    48
@@ -225,7 +226,7 @@
     NSString *imageName = (__bridge NSString *)uniqueIDString;
     CFRelease(uniqueID);
     CFRelease(uniqueIDString);
-    
+    [MPMProgressHUD showProgressHUD];
     [[WFNetworkManager shareManager] form_reqeustManager];
     [[WFNetworkManager shareManager].manager POST:url parameters:params
                                           headers:@{@"Authorization":[NSString stringWithFormat:@"Bearer %@",kSafeString(kAppDelegate.loginModel.token)]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -237,10 +238,12 @@
         DLog(@"%@",uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
+        [MPMProgressHUD dismiss];
         [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 上传失败
+        [MPMProgressHUD dismiss];
         [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
     }];
 }

@@ -11,6 +11,7 @@
 		CD795A9D1D18DDDF000B7619 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD795A9C1D18DDDF000B7619 /* main.m */; };
 		CD795AA01D18DDDF000B7619 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD795A9F1D18DDDF000B7619 /* AppDelegate.m */; };
 		CD795AA81D18DDDF000B7619 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD795AA71D18DDDF000B7619 /* Assets.xcassets */; };
+		CDFFDBE524D0807000893F0F /* MPMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFFDBE424D0807000893F0F /* MPMProgressHUD.m */; };
 		DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7BFC24A444AD004F7CEF /* WFRecordVideoViewController.m */; };
 		DD1C7C0024A444F4004F7CEF /* WFVideoProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */; };
 		DD1C7C0324A4D716004F7CEF /* WFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1C7C0224A4D716004F7CEF /* WFTakePhotoViewController.m */; };
@@ -85,6 +86,8 @@
 		CD795A9F1D18DDDF000B7619 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CD795AA71D18DDDF000B7619 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD795AAC1D18DDDF000B7619 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDFFDBE324D0806F00893F0F /* MPMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMProgressHUD.h; sourceTree = "<group>"; };
+		CDFFDBE424D0807000893F0F /* MPMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMProgressHUD.m; sourceTree = "<group>"; };
 		DD1C7BFB24A444AD004F7CEF /* WFRecordVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFRecordVideoViewController.h; sourceTree = "<group>"; };
 		DD1C7BFC24A444AD004F7CEF /* WFRecordVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRecordVideoViewController.m; sourceTree = "<group>"; };
 		DD1C7BFE24A444F4004F7CEF /* WFVideoProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFVideoProgress.h; sourceTree = "<group>"; };
@@ -406,6 +409,8 @@
 				FE19468524B86D6000C1BEC1 /* WFUploadViewController.m */,
 				FE19468A24B86F2E00C1BEC1 /* WFResponseModel.h */,
 				FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */,
+				CDFFDBE324D0806F00893F0F /* MPMProgressHUD.h */,
+				CDFFDBE424D0807000893F0F /* MPMProgressHUD.m */,
 			);
 			path = "文件上传";
 			sourceTree = "<group>";
@@ -736,6 +741,7 @@
 				DD1C7C0E24A78FB6004F7CEF /* WFSignatureLine.m in Sources */,
 				FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */,
 				DD6C4DD424A0F3D7001C9344 /* WFAVPlayerView.m in Sources */,
+				CDFFDBE524D0807000893F0F /* MPMProgressHUD.m in Sources */,
 				DD1C7BFD24A444AD004F7CEF /* WFRecordVideoViewController.m in Sources */,
 				DD6C4DC6249FAA25001C9344 /* WFFileReader.m in Sources */,
 				DDE9E18D24C08777005E453C /* WFLoginModel.m in Sources */,

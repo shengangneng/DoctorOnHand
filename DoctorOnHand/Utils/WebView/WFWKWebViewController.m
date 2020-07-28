@@ -53,6 +53,7 @@
     self = [self init];
     if (self) {
         self.url = url;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNeedRefresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
         if (self.url.length > URL_CUT_LENGTH) {
             self.originURLPrefix = [self.url substringToIndex:URL_CUT_LENGTH];
         }
@@ -149,11 +150,7 @@
 
 - (void)setupAttributes {
     self.view.backgroundColor = kWhiteColor;
-    if (@available(iOS 11.0, *)) {
-        // 顶部有空白，需要进行如下设置
-        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     __weak typeof(self) weakself = self;
     self.backButton.exitBlock = ^(UIButton * _Nonnull exitButton) {
@@ -217,6 +214,9 @@
 
 - (void)setupSubViews {
     [self.view addSubview:self.webView];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     [self.webView addSubview:self.progressView];
     [self.view addSubview:self.webDefaultView];
     self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.backButton]];
@@ -527,13 +527,12 @@
 
 - (WKWebView *)webView {
     if (!_webView) {
-        CGRect frame;
-        if (self.webViewUIConfiguration.navHidden) {
-            frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-        } else {
-            frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) configuration:self.webViewConfiguration];
+
+        if (@available(iOS 11.0, *)) {
+            // 顶部有空白，需要进行如下设置
+            _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        _webView = [[WKWebView alloc] initWithFrame:frame configuration:self.webViewConfiguration];
         _webView.scrollView.scrollEnabled = NO;
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
         longPress.minimumPressDuration = 0.3;

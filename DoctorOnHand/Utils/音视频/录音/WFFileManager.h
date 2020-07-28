@@ -18,6 +18,8 @@
 /// 视频文件保存的整个路径
 + (NSString *)videoFilePath;
 
++ (NSString *)voiceFolderPath;
+
 
 
 /// 删除文件
