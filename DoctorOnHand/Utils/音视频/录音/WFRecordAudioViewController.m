@@ -13,6 +13,8 @@
 #import "WFFileManager.h"
 #import "WFRecordTool.h"
 #import "UIViewController+WFExtention.h"
+#import "WFNetworkManager.h"
+#import "WFCommomTool.h"
 
 @interface WFRecordAudioViewController ()
 // Views
@@ -108,6 +110,41 @@
 - (void)save:(UIButton *)sender {
     self.recordVoiceStatus = WFRecordVoiceStatusEnd;
     [[WFAudioPlayer shareAudioPlayer] playAudioWith:self.audioLocalPath];
+    /// 把wav转成amr，减小文件大小
+    NSString *newFilePath = [WFFileManager convertWavToMp3fromPath:self.audioLocalPath];
+    if (newFilePath) {
+        // 删除wav文件
+        [WFFileManager removeFile:self.audioLocalPath];
+        self.audioLocalPath = newFilePath;
+    }
+    NSData *audioData = [NSData dataWithContentsOfFile:newFilePath];
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/2",kAppDelegate.backHost];
+    NSDictionary *params = @{@"type":@"2",
+                             @"remark":@"mp3"};
+    // 创建一个无重复的字符串作为图片名
+    CFUUIDRef uniqueID = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef uniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, uniqueID);
+    NSString *audioName = (__bridge NSString *)uniqueIDString;
+    CFRelease(uniqueID);
+    CFRelease(uniqueIDString);
+    
+    [[WFNetworkManager shareManager] form_reqeustManager];
+    [[WFNetworkManager shareManager].manager POST:url parameters:params
+                                          headers:@{@"Authorization":[NSString stringWithFormat:@"Bearer %@",kSafeString(kAppDelegate.loginModel.token)]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:audioData
+                                    name:@"files"
+                                fileName:[NSString stringWithFormat:@"%@.mp3",audioName]
+                                mimeType:@"audio/mp3"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        DLog(@"%@",uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 上传失败
+        [WFCommomTool showTextWithTitle:error.localizedDescription inView:self.view animation:YES];
+    }];
 }
 
 - (void)record:(UIButton *)sender {

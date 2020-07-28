@@ -269,7 +269,7 @@
     
     // 配置avplayer的item
     [self setPlayerItem];
-    [WFCommomTool showTextWithTitle:@"录制完成！" inView:self.view animation:YES];
+    [WFCommomTool showTextWithTitle:@"录制完成" inView:self.view animation:YES];
 }
 
 // 配置avplayer的item

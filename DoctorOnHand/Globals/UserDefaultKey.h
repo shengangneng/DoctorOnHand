@@ -40,10 +40,8 @@
 #define kUserName       @"userName"
 #define kWards          @"wards"
 
-#define kFrontHost      @"frontHost"    // 前端域名
-#define kFrontPort      @"frontPort"    // 前端端口
-#define kBackHost       @"backHost"     // 后台域名
-#define kBackPort       @"backPort"     // 后台端口
+#define kFrontHost      @"frontHost"    // 前端域名:端口
+#define kBackHost       @"backHost"     // 后台域名:端口
 
 
 #endif /* UserDefaultKey_h */

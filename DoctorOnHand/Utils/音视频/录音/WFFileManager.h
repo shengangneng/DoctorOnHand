@@ -24,6 +24,8 @@
 + (BOOL)removeFile:(NSString *)filePath;
 /// 转换本地wav为本地amr
 + (NSString *)convertWavtoAMRWithVoiceFilePath:(NSString *)voiceFilePath;
+/// 转换本地wav为本地mp3
++ (NSString *)convertWavToMp3fromPath:(NSString *)wavpath;
 /// 把网络地址保存到本地
 + (NSString *)saveWavWithVoiceUrl:(NSString *)voiceUrl;
 /// 转换本地amr为wav本地音频

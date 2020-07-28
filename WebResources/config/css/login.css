@@ -30,7 +30,7 @@ button { border: none; }
 .content .con_right ul .con_r_right p { overflow: hidden; padding: 0 39px 37px; color: #666; font-size: 13px; font-family: "微软雅黑"; }
 .content .con_right ul .con_r_right p .mima { float: left; padding-left: 5px; text-decoration: none; }
 .content .con_right ul .con_r_right p .zhuce { float: right; text-decoration: none; }
-.content .con_right ul .con_r_right button { margin: 0 0 0 75pt; width: 250px; height: 44px; background: #2e558e; color: #fff; font-size: 1pc; font-family: "微软雅黑"; }
+.content .con_right ul .con_r_right button { margin: 0 0 0 70pt; width: 250px; height: 44px; background: #2e558e; color: #fff; font-size: 1pc; font-family: "微软雅黑"; }
 .content .con_right ul .con_r_left { display: none; }
 .con_right ul .con_r_left .erweima { position: relative; margin: 0 auto; width: 174px; height: 11pc; }
 .qrcode { position: absolute; top: 0; left: 0; width: 174px; height: 11pc; }
@@ -38,3 +38,4 @@ button { border: none; }
 .content .con_right ul .con_r_right .user .yanzheng { width: 150px; margin: 0 5px 10px 1px; padding-left: 5px; }
 .content .con_right ul .con_r_right .user .next { font-size: 12px; width: 40px; height: 33px; float: right; margin-right: 40px; }
 .content .con_right .con_r_top { *height: 90px; }
+#btn_Back {margin-top: 12px;}

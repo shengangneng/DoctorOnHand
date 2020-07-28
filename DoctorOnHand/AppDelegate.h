@@ -14,7 +14,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) WFLoginModel *loginModel;
+@property (copy, nonatomic) NSString *frontHost;
+@property (copy, nonatomic) NSString *backHost;
 @property (strong, nonatomic) WFMaskBackView *maskBackView;
+
+- (void)logout;
 
 @end
 

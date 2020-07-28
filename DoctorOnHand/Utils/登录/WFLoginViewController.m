@@ -173,7 +173,7 @@
         return;
     }
     
-    NSString *url = @"http://10.0.1.101:9098/md/v1/login";
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/login",kAppDelegate.backHost];
     NSDictionary *params = @{@"account":username,@"password":password};
     [[WFNetworkManager shareManager] other_requestManager];
     [[WFNetworkManager shareManager] requestWithType:WFRequestTypePOST URL:url headers:nil params:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -181,7 +181,7 @@
         WFLoginModel *model = [WFLoginModel mj_objectWithKeyValues:responseObject[@"resultData"]];
 //        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/home"];
         ((AppDelegate *)[UIApplication sharedApplication].delegate).loginModel = model;
-        NSString *path = [NSString stringWithFormat:@"http://10.0.1.101:8081/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@",model.department,model.deptId,model.email,model.hosiptal,model.jobTitle,model.phone,model.realName,model.sex,model.token,model.userId,model.userName,model.wards];
+        NSString *path = [NSString stringWithFormat:@"http://%@/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@&backHost=%@",kAppDelegate.frontHost,kSafeString(model.department),kSafeString(model.deptId),kSafeString(model.email),kSafeString(model.hosiptal),kSafeString(model.jobTitle),kSafeString(model.phone),kSafeString(model.realName),kSafeString(model.sex),kSafeString(model.token),kSafeString(model.userId),kSafeString(model.userName),kSafeString(model.wards),kAppDelegate.backHost];
         // 保存数据
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:kSafeString(model.department) forKey:kDepartment];

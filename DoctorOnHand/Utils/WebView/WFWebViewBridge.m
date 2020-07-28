@@ -175,8 +175,7 @@
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:playVideo animated:YES];
         } else if ([func isEqualToString:kLogout]) {
             // 退出登录
-            WFLoginViewController *login = [[WFLoginViewController alloc] init];
-            [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:login animated:YES];
+            [kAppDelegate logout];
         } else if ([func isEqualToString:kGetConfigUrl]) {
             // 调出配置页面
             NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/config"];
@@ -187,7 +186,20 @@
             [UIApplication sharedApplication].delegate.window.rootViewController = nav;
         } else if ([func isEqualToString:kSetConfigUrl]) {
             // 确定了配置信息，传到壳保存（然后跳到登录页）
-            NSString *config = params[@"config"];
+            NSString *frontHost = params[@"frontHost"];
+            NSString *backHost = params[@"backHost"];
+            NSArray *frontArr = [frontHost componentsSeparatedByString:@":"];
+            NSArray *backArr = [frontHost componentsSeparatedByString:@":"];
+            if (kIsNilString(frontHost) || frontArr.count != 2) {
+                frontHost = @"10.0.1.101:8081";
+            }
+            if (kIsNilString(backHost) || backArr.count != 2) {
+                backHost = @"10.0.1.101:9098";
+            }
+            kAppDelegate.frontHost = frontHost;
+            kAppDelegate.backHost = backHost;
+            [[NSUserDefaults standardUserDefaults] setValue:frontHost forKey:kFrontHost];
+            [[NSUserDefaults standardUserDefaults] setValue:backHost forKey:kBackHost];
             WFLoginViewController *login = [[WFLoginViewController alloc] init];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:login animated:YES];
        }

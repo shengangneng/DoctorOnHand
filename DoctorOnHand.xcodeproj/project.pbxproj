@@ -71,6 +71,7 @@
 		FE19468924B86D7000C1BEC1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468824B86D7000C1BEC1 /* Reachability.m */; };
 		FE19468C24B86F2E00C1BEC1 /* WFResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */; };
 		FE19468F24B873E100C1BEC1 /* WFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468E24B873E100C1BEC1 /* WFNetworkManager.m */; };
+		FE1BEE2024D01AB100A8C1A3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1BEE1F24D01AB100A8C1A3 /* libmp3lame.a */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +210,8 @@
 		FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFResponseModel.m; sourceTree = "<group>"; };
 		FE19468D24B873E100C1BEC1 /* WFNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFNetworkManager.h; sourceTree = "<group>"; };
 		FE19468E24B873E100C1BEC1 /* WFNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFNetworkManager.m; sourceTree = "<group>"; };
+		FE1BEE1E24D01AB100A8C1A3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		FE1BEE1F24D01AB100A8C1A3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLoginViewController.h; sourceTree = "<group>"; };
 		FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLoginViewController.m; sourceTree = "<group>"; };
 		FEA4AEF7249B4B7B006B9ABE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD6C4DF224A246C0001C9344 /* libopencore-amrwb.a in Frameworks */,
+				FE1BEE2024D01AB100A8C1A3 /* libmp3lame.a in Frameworks */,
 				DD6C4DF324A246C0001C9344 /* libopencore-amrnb.a in Frameworks */,
 				3D48545AA8D00A3CC1AC7BBC /* libPods-DoctorOnHand.a in Frameworks */,
 			);
@@ -531,6 +535,7 @@
 		DD6C4DDA24A2415E001C9344 /* 录音 */ = {
 			isa = PBXGroup;
 			children = (
+				FE1BEE1D24D01A6D00A8C1A3 /* MP3 */,
 				DD6C4DFA24A25009001C9344 /* WFRecordAudioViewController.h */,
 				DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */,
 				DD6C4DDB24A24170001C9344 /* WFRecordVoiceButton.h */,
@@ -593,6 +598,15 @@
 				DD6C4DF824A246E7001C9344 /* interf_enc.h */,
 			);
 			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		FE1BEE1D24D01A6D00A8C1A3 /* MP3 */ = {
+			isa = PBXGroup;
+			children = (
+				FE1BEE1E24D01AB100A8C1A3 /* lame.h */,
+				FE1BEE1F24D01AB100A8C1A3 /* libmp3lame.a */,
+			);
+			path = MP3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -874,6 +888,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/MP3",
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-sh";
@@ -896,6 +912,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/MP3",
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-sh";

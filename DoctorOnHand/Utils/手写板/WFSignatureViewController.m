@@ -215,8 +215,8 @@
     [self.signatureView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *shotImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    NSString *url = @"http://10.0.1.101:9098/md/v1/assistants/upload/image";
-    NSDictionary *params = @{@"type":@"image",
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/4",kAppDelegate.backHost];
+    NSDictionary *params = @{@"type":@"4",
                              @"remark":@"image"};
     NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];
     // 创建一个无重复的字符串作为图片名
