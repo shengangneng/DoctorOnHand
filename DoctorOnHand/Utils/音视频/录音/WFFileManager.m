@@ -96,7 +96,7 @@
         unsigned char mp3_buffer[MP3_SIZE];
         lame_t lame = lame_init();
         lame_set_num_channels(lame,1);
-        lame_set_in_samplerate(lame, 8000.0); //11025.0
+        lame_set_in_samplerate(lame, 44100.0); //11025.0
         //lame_set_VBR(lame, vbr_default);
         lame_set_brate(lame, 8);
         lame_set_mode(lame, 3);
