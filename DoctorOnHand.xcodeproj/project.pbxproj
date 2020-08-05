@@ -61,8 +61,6 @@
 		DD6C4DE624A2460F001C9344 /* UIView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DE524A2460F001C9344 /* UIView+Extention.m */; };
 		DD6C4DE924A24675001C9344 /* WFFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DE824A24675001C9344 /* WFFileManager.m */; };
 		DD6C4DED24A246AD001C9344 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DEC24A246AD001C9344 /* amrFileCodec.m */; };
-		DD6C4DF224A246C0001C9344 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF024A246C0001C9344 /* libopencore-amrwb.a */; };
-		DD6C4DF324A246C0001C9344 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF124A246C0001C9344 /* libopencore-amrnb.a */; };
 		DD6C4DFC24A25009001C9344 /* WFRecordAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFB24A25009001C9344 /* WFRecordAudioViewController.m */; };
 		DD6C4DFF24A25150001C9344 /* WFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C4DFE24A25150001C9344 /* WFAudioPlayer.m */; };
 		DDE9E18724B7C92B005E453C /* WFRecordVideoPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9E18624B7C92B005E453C /* WFRecordVideoPadViewController.m */; };
@@ -72,7 +70,9 @@
 		FE19468924B86D7000C1BEC1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468824B86D7000C1BEC1 /* Reachability.m */; };
 		FE19468C24B86F2E00C1BEC1 /* WFResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468B24B86F2E00C1BEC1 /* WFResponseModel.m */; };
 		FE19468F24B873E100C1BEC1 /* WFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE19468E24B873E100C1BEC1 /* WFNetworkManager.m */; };
-		FE1BEE2024D01AB100A8C1A3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1BEE1F24D01AB100A8C1A3 /* libmp3lame.a */; };
+		FEA2B23424DA574600F5D213 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF024A246C0001C9344 /* libopencore-amrwb.a */; };
+		FEA2B23524DA575200F5D213 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6C4DF124A246C0001C9344 /* libopencore-amrnb.a */; };
+		FEA2B23624DA575500F5D213 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1BEE1F24D01AB100A8C1A3 /* libmp3lame.a */; };
 		FEA4AEF6249B1A47006B9ABE /* WFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4AEF5249B1A47006B9ABE /* WFLoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -225,10 +225,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD6C4DF224A246C0001C9344 /* libopencore-amrwb.a in Frameworks */,
-				FE1BEE2024D01AB100A8C1A3 /* libmp3lame.a in Frameworks */,
-				DD6C4DF324A246C0001C9344 /* libopencore-amrnb.a in Frameworks */,
 				3D48545AA8D00A3CC1AC7BBC /* libPods-DoctorOnHand.a in Frameworks */,
+				FEA2B23424DA574600F5D213 /* libopencore-amrwb.a in Frameworks */,
+				FEA2B23624DA575500F5D213 /* libmp3lame.a in Frameworks */,
+				FEA2B23524DA575200F5D213 /* libopencore-amrnb.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +286,7 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		DD1C7BF924A44479004F7CEF /* 拍照 */ = {
+		DD1C7BF924A44479004F7CEF /* TakePicture */ = {
 			isa = PBXGroup;
 			children = (
 				DD1C7C0124A4D716004F7CEF /* WFTakePhotoViewController.h */,
@@ -294,10 +294,10 @@
 				DD1C7C2924B5FA9A004F7CEF /* WFTakePhotoPadViewController.h */,
 				DD1C7C2A24B5FA9A004F7CEF /* WFTakePhotoPadViewController.m */,
 			);
-			path = "拍照";
+			path = TakePicture;
 			sourceTree = "<group>";
 		};
-		DD1C7BFA24A44480004F7CEF /* 录像 */ = {
+		DD1C7BFA24A44480004F7CEF /* RecordVideo */ = {
 			isa = PBXGroup;
 			children = (
 				DD1C7BFB24A444AD004F7CEF /* WFRecordVideoViewController.h */,
@@ -307,7 +307,7 @@
 				DD1C7BFE24A444F4004F7CEF /* WFVideoProgress.h */,
 				DD1C7BFF24A444F4004F7CEF /* WFVideoProgress.m */,
 			);
-			path = "录像";
+			path = RecordVideo;
 			sourceTree = "<group>";
 		};
 		DD1C7C1B24B5BBDA004F7CEF /* WebView */ = {
@@ -368,18 +368,16 @@
 			isa = PBXGroup;
 			children = (
 				DD1C7C1B24B5BBDA004F7CEF /* WebView */,
-				DD6C4DB3249E4D92001C9344 /* 登录 */,
-				DD6C4D7F249BAD5B001C9344 /* 手写板 */,
-				DD6C4D87249BADA6001C9344 /* 音视频 */,
-				DD6C4D86249BADA0001C9344 /* 图片 */,
-				DD6C4D85249BAD9A001C9344 /* 文件缓存 */,
-				DD6C4D84249BAD91001C9344 /* 拍照录像 */,
-				DD6C4D83249BAD87001C9344 /* 文件上传 */,
+				DD6C4DB3249E4D92001C9344 /* Login */,
+				DD6C4D7F249BAD5B001C9344 /* Signature */,
+				DD6C4D87249BADA6001C9344 /* Media */,
+				DD6C4D85249BAD9A001C9344 /* FileReader */,
+				DD6C4D83249BAD87001C9344 /* UploadFile */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		DD6C4D7F249BAD5B001C9344 /* 手写板 */ = {
+		DD6C4D7F249BAD5B001C9344 /* Signature */ = {
 			isa = PBXGroup;
 			children = (
 				DD6C4D72249BACB2001C9344 /* WFSignatureViewController.h */,
@@ -395,10 +393,10 @@
 				DD1C7C1824B360FB004F7CEF /* WFWidthTableViewCell.h */,
 				DD1C7C1924B360FB004F7CEF /* WFWidthTableViewCell.m */,
 			);
-			path = "手写板";
+			path = Signature;
 			sourceTree = "<group>";
 		};
-		DD6C4D83249BAD87001C9344 /* 文件上传 */ = {
+		DD6C4D83249BAD87001C9344 /* UploadFile */ = {
 			isa = PBXGroup;
 			children = (
 				FE19468724B86D7000C1BEC1 /* Reachability.h */,
@@ -412,19 +410,10 @@
 				CDFFDBE324D0806F00893F0F /* MPMProgressHUD.h */,
 				CDFFDBE424D0807000893F0F /* MPMProgressHUD.m */,
 			);
-			path = "文件上传";
+			path = UploadFile;
 			sourceTree = "<group>";
 		};
-		DD6C4D84249BAD91001C9344 /* 拍照录像 */ = {
-			isa = PBXGroup;
-			children = (
-				DD1C7BF924A44479004F7CEF /* 拍照 */,
-				DD1C7BFA24A44480004F7CEF /* 录像 */,
-			);
-			path = "拍照录像";
-			sourceTree = "<group>";
-		};
-		DD6C4D85249BAD9A001C9344 /* 文件缓存 */ = {
+		DD6C4D85249BAD9A001C9344 /* FileReader */ = {
 			isa = PBXGroup;
 			children = (
 				DD6C4DB4249FA008001C9344 /* WFFileReaderViewController.h */,
@@ -441,25 +430,20 @@
 				DD6C4DC4249FAA25001C9344 /* WFFileReader.h */,
 				DD6C4DC5249FAA25001C9344 /* WFFileReader.m */,
 			);
-			path = "文件缓存";
+			path = FileReader;
 			sourceTree = "<group>";
 		};
-		DD6C4D86249BADA0001C9344 /* 图片 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "图片";
-			sourceTree = "<group>";
-		};
-		DD6C4D87249BADA6001C9344 /* 音视频 */ = {
+		DD6C4D87249BADA6001C9344 /* Media */ = {
 			isa = PBXGroup;
 			children = (
 				DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */,
 				DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */,
-				DD6C4DDA24A2415E001C9344 /* 录音 */,
-				DD6C4DC824A0EE45001C9344 /* 视频播放 */,
+				DD6C4DDA24A2415E001C9344 /* Audio */,
+				DD6C4DC824A0EE45001C9344 /* Video */,
+				DD1C7BF924A44479004F7CEF /* TakePicture */,
+				DD1C7BFA24A44480004F7CEF /* RecordVideo */,
 			);
-			path = "音视频";
+			path = Media;
 			sourceTree = "<group>";
 		};
 		DD6C4D88249BADB9001C9344 /* Globals */ = {
@@ -511,7 +495,7 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		DD6C4DB3249E4D92001C9344 /* 登录 */ = {
+		DD6C4DB3249E4D92001C9344 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				FEA4AEF4249B1A47006B9ABE /* WFLoginViewController.h */,
@@ -519,10 +503,10 @@
 				DDE9E18B24C08777005E453C /* WFLoginModel.h */,
 				DDE9E18C24C08777005E453C /* WFLoginModel.m */,
 			);
-			path = "登录";
+			path = Login;
 			sourceTree = "<group>";
 		};
-		DD6C4DC824A0EE45001C9344 /* 视频播放 */ = {
+		DD6C4DC824A0EE45001C9344 /* Video */ = {
 			isa = PBXGroup;
 			children = (
 				DD6C4DD524A0F5F9001C9344 /* WFPlayVideoViewController.h */,
@@ -534,10 +518,10 @@
 				DD6C4DCE24A0F3D7001C9344 /* WFAVPlayerSilder.h */,
 				DD6C4DCF24A0F3D7001C9344 /* WFAVPlayerSilder.m */,
 			);
-			path = "视频播放";
+			path = Video;
 			sourceTree = "<group>";
 		};
-		DD6C4DDA24A2415E001C9344 /* 录音 */ = {
+		DD6C4DDA24A2415E001C9344 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
 				FE1BEE1D24D01A6D00A8C1A3 /* MP3 */,
@@ -555,7 +539,7 @@
 				DD6C4DE824A24675001C9344 /* WFFileManager.m */,
 				DD6C4DEA24A2468F001C9344 /* AMR */,
 			);
-			path = "录音";
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		DD6C4DEA24A2468F001C9344 /* AMR */ = {
@@ -893,12 +877,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
-					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR",
-					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/MP3",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/Media/Audio/AMR/lib",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/Media/Audio/MP3",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-sh";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
 				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -917,12 +900,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR/lib",
-					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/AMR",
-					"$(PROJECT_DIR)/DoctorOnHand/Utils/音视频/录音/MP3",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/Media/Audio/AMR/lib",
+					"$(PROJECT_DIR)/DoctorOnHand/Utils/Media/Audio/MP3",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.wisefly.DoctorOnHand-sh";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
 				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
