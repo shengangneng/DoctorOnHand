@@ -7,4 +7,5 @@ pod 'MJExtension'
 pod 'MBProgressHUD'
 pod 'MJRefresh'  
 pod 'TZImagePickerController'
+pod 'Bugly'
 end

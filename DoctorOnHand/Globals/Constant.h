@@ -61,6 +61,7 @@
 
 /***** 常用标量 *****/
 #define CLIENT_ID       @"app_mpm_ios"
+#define BUGLY_APP_ID    @"40dfface78"
 #define CLIENT_SECRET   @"551d616b11414bcdac64622b04e6f392"
 #define kWebViewNeedDeallocNotification @"webViewNeedDealloc"              // 当退出登录的时候，需要释放WKWebView
 

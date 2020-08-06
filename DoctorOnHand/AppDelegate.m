@@ -12,6 +12,7 @@
 #import "WFLoginViewController.h"
 #import "WFWKWebViewController.h"
 #import "WFCommomTool.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -23,6 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = kWhiteColor;
+    [Bugly startWithAppId:BUGLY_APP_ID];
     
 //    WFHomeViewController *home = [[WFHomeViewController alloc] init];
 //    WFBaseNavigationController *nav = [[WFBaseNavigationController alloc] initWithRootViewController:home];
