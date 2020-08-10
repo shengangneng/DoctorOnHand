@@ -64,6 +64,10 @@
         NSString *func = [msgBody objectForKey:@"func"];
         NSDictionary *params = [[msgBody objectForKey:@"params"] isKindOfClass:[NSDictionary class]] ? ((NSDictionary *)[msgBody objectForKey:@"params"]) : nil;
         NSString *callback = [msgBody objectForKey:@"callback"];
+//        if ([func isEqualToString:kTakePhoto]) {
+//            func = kConsultation;
+//            params = @{@"url":@"https://www.baidu.com"};
+//        }
         
         if ([func isEqualToString:kGetAccountInfo]) {
             // 登录后获取用户信息
@@ -206,6 +210,55 @@
             [[NSUserDefaults standardUserDefaults] setValue:backHost forKey:kBackHost];
             WFLoginViewController *login = [[WFLoginViewController alloc] init];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:login animated:YES];
+       } else if ([func isEqualToString:kConsultation]) {
+           // 使用带有导航栏的webview跳转客服系统
+           if (self.delegate && [self.delegate isKindOfClass:[WFBaseViewController class]]) {
+               NSString *url = params[@"url"];
+               // 控制导航栏隐藏或者显示的参数
+               NSNumber *navBarHidden = [params[@"navBarHidden"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"navBarHidden"]).integerValue) : params[@"navBarHidden"];
+               NSNumber *needExitBtn = [params[@"needExitBtn"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"needExitBtn"]).integerValue) : params[@"needExitBtn"];
+               NSNumber *scrollEnabled = [params[@"scrollEnabled"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"scrollEnabled"]).integerValue) : params[@"scrollEnabled"];
+               NSNumber *type = [params[@"type"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"type"]).integerValue) : params[@"type"];
+               WFWKWebViewController *web;
+               NSString *titleRGB = params[@"titleRGB"];
+               NSString *bgRGB = params[@"bgRGB"];
+               NSString *title = params[@"title"];
+               if (!kIsNilString(titleRGB) && !kIsNilString(bgRGB)) {
+                   // 如果有传递背景颜色值和标题颜色值过来
+                   UIColor *titleColor = kRGBA([titleRGB componentsSeparatedByString:@","].firstObject.doubleValue, [titleRGB componentsSeparatedByString:@","][1].doubleValue, [titleRGB componentsSeparatedByString:@","].lastObject.doubleValue, 1);
+                   UIColor *bgColor = kRGBA([bgRGB componentsSeparatedByString:@","].firstObject.doubleValue, [bgRGB componentsSeparatedByString:@","][1].doubleValue, [bgRGB componentsSeparatedByString:@","].lastObject.doubleValue, 1);
+                   [((WFCustomNavigationBar *)(WFBaseNavigationController *)((WFBaseViewController *)self.delegate).navigationController.navigationBar) updateTitleColor:titleColor backgroundColor:bgColor];
+                   web = [[WFWKWebViewController alloc] initWithURL:url];
+                   web.webViewUIConfiguration.backButtonColor = titleColor;
+               } else {
+                   [((WFCustomNavigationBar *)(WFBaseNavigationController *)((WFBaseViewController *)self.delegate).navigationController.navigationBar) updateTitleColor:kBlackColor backgroundColor:kWhiteColor];
+                   web = [[WFWKWebViewController alloc] initWithURL:url];
+               }
+               web.webViewUIConfiguration.navHidden = navBarHidden.boolValue;
+               web.webViewUIConfiguration.needExit = needExitBtn.boolValue;
+               web.webViewUIConfiguration.title = title;
+               web.webViewUIConfiguration.nExit = type.boolValue;
+               web.webViewUIConfiguration.webViewScrollEnabled = scrollEnabled.boolValue;
+               [((WFBaseNavigationController *)((WFBaseViewController *)self.delegate).navigationController) pushViewController:web animated:YES];
+           } else if ([func isEqualToString:kSetStatusBarColor]) {
+               NSNumber *rValue = [params[@"rValue"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"rValue"]).integerValue) : params[@"rValue"];
+               NSNumber *gValue = [params[@"gValue"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"gValue"]).integerValue) : params[@"gValue"];
+               NSNumber *bValue = [params[@"bValue"] isKindOfClass:[NSString class]] ? @(((NSString *)params[@"bValue"]).integerValue) : params[@"bValue"];
+               if (self.delegate) {
+                   UIColor *color = kRGBA(rValue.intValue, gValue.intValue, bValue.intValue, 1);
+                   UIColor *title_back_color;
+                   if ([color isEqual:kRGBA(255, 255, 255, 1)]) {
+                       // 如果背景色是白色，则返回按钮、标题是黑色
+                       title_back_color = kBlackColor;
+                   } else {
+                       title_back_color = kWhiteColor;
+                   }
+                   [((WFCustomNavigationBar *)(WFBaseNavigationController *)((WFBaseViewController *)self.delegate).navigationController.navigationBar) updateTitleColor:title_back_color backgroundColor:kRGBA(rValue.intValue, gValue.intValue, bValue.intValue, 1)];
+                   ((WFWKWebViewController *)self.delegate).webViewUIConfiguration.navColor = kRGBA(rValue.intValue, gValue.intValue, bValue.intValue, 1);
+                   ((WFWKWebViewController *)self.delegate).webViewUIConfiguration.backButtonColor = title_back_color;
+              }
+              
+          }
        }
     }
 }

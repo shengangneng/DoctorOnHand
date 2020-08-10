@@ -21,6 +21,7 @@
     config.webViewScrollEnabled = NO;
     config.needPicture = NO;
     config.navColor = kWhiteColor;
+    config.nExit = NO;
     return config;
 }
 

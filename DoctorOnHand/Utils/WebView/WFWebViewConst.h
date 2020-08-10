@@ -25,6 +25,8 @@ static NSString *const kLogout = @"logout";                                     
 static NSString *const kSetConfigUrl = @"setConfigUrl";                         // 点击确定传入配置给壳
 static NSString *const kGetConfigUrl = @"getConfigUrl";                         // 调出配置页面
 static NSString *const kHomePageNeedRefresh = @"homePageNeedRefresh";           // 壳通知调用H5的“首页”、“消息”、“我的”页面需要刷新
+static NSString *const kConsultation = @"consultation";                         // 新开WebView
+static NSString *const kSetStatusBarColor = @"setStatusBarColor";               // 设置导航栏颜色：如果为白色，则文字为黑色，如果为其他颜色，文字为白色
 
 
 #endif /* WFWebViewConst_h */

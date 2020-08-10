@@ -297,7 +297,7 @@
 #pragma mark - Target Action
 
 - (void)back:(UIButton *)sender {
-    if ([self.webView canGoBack]) {
+    if (!self.webViewUIConfiguration.nExit && [self.webView canGoBack]) {
         [self.webView goBack];
     } else {
         [self clearAndPop];

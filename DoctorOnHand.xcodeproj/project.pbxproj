@@ -420,6 +420,8 @@
 				DD6C4DB5249FA008001C9344 /* WFFileReaderViewController.m */,
 				DD6C4DB7249FA080001C9344 /* WFFileReaderTableViewCell.h */,
 				DD6C4DB8249FA080001C9344 /* WFFileReaderTableViewCell.m */,
+				DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */,
+				DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */,
 				DD6C4DBA249FA0A6001C9344 /* WFFileReaderModel.h */,
 				DD6C4DBB249FA0A6001C9344 /* WFFileReaderModel.m */,
 				DD6C4DBD249FA0F5001C9344 /* WFFileReaderConst.h */,
@@ -436,8 +438,6 @@
 		DD6C4D87249BADA6001C9344 /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				DDE9E18824B7E236005E453C /* WFDocumentReaderViewController.h */,
-				DDE9E18924B7E236005E453C /* WFDocumentReaderViewController.m */,
 				DD6C4DDA24A2415E001C9344 /* Audio */,
 				DD6C4DC824A0EE45001C9344 /* Video */,
 				DD1C7BF924A44479004F7CEF /* TakePicture */,
@@ -632,7 +632,7 @@
 				TargetAttributes = {
 					CD795A971D18DDDF000B7619 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = ST6DF8EBB7;
+						DevelopmentTeam = J2FSMZGFLE;
 					};
 				};
 			};
@@ -869,7 +869,8 @@
 			baseConfigurationReference = C2646091207787AD70D64DC7 /* Pods-DoctorOnHand.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ST6DF8EBB7;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = J2FSMZGFLE;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DoctorOnHand/Globals/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
@@ -892,7 +893,8 @@
 			baseConfigurationReference = 653F83E6ACB345449029A4B2 /* Pods-DoctorOnHand.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ST6DF8EBB7;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = J2FSMZGFLE;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DoctorOnHand/Globals/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";

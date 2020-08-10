@@ -22,5 +22,6 @@
 @property (nonatomic, assign) BOOL webViewScrollEnabled;                    /** WebView是否支持滚动 */
 @property (nonatomic, copy) NSString *reusedIdentifier;                     /** 重用标示 */
 @property (nonatomic, assign) BOOL needPicture;                             /** 相册 */
+@property (nonatomic, assign) BOOL nExit;                                    /// 是否直接关闭
 
 @end
