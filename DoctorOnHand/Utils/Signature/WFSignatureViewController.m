@@ -16,6 +16,8 @@
 #import "UIImage+WFExtension.h"
 #import "WFNetworkManager.h"
 #import "MPMProgressHUD.h"
+#import "WFResponseModel.h"
+#import <Photos/Photos.h>
 
 #define kITEM_W     64
 #define kITEM_W2    48
@@ -203,6 +205,11 @@
 }
 
 - (void)saveImage:(UIButton *)sender {
+    if (!self.signatureView.canLastStep) {
+        // 如果不能往后退了，说明已经恢复了白板，不能上传
+        [WFCommomTool showTextWithTitle:@"您还未写入任何内容" inView:self.view animation:YES];
+        return;
+    }
     // 生成截屏
     UIGraphicsBeginImageContextWithOptions(self.signatureView.frame.size, NO, 0.0);
     [self.signatureView.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -211,7 +218,13 @@
     // 保存到相册
     UIImageWriteToSavedPhotosAlbum(shotImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
+
 - (void)upload:(UIButton *)sender {
+    if (!self.signatureView.canLastStep) {
+        // 如果不能往后退了，说明已经恢复了白板，不能上传
+        [WFCommomTool showTextWithTitle:@"您还未写入任何内容" inView:self.view animation:YES];
+        return;
+    }
     UIGraphicsBeginImageContextWithOptions(self.signatureView.frame.size, NO, 0.0);
     [self.signatureView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *shotImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -239,7 +252,11 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         [MPMProgressHUD dismiss];
+        WFResponseModel *response = [WFResponseModel mj_objectWithKeyValues:responseObject];
         [WFCommomTool showTextWithTitle:responseObject[@"message"] inView:self.view animation:YES];
+        if (response.code.intValue == 200) {
+            [self.signatureView clearScreen];
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 上传失败
@@ -322,6 +339,21 @@
 #pragma mark - Save Image
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if ([error.domain isEqualToString:@"ALAssetsLibraryErrorDomain"]) {
+        [self showAlertControllerWithStyle:UIAlertControllerStyleAlert title:@"开启照片访问权限" message:[NSString stringWithFormat:@"%@%@%@",@"请到【设置-隐私-照片】中允许",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"],@"访问相册"] sureTitle:@"去开启" sureAction:^(UIAlertAction *action) {
+            NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if (@available(iOS 10.0, *)) {
+                if ([[UIApplication sharedApplication] canOpenURL:settingURL]) {
+                    [[UIApplication sharedApplication] openURL:settingURL options:@{} completionHandler:nil];
+                }
+            } else {
+                if ([[UIApplication sharedApplication] canOpenURL:settingURL]) {
+                    [[UIApplication sharedApplication] openURL:settingURL];
+                }
+            }
+        } sureStyle:UIAlertActionStyleDefault cancelTitle:@"取消" cancelAction:nil cancelStyle:UIAlertActionStyleDefault];
+        return;
+    }
     NSString *message = error ? @"保存图片失败" : @"保存图片成功";
     [WFCommomTool showTextWithTitle:message inView:self.view animation:YES];
 }
