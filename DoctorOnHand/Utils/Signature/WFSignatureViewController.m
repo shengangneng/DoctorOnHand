@@ -238,7 +238,7 @@
     [self.signatureView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *shotImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/4",self.registerId,kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/4",kAppDelegate.backHost,self.registerId];
     NSDictionary *params = @{@"type":@"4",
                              @"remark":@"手写"};
     NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];

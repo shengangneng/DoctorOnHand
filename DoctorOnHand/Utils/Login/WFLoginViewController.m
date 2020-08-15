@@ -182,7 +182,7 @@
         WFLoginModel *model = [WFLoginModel mj_objectWithKeyValues:responseObject[@"resultData"]];
 //        NSString *path = [[NSBundle mainBundle] pathForResource:(@"index") ofType:@"html" inDirectory:@"WebResources/home"];
         ((AppDelegate *)[UIApplication sharedApplication].delegate).loginModel = model;
-        NSString *path = [NSString stringWithFormat:@"http://%@/#/patient/card?department=%@&depId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@&backHost=%@",kAppDelegate.frontHost,kSafeString(model.department),kSafeString(model.deptId),kSafeString(model.email),kSafeString(model.hosiptal),kSafeString(model.jobTitle),kSafeString(model.phone),kSafeString(model.realName),kSafeString(model.sex),kSafeString(model.token),kSafeString(model.userId),kSafeString(model.userName),kSafeString(model.wards),kAppDelegate.backHost];
+        NSString *path = [NSString stringWithFormat:@"http://%@/#/patient/card?department=%@&deptId=%@&email=%@&hosiptal=%@&jobTitle=%@&phone=%@&realName=%@&sex=%@&token=%@&userId=%@&userName=%@&wards=%@&backHost=%@",kAppDelegate.frontHost,kSafeString(model.department),kSafeString(model.deptId),kSafeString(model.email),kSafeString(model.hosiptal),kSafeString(model.jobTitle),kSafeString(model.phone),kSafeString(model.realName),kSafeString(model.sex),kSafeString(model.token),kSafeString(model.userId),kSafeString(model.userName),kSafeString(model.wards),kAppDelegate.backHost];
         // 保存数据
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:kSafeString(model.department) forKey:kDepartment];

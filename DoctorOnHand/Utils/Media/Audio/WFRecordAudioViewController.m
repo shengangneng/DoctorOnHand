@@ -129,7 +129,7 @@
     }
     NSData *audioData = [NSData dataWithContentsOfFile:newFilePath];
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/2",self.registerId,kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/2",kAppDelegate.backHost,self.registerId];
     NSDictionary *params = @{@"type":@"2",
                              @"remark":@"mp3"};
     // 创建一个无重复的字符串作为图片名

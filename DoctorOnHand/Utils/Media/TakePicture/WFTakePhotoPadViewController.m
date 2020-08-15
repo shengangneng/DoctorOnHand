@@ -285,7 +285,7 @@
 - (void)upload:(UIButton *)sender {
     UIImage *shotImage = self.middleImageView.image;
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/1",self.registerId,kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/1",kAppDelegate.backHost,self.registerId];
     NSDictionary *params = @{@"type":@"1",
                              @"remark":@"图片"};
     NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];

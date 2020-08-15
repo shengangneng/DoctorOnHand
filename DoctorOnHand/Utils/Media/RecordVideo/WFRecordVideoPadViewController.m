@@ -392,7 +392,7 @@
         return;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/3",self.registerId,kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/3",kAppDelegate.backHost,self.registerId];
     NSDictionary *params = @{@"type":@"3",
                              @"remark":@"mp4"};
     // 创建一个无重复的字符串作为图片名
