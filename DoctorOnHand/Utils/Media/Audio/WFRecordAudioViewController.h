@@ -20,6 +20,8 @@ typedef NS_ENUM(NSInteger, WFRecordVoiceStatus) {
 
 @interface WFRecordAudioViewController : WFBaseViewController
 
+- (instancetype)initWithRegisterId:(NSString *)rId;
+
 @end
 
 NS_ASSUME_NONNULL_END

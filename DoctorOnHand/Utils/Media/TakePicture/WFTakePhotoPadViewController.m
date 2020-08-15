@@ -22,6 +22,7 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer; // 相机拍摄预览图层
 @property (nonatomic, assign) BOOL torchOn;
 @property (nonatomic, assign) BOOL animating;
+@property (nonatomic, copy) NSString *registerId;               // 病人id
 // Views
 @property (nonatomic, strong) UIView *middleContentView;        // 内容视图
 @property (nonatomic, strong) UIImageView *middleImageView;     // 拍摄照片
@@ -38,6 +39,15 @@
 @end
 
 @implementation WFTakePhotoPadViewController
+
+
+- (instancetype)initWithRegisterId:(NSString *)rId {
+    self = [super init];
+    if (self) {
+        self.registerId = rId;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -275,7 +285,7 @@
 - (void)upload:(UIButton *)sender {
     UIImage *shotImage = self.middleImageView.image;
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/1",kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/1",self.registerId,kAppDelegate.backHost];
     NSDictionary *params = @{@"type":@"1",
                              @"remark":@"图片"};
     NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];

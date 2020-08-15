@@ -90,7 +90,8 @@
                  msg = takePhoto;
              };
              */
-            WFTakePhotoPadViewController *takePhoto = [[WFTakePhotoPadViewController alloc] init];
+            NSString *registerId = params[@"registerId"];
+            WFTakePhotoPadViewController *takePhoto = [[WFTakePhotoPadViewController alloc] initWithRegisterId:registerId];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:takePhoto animated:YES];
         } else if ([func isEqualToString:kHandWriting]) {
             // 手写板
@@ -101,7 +102,8 @@
                  msg = handWriting;
              };
              */
-            WFSignatureViewController *sign = [[WFSignatureViewController alloc] init];
+            NSString *registerId = params[@"registerId"];
+            WFSignatureViewController *sign = [[WFSignatureViewController alloc] initWithRegisterId:registerId];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:sign animated:YES];
             
         } else if ([func isEqualToString:kRecordSound]) {
@@ -113,7 +115,8 @@
                 msg = recordSound;
             };
              */
-            WFRecordAudioViewController *recordAudio = [[WFRecordAudioViewController alloc] init];
+            NSString *registerId = params[@"registerId"];
+            WFRecordAudioViewController *recordAudio = [[WFRecordAudioViewController alloc] initWithRegisterId:registerId];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:recordAudio animated:YES];
             
         } else if ([func isEqualToString:kRecordVideo]) {
@@ -125,7 +128,8 @@
                  msg = recordVideo;
              };
              */
-            WFRecordVideoPadViewController *recordVideo = [[WFRecordVideoPadViewController alloc] init];
+            NSString *registerId = params[@"registerId"];
+            WFRecordVideoPadViewController *recordVideo = [[WFRecordVideoPadViewController alloc] initWithRegisterId:registerId];
             [((WFBaseNavigationController *)((WFWKWebViewController *)self.delegate).navigationController) pushViewController:recordVideo animated:YES];
         } else if ([func isEqualToString:kPreviewImg]) {
             // 预览图片

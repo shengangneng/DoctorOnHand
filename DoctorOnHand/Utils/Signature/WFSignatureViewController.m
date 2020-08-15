@@ -48,10 +48,19 @@
 @property (nonatomic, copy) NSArray *colorsArray;               /// 颜色值数组
 @property (nonatomic, copy) NSArray *widthsArray;               /// 宽度数组
 @property (nonatomic, weak) UIButton *lastSelectedBt;           /// 记录上次选中的按钮（普通笔、钢笔、橡皮擦）
+@property (nonatomic, copy) NSString *registerId;               /// 病人id
 
 @end
 
 @implementation WFSignatureViewController
+
+- (instancetype)initWithRegisterId:(NSString *)rId {
+    self = [super init];
+    if (self) {
+        self.registerId = rId;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -229,7 +238,7 @@
     [self.signatureView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *shotImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/4",kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/4",self.registerId,kAppDelegate.backHost];
     NSDictionary *params = @{@"type":@"4",
                              @"remark":@"手写"};
     NSData *imagedata = [UIImage compressImage:shotImage toSize:shotImage.size toByte:kImageUploadMaxLength];

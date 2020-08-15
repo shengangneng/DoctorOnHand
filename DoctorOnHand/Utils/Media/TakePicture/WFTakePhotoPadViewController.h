@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WFTakePhotoPadViewController : WFBaseViewController
 
+- (instancetype)initWithRegisterId:(NSString *)rId;
+
 @end
 
 NS_ASSUME_NONNULL_END

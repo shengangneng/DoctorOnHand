@@ -250,7 +250,9 @@
     } else if ([keyPath isEqualToString:@"title"]) {
         // 监听H5标题的变化
         if ([object isKindOfClass:[WKWebView class]]) {
-            self.navigationItem.title = self.webView.title;
+            if (kIsNilString(self.webViewUIConfiguration.title)) {
+                self.navigationItem.title = self.webView.title;
+            }
         } else if ([object isKindOfClass:[WFWebViewUIConfiguration class]]) {
             self.navigationItem.title = self.webViewUIConfiguration.title;
         }

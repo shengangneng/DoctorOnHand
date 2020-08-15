@@ -28,10 +28,19 @@
 // Datas
 @property (nonatomic, copy) NSString *audioLocalPath;
 @property (nonatomic, assign) WFRecordVoiceStatus recordVoiceStatus;
+@property (nonatomic, copy) NSString *registerId;
 
 @end
 
 @implementation WFRecordAudioViewController
+
+- (instancetype)initWithRegisterId:(NSString *)rId {
+    self = [super init];
+    if (self) {
+        self.registerId = rId;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -120,7 +129,7 @@
     }
     NSData *audioData = [NSData dataWithContentsOfFile:newFilePath];
     
-    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/2",kAppDelegate.backHost];
+    NSString *url = [NSString stringWithFormat:@"http://%@/md/v1/assistants/upload/%@/2",self.registerId,kAppDelegate.backHost];
     NSDictionary *params = @{@"type":@"2",
                              @"remark":@"mp3"};
     // 创建一个无重复的字符串作为图片名
