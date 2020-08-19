@@ -632,7 +632,7 @@
 				TargetAttributes = {
 					CD795A971D18DDDF000B7619 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = J2FSMZGFLE;
+						DevelopmentTeam = LJR37YP9SV;
 					};
 				};
 			};
@@ -869,8 +869,8 @@
 			baseConfigurationReference = C2646091207787AD70D64DC7 /* Pods-DoctorOnHand.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = J2FSMZGFLE;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LJR37YP9SV;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DoctorOnHand/Globals/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
@@ -882,7 +882,7 @@
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/Media/Audio/MP3",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.Doctor;
 				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -893,8 +893,8 @@
 			baseConfigurationReference = 653F83E6ACB345449029A4B2 /* Pods-DoctorOnHand.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = J2FSMZGFLE;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LJR37YP9SV;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DoctorOnHand/Globals/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DoctorOnHand/SupportingFiles/Info.plist";
@@ -906,7 +906,7 @@
 					"$(PROJECT_DIR)/DoctorOnHand/Utils/Media/Audio/MP3",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.DoctorOnHand;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wisefly.Doctor;
 				PRODUCT_NAME = "移动医生";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

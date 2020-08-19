@@ -203,10 +203,10 @@
             NSArray *frontArr = [frontHost componentsSeparatedByString:@":"];
             NSArray *backArr = [frontHost componentsSeparatedByString:@":"];
             if (kIsNilString(frontHost) || frontArr.count != 2) {
-                frontHost = @"10.0.1.101:8081";
+                frontHost = @"10.0.1.102:8081";
             }
             if (kIsNilString(backHost) || backArr.count != 2) {
-                backHost = @"10.0.1.101:9098";
+                backHost = @"10.0.1.102:9098";
             }
             kAppDelegate.frontHost = frontHost;
             kAppDelegate.backHost = backHost;
